@@ -1,13 +1,16 @@
-import { Text } from "@chakra-ui/react";
+import { Box, Container, Text } from "@chakra-ui/react";
 import React from "react";
+import MobileBottomNavbar from "./MobileBottomNav";
 import TopNav from "./TopNavbar";
 
 export default function Layout({ children }) {
   return (
-    <div>
-      <TopNav />
-      {children}
-      <Text>Layout</Text>
-    </div>
+    <>
+      <Container variant="main" h="100%">
+        <TopNav />
+        {children}
+      </Container>
+      <MobileBottomNavbar />
+    </>
   );
 }

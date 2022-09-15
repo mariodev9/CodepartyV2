@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
-import { Button, Text } from "@chakra-ui/react";
+import { Box, Button, Text } from "@chakra-ui/react";
 import { loginWithGitHub, sessionChange } from "../firebase/firebaseConfig";
 import { useRouter } from "next/router";
+import Slider from "react-slick";
 
 export default function Home() {
   const [dev, setDev] = useState(undefined);
