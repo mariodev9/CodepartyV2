@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
-import { Box, Button, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Grid, GridItem, Text } from "@chakra-ui/react";
 import { loginWithGitHub, sessionChange } from "../firebase/firebaseConfig";
 import { useRouter } from "next/router";
 import Slider from "react-slick";
@@ -32,8 +32,69 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Text>hola que tal</Text>
-      <Button onClick={handleClick}>Iniciar sesion con Github</Button>
+      <Grid templateColumns="repeat(3, 1fr)" gap={5} p={5}>
+        <GridItem
+          layerStyle="stories"
+          alignSelf="center"
+          justifySelf="center"
+        ></GridItem>
+        <GridItem
+          layerStyle="stories"
+          alignSelf="center"
+          justifySelf="center"
+        ></GridItem>
+        <GridItem
+          layerStyle="stories"
+          alignSelf="center"
+          justifySelf="center"
+        ></GridItem>
+        <GridItem
+          layerStyle="stories"
+          alignSelf="center"
+          justifySelf="center"
+        ></GridItem>
+        <GridItem
+          layerStyle="stories"
+          alignSelf="center"
+          justifySelf="center"
+        ></GridItem>
+        <GridItem
+          layerStyle="stories"
+          alignSelf="center"
+          justifySelf="center"
+        ></GridItem>
+        <GridItem
+          layerStyle="stories"
+          alignSelf="center"
+          justifySelf="center"
+        ></GridItem>
+        <GridItem
+          layerStyle="stories"
+          alignSelf="center"
+          justifySelf="center"
+        ></GridItem>
+        <GridItem
+          layerStyle="stories"
+          alignSelf="center"
+          justifySelf="center"
+        ></GridItem>
+      </Grid>
+      <Box
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
+        alignContent="center"
+        alignItems="center"
+        textAlign="center"
+      >
+        <Text textAlign="center" fontWeight={800} fontSize="30px" w="250px">
+          Find New Devs With Codeparty
+        </Text>
+        <Text textAlign="center" fontSize="15px" w="200px">
+          Talk and share with others developers around the world
+        </Text>
+        <Button onClick={handleClick}>Iniciar sesion con Github</Button>
+      </Box>
     </>
   );
 }

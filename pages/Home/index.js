@@ -9,6 +9,7 @@ import useUser from "../../hooks/useUser";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Code from "../../components/Code";
+import Layout from "../../components/Layout";
 
 export default function Home() {
   const [session, onSession] = useState(true);
@@ -34,20 +35,21 @@ export default function Home() {
   };
   return (
     <>
-      {/* <Text>Bienvenido a la Home</Text>
-      <Button onClick={handleLogOut}>Log Out</Button> */}
-      <Text mt="20px">Stories</Text>
-      <Slider {...settings}>
+      <Layout>
+        <Button onClick={handleLogOut}>Log Out</Button>
+        <Text mt="20px">Stories</Text>
+        <Slider {...settings}>
+          {[1, 2, 3, 4, 5, 6].map((key) => (
+            <Box p={5} key={key}>
+              <Box layerStyle="stories"></Box>
+            </Box>
+          ))}
+        </Slider>
+        <Text m="20px 0 15px 0">Last Codes</Text>
         {[1, 2, 3, 4, 5, 6].map((key) => (
-          <Box p={5} key={key}>
-            <Box layerStyle="stories"></Box>
-          </Box>
+          <Code key={key} />
         ))}
-      </Slider>
-      <Text m="20px 0 15px 0">Last Codes</Text>
-      {[1, 2, 3, 4, 5, 6].map((key) => (
-        <Code key={key} />
-      ))}
+      </Layout>
     </>
   );
 }
