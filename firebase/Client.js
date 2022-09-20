@@ -38,10 +38,12 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-// const analytics = getAnalytics(app);
 const app = initializeApp(firebaseConfig);
+
+// const analytics = getAnalytics(app);
 const auth = getAuth();
 const firestore = getFirestore(app);
+const storage = getStorage(app);
 
 export const sessionChange = (onChange) => {
   onAuthStateChanged(auth, (user) => {
@@ -144,11 +146,8 @@ export const uploadImage = (file, onChange) => {
           break;
       }
     },
-    (error) => {
-      // Handle unsuccessful uploads
-    },
+    (error) => {},
     () => {
-      // Handle successful uploads on complete
       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
         onChange(downloadURL);
       });

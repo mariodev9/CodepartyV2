@@ -8,6 +8,7 @@ export default function Layout({ children }) {
     <>
       <Container variant="main" h="100%">
         <TopNav />
+        {/* <div>{children}</div> */}
         {children}
       </Container>
       <MobileBottomNavbar />

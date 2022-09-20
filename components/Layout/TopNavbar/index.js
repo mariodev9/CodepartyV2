@@ -12,13 +12,21 @@ import {
   Icon,
   Box,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import React from "react";
+import { logOut } from "../../../firebase/Client";
 import useUser from "../../../hooks/useUser";
 import Logo from "../../Icons/Logo";
 
 export default function TopNav() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const user = useUser();
+  const router = useRouter();
+
+  const handleLogOut = () => {
+    logOut();
+    router.push("/");
+  };
 
   return (
     <>
@@ -50,6 +58,7 @@ export default function TopNav() {
             <Text>Hola</Text>
             <Text>Hola2</Text>
             <Text>Hola3</Text>
+            <Button onClick={handleLogOut}>Log Out</Button>
           </DrawerBody>
         </DrawerContent>
       </Drawer>

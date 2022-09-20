@@ -1,9 +1,18 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
-import { Box, Button, Flex, Grid, GridItem, Text } from "@chakra-ui/react";
-import { loginWithGitHub, sessionChange } from "../firebase/firebaseConfig";
+import {
+  Box,
+  Button,
+  Flex,
+  Grid,
+  GridItem,
+  Highlight,
+  Text,
+} from "@chakra-ui/react";
+import { loginWithGitHub, sessionChange } from "../firebase/Client";
 import { useRouter } from "next/router";
 import Slider from "react-slick";
+import Logo from "../components/Icons/Logo";
 
 export default function Home() {
   const [dev, setDev] = useState(undefined);
@@ -32,49 +41,47 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Grid templateColumns="repeat(3, 1fr)" gap={5} p={5}>
+      <Grid templateColumns="repeat(3, 1fr)" gap={5} p={5} mt="30px">
         <GridItem
-          layerStyle="stories"
+          layerStyle="loginBox"
           alignSelf="center"
           justifySelf="center"
         ></GridItem>
         <GridItem
-          layerStyle="stories"
+          layerStyle="loginBox"
           alignSelf="center"
           justifySelf="center"
         ></GridItem>
         <GridItem
-          layerStyle="stories"
+          layerStyle="loginBox"
           alignSelf="center"
           justifySelf="center"
         ></GridItem>
         <GridItem
-          layerStyle="stories"
+          layerStyle="loginBox"
+          alignSelf="center"
+          justifySelf="center"
+        ></GridItem>
+        <GridItem layerStyle="loginBox" alignSelf="center" justifySelf="center">
+          <Logo />
+        </GridItem>
+        <GridItem
+          layerStyle="loginBox"
           alignSelf="center"
           justifySelf="center"
         ></GridItem>
         <GridItem
-          layerStyle="stories"
+          layerStyle="loginBox"
           alignSelf="center"
           justifySelf="center"
         ></GridItem>
         <GridItem
-          layerStyle="stories"
+          layerStyle="loginBox"
           alignSelf="center"
           justifySelf="center"
         ></GridItem>
         <GridItem
-          layerStyle="stories"
-          alignSelf="center"
-          justifySelf="center"
-        ></GridItem>
-        <GridItem
-          layerStyle="stories"
-          alignSelf="center"
-          justifySelf="center"
-        ></GridItem>
-        <GridItem
-          layerStyle="stories"
+          layerStyle="loginBox"
           alignSelf="center"
           justifySelf="center"
         ></GridItem>
@@ -87,13 +94,29 @@ export default function Home() {
         alignItems="center"
         textAlign="center"
       >
-        <Text textAlign="center" fontWeight={800} fontSize="30px" w="250px">
-          Find New Devs With Codeparty
+        <Text
+          textAlign="center"
+          fontWeight={800}
+          fontSize="30px"
+          w="250px"
+          mt="40px"
+        >
+          Find New Devs With
+          <span style={{ color: "#159BFF", marginLeft: "6px" }}>Codeparty</span>
         </Text>
-        <Text textAlign="center" fontSize="15px" w="200px">
+        <Text
+          textAlign="center"
+          fontWeight={400}
+          fontSize="15px"
+          w="200px"
+          mt="15px"
+          color="gray"
+        >
           Talk and share with others developers around the world
         </Text>
-        <Button onClick={handleClick}>Iniciar sesion con Github</Button>
+        <Button variant="primary" onClick={handleClick} mt="50px">
+          Iniciar sesion con Github
+        </Button>
       </Box>
     </>
   );

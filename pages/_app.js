@@ -37,8 +37,28 @@ const theme = extendTheme({
       bg: "black.50",
       borderColor: "gray.500",
       borderRadius: "20px",
-      height: "120px",
-      width: "100px",
+      height: {
+        base: "130px",
+        md: "120px",
+      },
+      width: {
+        base: "110px",
+        md: "110px",
+      },
+      boxShadow: "0 5px 5px rgba(0, 0, 0, 0.2)",
+    },
+    loginBox: {
+      bg: "black.50",
+      borderColor: "gray.500",
+      borderRadius: "20px",
+      height: {
+        base: "100px",
+        md: "120px",
+      },
+      width: {
+        base: "80px",
+        md: "100px",
+      },
       boxShadow: "0 5px 5px rgba(0, 0, 0, 0.2)",
     },
     code: {
@@ -66,38 +86,38 @@ const theme = extendTheme({
   },
   // COMPONENTES
   components: {
+    Avatar: {},
     Button: {
       baseStyle: {
-        fontWeight: "bold", // Normally, it is "semibold"
+        fontWeight: "bold",
       },
-      // 3. We can add a new visual variant
       variants: {
         "with-shadow": {
           bg: "red.400",
           boxShadow: "0 0 2px 2px #efdfde",
         },
         // 4. We can override existing variants
-        solid: () => ({
-          bg: props.colorMode === "dark" ? "red.300" : "red.500",
-        }),
+        // solid: () => ({
+        //   bg: props.colorMode === "dark" ? "red.300" : "red.500",
+        // }),
         // 5. We can add responsive variants
         sm: {
           bg: "teal.500",
           fontSize: "md",
         },
-      },
-      // 6. We can overwrite defaultProps
-      defaultProps: {
-        size: "lg", // default is md
-        variant: "sm", // default is solid
-        colorScheme: "green", // default is gray
+        primary: {
+          bg: "brand.100",
+          fontSize: "md",
+        },
       },
     },
+    // TEXT
     Text: {
       baseStyle: {
         fontWeight: "600",
       },
     },
+    // CONTAINER
     Container: {
       variants: {
         main: {
