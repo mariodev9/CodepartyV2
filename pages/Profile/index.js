@@ -32,11 +32,7 @@ export default function Profile() {
         <Flex>
           <Box>post - followers - following</Box>
         </Flex>
-        <Box p="20px">
-          {[1, 2, 3, 4, 5, 6].map((key) => (
-            <Code key={key} />
-          ))}
-        </Box>
+        <Box p="20px">Timeline</Box>
       </Layout>
     </>
   );
