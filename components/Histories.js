@@ -33,7 +33,12 @@ export default function Histories() {
                 position="absolute"
                 bottom="22%"
               />
-              <Text position="absolute" bottom="14%" fontSize="7px">
+              <Text
+                position="absolute"
+                bottom="14%"
+                fontSize="7px"
+                fontWeight={300}
+              >
                 Luciano Mariotti
               </Text>
               <StorieBottom />

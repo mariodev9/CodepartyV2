@@ -8,23 +8,20 @@ import TopNav from "./TopNavbar";
 export default function Layout({ children }) {
   return (
     <>
-      <Flex direction="column">
-        <TopNav />
-        <Flex w="100%">
-          <LeftNavbar />
-          <Box
-            w={{ base: "100%", desktop: "50%" }}
-            borderLeft="1px"
-            borderRight="1px"
-            borderColor="gray.100"
-          >
-            <Text>Inicio</Text>
-            {children}
-          </Box>
-          <RightNavbar />
-        </Flex>
+      <Flex w="100%">
+        <LeftNavbar />
+        <Box
+          w={{ base: "100%", desktop: "50%" }}
+          borderLeft="1px"
+          borderRight="1px"
+          borderColor="gray.100"
+        >
+          <TopNav />
+          {children}
+          <MobileBottomNavbar />
+        </Box>
+        <RightNavbar />
       </Flex>
-      <MobileBottomNavbar />
     </>
   );
 }
