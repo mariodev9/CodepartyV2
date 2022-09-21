@@ -1,22 +1,22 @@
-import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import useUser from "../../hooks/useUser";
-import Back from "../../components/Icons/Back";
-import Photo from "../../components/Icons/Photo";
-
-import { addCode, uploadImage } from "../../firebase/Client";
+import { useRouter } from "next/router";
 import Head from "next/head";
+import { Photo, Back } from "../../components/Icons";
+import { addCode, uploadImage } from "../../firebase/Client";
+
 import {
+  Avatar,
   Box,
   Button,
   Flex,
   FormControl,
+  FormLabel,
   Input,
   Text,
   Textarea,
+  Image,
 } from "@chakra-ui/react";
-import Image from "next/image";
-
 const COMPOSE_STATES = {
   USER_NOT_KNOWN: 0,
   LOADING: 1,
@@ -71,110 +71,77 @@ export default function Create() {
       <Head>
         <title>Write / Codeparty</title>
       </Head>
-      <FormControl onSubmit={handleSubmit}>
-        <Textarea
-          placeholder="¿Qué estas pensando?"
-          type="textarea"
-          onChange={handleChange}
-          value={message}
-        ></Textarea>
-        {img && (
-          <div className="img-container">
-            <button className="delete-img" onClick={handleDeleteImg}>
-              X
-            </button>
-            <Image src={img} width={250} height={250} />
-          </div>
-        )}
-        <Flex>
-          <Box onClick={() => router.replace("/Home")}>
+      <Box padding="20px 15px">
+        <Flex justify="space-between" mb="20px">
+          <Box onClick={() => router.replace("/Home")} cursor="pointer">
             <Back />
           </Box>
-          <Button disable={isButtonDisabled} onClick={handleSubmit}>
+          <Button
+            disabled={isButtonDisabled}
+            onClick={handleSubmit}
+            variant="primary"
+            h="25px"
+          >
             Share
           </Button>
         </Flex>
-        <input
-          type="file"
-          name="Add photo"
-          id="file-input"
-          onChange={(e) => {
-            setFile(e.target.files[0]);
-          }}
-        />
-        {!img && (
-          <label htmlFor="file-input">
-            <Photo />
-          </label>
-        )}
-      </FormControl>
 
-      <style jsx>{`
-        .main {
-          display: flex;
-          flex-direction: row;
-        }
-        form {
-          display: flex;
-          flex-direction: column;
-          margin: 15px 5px;
-          color: "green";
-        }
-
-        textarea {
-          border: 0;
-          padding: 15px;
-          border-radius: 10px;
-          font-size: 21px;
-          min-height: 200px;
-          padding: 15px;
-          outline: 0;
-          resize: none;
-          width: 100%;
-          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-            sans-serif;
-        }
-
-        img {
-          border-radius: 10px;
-          width: 100%;
-          max-width: 500px;
-        }
-
-        .code-container {
-          padding: 15px;
-          margin: 40px 0px;
-          border-radius: 10px;
-        }
-
-        .delete-img {
-          position: relative;
-          top: 25px;
-          background-color: #000;
-        }
-
-        #file-input {
-          display: none;
-        }
-
-        label {
-          cursor: pointer;
-        }
-
-        @media screen and (max-width: 642px) {
-          .buttons-container {
-            order: 1;
-          }
-          .code-container {
-            order: 2;
-          }
-
-          label {
-            order: 3;
-          }
-        }
-      `}</style>
+        <Flex>
+          <Box p="10px">
+            <Avatar src={user?.avatar} size="sm" />
+          </Box>
+          <FormControl onSubmit={handleSubmit}>
+            <Box border="1px" borderColor="gray.100" borderRadius="10px">
+              <Textarea
+                placeholder="¿Qué está pasando?"
+                type="textarea"
+                onChange={handleChange}
+                value={message}
+                border="none"
+                resize="none"
+                _focusVisible={{
+                  boxShadow: "none",
+                }}
+              ></Textarea>
+              {img && (
+                <Box>
+                  <Button
+                    borderRadius="99px"
+                    onClick={handleDeleteImg}
+                    position="absolute"
+                    zIndex="2"
+                    _hover={{
+                      bg: "gray",
+                    }}
+                  >
+                    X
+                  </Button>
+                  <Image
+                    src={img}
+                    width={250}
+                    height={250}
+                    borderRadius="10px"
+                  />
+                </Box>
+              )}
+            </Box>
+            <Input
+              type="file"
+              name="Add photo"
+              id="file-input"
+              onChange={(e) => {
+                setFile(e.target.files[0]);
+              }}
+              display="none"
+            />
+            {!img && (
+              <FormLabel htmlFor="file-input" cursor="pointer" mt="20px">
+                <Photo />
+              </FormLabel>
+            )}
+          </FormControl>
+        </Flex>
+      </Box>
     </>
   );
 }

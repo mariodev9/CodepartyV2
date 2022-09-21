@@ -12,7 +12,7 @@ import {
 import { loginWithGitHub, sessionChange } from "../firebase/Client";
 import { useRouter } from "next/router";
 import Slider from "react-slick";
-import Logo from "../components/Icons/Logo";
+import { Logo } from "../components/Icons";
 
 export default function Home() {
   const [dev, setDev] = useState(undefined);

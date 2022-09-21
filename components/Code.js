@@ -1,9 +1,7 @@
 import { Avatar, Box, Flex, Image, Text } from "@chakra-ui/react";
 import React from "react";
 import useUser from "../hooks/useUser";
-import Comment from "./Icons/Comment";
-import Like from "./Icons/Like";
-import Save from "./Icons/Save";
+import { Like, Comment, Save } from "./Icons";
 
 const img =
   "https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80";

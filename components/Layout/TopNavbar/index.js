@@ -13,10 +13,9 @@ import {
   Box,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import React from "react";
 import { logOut } from "../../../firebase/Client";
 import useUser from "../../../hooks/useUser";
-import Logo from "../../Icons/Logo";
+import { Logo } from "../../Icons";
 
 export default function TopNav() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -30,7 +29,11 @@ export default function TopNav() {
 
   return (
     <>
-      <Flex align="center" justify="space-between">
+      <Flex
+        align="center"
+        justify="space-between"
+        display={{ base: "flex", desktop: "none" }}
+      >
         <Avatar
           size="sm"
           src={user?.avatar}
