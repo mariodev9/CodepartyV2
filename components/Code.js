@@ -1,30 +1,34 @@
 import { Avatar, Box, Flex, Image, Text } from "@chakra-ui/react";
 import React from "react";
+import getTimeAgo from "../hooks/useTimeago";
 import useUser from "../hooks/useUser";
 import { Like, Comment, Save } from "./Icons";
 
-const img =
-  "https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80";
-
-export default function Code() {
+export default function Code({
+  id,
+  avatar,
+  userName,
+  img,
+  content,
+  createdAt,
+  userId,
+}) {
   const user = useUser();
+  const timeago = getTimeAgo(createdAt);
+
   return (
     <>
       <Box layerStyle="code">
         <Flex p={1}>
-          <Avatar size="sm" src={user?.avatar} mr={3} />
+          <Avatar size="sm" alt={userName} src={avatar} mr={3} />
           <Box>
             <Text fontSize="15px">{user?.name}</Text>
             <Text fontWeight="400" fontSize="12px" color="gray">
-              15min ago
+              {timeago}
             </Text>
           </Box>
         </Flex>
-        <Flex direction="column">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo minus
-          molestias illum pariatur ab dolorum beatae. Tempora quisquam aliquid,
-          distinctio eius hic unde.
-        </Flex>
+        <Flex direction="column">{content}</Flex>
 
         <Box width="100%" mt={5} w="100%" borderRadius="10px">
           {img && <Image src={img} width="100%" borderRadius="10px" />}
