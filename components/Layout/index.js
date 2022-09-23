@@ -3,7 +3,6 @@ import React from "react";
 import LeftNavbar from "./LeftNavbar";
 import MobileBottomNavbar from "./MobileBottomNav";
 import RightNavbar from "./RightNavbar";
-import TopNav from "./TopNavbar";
 
 export default function Layout({ children }) {
   return (
@@ -16,7 +15,6 @@ export default function Layout({ children }) {
           borderRight="1px"
           borderColor="gray.100"
         >
-          <TopNav />
           {children}
           <MobileBottomNavbar />
         </Box>

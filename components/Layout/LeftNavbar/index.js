@@ -59,7 +59,7 @@ export default function LeftNavbar() {
         pt="30px"
         pl="50px"
       >
-        <Box position="fixed" border="1px" width="15%">
+        <Box position="fixed" width="15%">
           <Box mb="20px" p="0px 10px">
             <Logo />
           </Box>

@@ -33,6 +33,7 @@ export default function TopNav() {
         align="center"
         justify="space-between"
         display={{ base: "flex", desktop: "none" }}
+        p="10px 20px"
       >
         <Avatar
           size="sm"

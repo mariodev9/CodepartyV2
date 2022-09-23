@@ -34,10 +34,13 @@ export const theme = extendTheme({
   },
   // LAYER
   layerStyles: {
-    stories: {
+    primaryBox: {
       bg: "black.50",
       borderColor: "gray.500",
       borderRadius: "20px",
+      boxShadow: "0 5px 5px rgba(0, 0, 0, 0.1)",
+    },
+    stories: {
       height: {
         base: "130px",
         md: "120px",
@@ -46,12 +49,12 @@ export const theme = extendTheme({
         base: "110px",
         md: "110px",
       },
-      boxShadow: "0 5px 5px rgba(0, 0, 0, 0.1)",
-    },
-    loginBox: {
       bg: "black.50",
       borderColor: "gray.500",
       borderRadius: "20px",
+      boxShadow: "0 5px 5px rgba(0, 0, 0, 0.1)",
+    },
+    loginBox: {
       height: {
         base: "100px",
         md: "120px",
@@ -60,6 +63,9 @@ export const theme = extendTheme({
         base: "80px",
         md: "100px",
       },
+      bg: "black.50",
+      borderColor: "gray.500",
+      borderRadius: "20px",
       boxShadow: "0 5px 5px rgba(0, 0, 0, 0.2)",
     },
     code: {

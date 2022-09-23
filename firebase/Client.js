@@ -98,24 +98,29 @@ export const addCode = ({ avatar, content, userId, userName, img }) => {
   }
 };
 
-// export const fetchLatestCodes = async () => {
-//   const q = query(collection(firestore, "codes"), orderBy("createdAt", "desc"));
-//   const querySnap = await getDocs(q);
-//   const { docs } = querySnap;
-//   return docs.map(mapCodeFromFirebaseToDevitObject);
-// };
-
 export const listenLatestCodes = async (callback) => {
   const q = query(collection(firestore, "codes"), orderBy("createdAt", "desc"));
   const querySnap = await getDocs(q);
   onSnapshot(q, (querySnap) => {
     const { docs } = querySnap;
-    const newCodes = docs.map(mapCodeFromFirebaseToDevitObject);
+    const newCodes = docs.map(mapFromFirebaseToCodeObject);
     callback(newCodes);
   });
 };
 
-const mapCodeFromFirebaseToDevitObject = (doc) => {
+const mapFromFirebaseToCodeObject = (doc) => {
+  const data = doc.data();
+  const id = doc.id;
+  const { createdAt } = data;
+
+  return {
+    ...data,
+    id,
+    createdAt: +createdAt.toDate(),
+  };
+};
+
+const mapFromFirebaseToStoryObject = (doc) => {
   const data = doc.data();
   const id = doc.id;
   const { createdAt } = data;
@@ -153,4 +158,30 @@ export const uploadImage = (file, onChange) => {
       });
     }
   );
+};
+
+export const addStory = ({ avatar, userName, img }) => {
+  try {
+    const docRef = addDoc(collection(firestore, "stories"), {
+      avatar,
+      userName,
+      img,
+      createdAt: Timestamp.fromDate(new Date()),
+    });
+  } catch (error) {
+    console.error("Error adding document: ", error);
+  }
+};
+
+export const listenLatestStories = async (callback) => {
+  const q = query(
+    collection(firestore, "stories"),
+    orderBy("createdAt", "desc")
+  );
+  const querySnap = await getDocs(q);
+  onSnapshot(q, (querySnap) => {
+    const { docs } = querySnap;
+    const newStories = docs.map(mapFromFirebaseToStoryObject);
+    callback(newStories);
+  });
 };

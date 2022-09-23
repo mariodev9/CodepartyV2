@@ -17,6 +17,7 @@ import {
   Textarea,
   Image,
 } from "@chakra-ui/react";
+
 const COMPOSE_STATES = {
   USER_NOT_KNOWN: 0,
   LOADING: 1,
@@ -103,6 +104,8 @@ export default function Create() {
                   boxShadow: "none",
                 }}
               ></Textarea>
+              {/* component */}
+
               {img && (
                 <Box>
                   <Button
@@ -124,6 +127,7 @@ export default function Create() {
                   />
                 </Box>
               )}
+              {/* component */}
             </Box>
             <Input
               type="file"
