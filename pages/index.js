@@ -48,13 +48,9 @@ export default function Home() {
         justify="center"
         align="center"
         h="100vh"
-        border="1px"
       >
-        <Box h="100vh" bg="red" width="100%">
-          <StartedAnimation />
-        </Box>
-        {/* <StartedAnimation /> */}
-        {/* <Flex
+        <StartedAnimation />
+        <Flex
           display="flex"
           direction="column"
           justify="center"
@@ -62,12 +58,14 @@ export default function Home() {
           textAlign="center"
           bg={{ base: "none", desktop: "black" }}
           h={{ base: "50%", desktop: "100vh" }}
+          w="350px"
         >
           <Text
             textAlign="center"
             fontWeight={800}
             fontSize={{ base: "25px", desktop: "30px" }}
           >
+            {/* Agregar gradient a letras (probar efecto) */}
             Find New Devs With
             <span style={{ color: "#159BFF", marginLeft: "6px" }}>
               Codeparty
@@ -120,7 +118,7 @@ export default function Home() {
               </>
             )}
           </VStack>
-        </Flex> */}
+        </Flex>
       </Flex>
     </>
   );
