@@ -11,7 +11,8 @@ export default function Layout({ children }) {
         <LeftNavbar />
         <Box
           w={{ base: "100%", desktop: "50%" }}
-          borderLeft="1px"
+          h={{ desktop: "100%" }}
+          borderLeft={{ base: "none", desktop: "1px" }}
           borderColor="gray.100"
         >
           {children}

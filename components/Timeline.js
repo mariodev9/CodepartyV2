@@ -20,7 +20,9 @@ export default function Timeline() {
         <Text m="20px 0 15px 0" textAlign="center">
           Last Codes
         </Text>
-        {timeline.length ? (
+        {timeline.length === 0 ? (
+          <Box h="100vh">CARGANDO...</Box>
+        ) : (
           timeline.map(
             ({ id, userName, avatar, content, createdAt, userId, img }) => (
               <Code
@@ -35,8 +37,6 @@ export default function Timeline() {
               />
             )
           )
-        ) : (
-          <Text>CARGANDO...</Text>
         )}
       </Box>
     </>

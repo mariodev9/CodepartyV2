@@ -18,6 +18,8 @@ import {
   Text,
   useDisclosure,
   AvatarBadge,
+  SkeletonCircle,
+  Spinner,
 } from "@chakra-ui/react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -65,45 +67,56 @@ export default function Stories() {
   return (
     <>
       <Box p="15px 0px">
-        <Slider {...settings}>
-          <Flex p={5}>
-            <Input
-              type="file"
-              name="Add photo"
-              id="file-input"
-              onChange={(e) => {
-                setFile(e.target.files[0]);
-              }}
-              display="none"
-            />
-            <FormLabel htmlFor="file-input" cursor="pointer">
-              <Avatar
-                src={""}
-                size="lg"
-                border="2px solid #4DB0FA"
-                onClick={onOpen}
-              >
-                <AvatarBadge
-                  boxSize="1em"
-                  color="green"
-                  border="2px"
-                  bg="brand.100"
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="center"
-                >
-                  <Add />
-                </AvatarBadge>
-              </Avatar>
-            </FormLabel>
+        {stories.length === 0 ? (
+          <Flex h="100px" p={5} justify="center">
+            <Spinner />
           </Flex>
-
-          {stories.map((item, key) => (
-            <Flex p={5} key={key}>
-              <Avatar src={item.avatar} size="lg" border="2px solid #4DB0FA" />
-            </Flex>
-          ))}
-        </Slider>
+        ) : (
+          <>
+            <Slider {...settings}>
+              <Flex p={5}>
+                <Input
+                  type="file"
+                  name="Add photo"
+                  id="file-input"
+                  onChange={(e) => {
+                    setFile(e.target.files[0]);
+                  }}
+                  display="none"
+                />
+                <FormLabel htmlFor="file-input" cursor="pointer">
+                  <Avatar
+                    src={""}
+                    size="lg"
+                    border="2px solid #4DB0FA"
+                    onClick={onOpen}
+                  >
+                    <AvatarBadge
+                      boxSize="1em"
+                      color="green"
+                      border="2px"
+                      bg="brand.100"
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="center"
+                    >
+                      <Add />
+                    </AvatarBadge>
+                  </Avatar>
+                </FormLabel>
+              </Flex>
+              {stories.map((item, key) => (
+                <Flex p={5} key={key} h="100px">
+                  <Avatar
+                    src={item.avatar}
+                    size="lg"
+                    border="2px solid #4DB0FA"
+                  />
+                </Flex>
+              ))}
+            </Slider>
+          </>
+        )}
       </Box>
 
       <Modal
@@ -117,8 +130,9 @@ export default function Stories() {
           <ModalHeader>Add storie</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            {/* component */}
             {img && (
+              /* component */
+
               <Box>
                 <Button
                   borderRadius="99px"
@@ -134,7 +148,6 @@ export default function Stories() {
                 <Image src={img} width={250} height={250} borderRadius="10px" />
               </Box>
             )}
-            {/* component */}
 
             {!img && (
               <FormLabel htmlFor="file-input" cursor="pointer" mt="20px">
