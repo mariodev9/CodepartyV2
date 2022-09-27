@@ -60,7 +60,11 @@ export default function Home() {
           bg={{ base: "none", desktop: "black" }}
           h={{ desktop: "100vh" }}
         >
-          <Text textAlign="center" fontWeight={800} fontSize="30px" mt="40px">
+          <Text
+            textAlign="center"
+            fontWeight={800}
+            fontSize={{ base: "20px", mobile: "30px" }}
+          >
             {/* Agregar gradient a letras (probar efecto) */}
             Find New Devs With
             <span style={{ color: "#159BFF", marginLeft: "6px" }}>
