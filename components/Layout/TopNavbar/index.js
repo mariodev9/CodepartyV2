@@ -24,7 +24,6 @@ export default function TopNav() {
 
   const handleLogOut = () => {
     logOut();
-    router.push("/");
   };
 
   return (

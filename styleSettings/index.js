@@ -93,8 +93,6 @@ export const theme = extendTheme({
           bg: "brand.100",
           fontSize: "md",
           padding: "12px 24px",
-          width: "full",
-          maxWidth: "md",
         },
       },
     },
@@ -146,7 +144,7 @@ export const settings = {
     {
       breakpoint: 480,
       settings: {
-        slidesToShow: 3,
+        slidesToShow: 4.3,
       },
     },
   ],
