@@ -1,6 +1,14 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
-import { Box, Button, Center, Flex, Text, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Center,
+  Flex,
+  Spinner,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import {
   loginWithGitHub,
   loginWithGoogle,
@@ -58,35 +66,36 @@ export default function Home() {
           textAlign="center"
           bg={{ base: "none", desktop: "black" }}
           h={{ base: "50%", desktop: "100vh" }}
-          w="300px"
+          w="400px"
         >
-          <Text
-            textAlign="center"
-            fontWeight={800}
-            fontSize={{ base: "25px", desktop: "30px" }}
-          >
-            {/* Agregar gradient a letras (probar efecto) */}
-            Find New Devs With
-            <span style={{ color: "#159BFF", marginLeft: "6px" }}>
-              Codeparty
-            </span>
-          </Text>
-          <Text
-            textAlign="center"
-            fontWeight={400}
-            fontSize="15px"
-            w="200px"
-            mt="15px"
-            color="gray"
-          >
-            Talk and share with others developers around the world
-          </Text>
+          <Box width="300px">
+            <Text
+              textAlign="center"
+              fontWeight={800}
+              fontSize={{ base: "25px", desktop: "30px" }}
+            >
+              {/* Agregar gradient a letras (probar efecto) */}
+              Find New Devs With
+              <span style={{ color: "#159BFF", marginLeft: "6px" }}>
+                Codeparty
+              </span>
+            </Text>
+            <Text
+              textAlign="center"
+              fontWeight={400}
+              fontSize="15px"
+              mt="15px"
+              color="gray"
+            >
+              Talk and share with others developers around the world
+            </Text>
+          </Box>
           <VStack
             p={{ base: 5, desktop: 12 }}
             h={{ base: "140px", desktop: "200px" }}
             width="350px"
           >
-            {dev === undefined && <Text>loading</Text>}
+            {dev === undefined && <Spinner />}
             {dev === null && (
               <>
                 <Center>
@@ -94,7 +103,7 @@ export default function Home() {
                     onClick={SignWithGithub}
                     variant={"primary"}
                     leftIcon={<Github />}
-                    w="300px"
+                    w="250px"
                     color="#fff"
                     mb="2"
                   >
@@ -108,7 +117,7 @@ export default function Home() {
                     onClick={SignWithGoogle}
                     variant={"outline"}
                     leftIcon={<Google />}
-                    w="300px"
+                    w="250px"
                   >
                     <Center>
                       <Text>Sign in with Google</Text>
