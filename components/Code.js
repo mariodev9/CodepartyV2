@@ -1,7 +1,6 @@
 import { Avatar, Box, Flex, Image, Text } from "@chakra-ui/react";
 import React from "react";
 import getTimeAgo from "../hooks/useTimeago";
-import useUser from "../hooks/useUser";
 import { Like, Comment, Save } from "./Icons";
 
 export default function Code({
@@ -13,7 +12,6 @@ export default function Code({
   createdAt,
   userId,
 }) {
-  const user = useUser();
   const timeago = getTimeAgo(createdAt);
 
   return (
@@ -27,7 +25,7 @@ export default function Code({
         <Flex p={1}>
           <Avatar size="sm" alt={userName} src={avatar} mr={3} />
           <Box>
-            <Text fontSize="15px">{user?.name}</Text>
+            <Text fontSize="15px">{userName}</Text>
             <Text fontWeight="400" fontSize="12px" color="gray">
               {timeago}
             </Text>

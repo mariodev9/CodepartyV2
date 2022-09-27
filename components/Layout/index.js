@@ -12,7 +12,6 @@ export default function Layout({ children }) {
         <Box
           w={{ base: "100%", desktop: "50%" }}
           borderLeft="1px"
-          borderRight="1px"
           borderColor="gray.100"
         >
           {children}

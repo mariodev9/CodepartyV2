@@ -45,17 +45,20 @@ export const theme = extendTheme({
       justifyContent: "center",
       alignItems: "center",
       height: {
-        base: "100px",
-        md: "80px",
+        base: "60px",
+        desktop: "80px",
       },
       width: {
-        base: "80px",
-        md: "80px",
+        base: "50px",
+        desktop: "80px",
       },
       // repeat
       bg: "black.50",
       borderColor: "gray.500",
-      borderRadius: "20px",
+      borderRadius: {
+        base: "10px",
+        desktop: "20px",
+      },
       boxShadow: "0 5px 5px rgba(0, 0, 0, 0.2)",
       //
     },

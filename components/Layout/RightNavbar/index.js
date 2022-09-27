@@ -8,11 +8,8 @@ export default function RightNavbar() {
         direction="column"
         display={{ base: "none", desktop: "flex" }}
         w="27%"
-      >
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
-      </Flex>
+        bg="black"
+      ></Flex>
     </>
   );
 }
