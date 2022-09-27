@@ -144,7 +144,7 @@ export const settings = {
     {
       breakpoint: 650,
       settings: {
-        slidesToShow: 4,
+        slidesToShow: 5,
       },
     },
     {

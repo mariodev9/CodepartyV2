@@ -2,10 +2,9 @@ import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import Layout from "../../components/Layout";
 import Timeline from "../../components/Timeline";
-import { Box, Button, Text, Image, Avatar } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import Stories from "../../components/Stories";
 import TopNav from "../../components/Layout/TopNavbar";
-import { sessionStories } from "../../firebase/Client";
 
 export default function Home() {
   const [session, onSession] = useState(true);

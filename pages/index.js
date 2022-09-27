@@ -77,8 +77,11 @@ export default function Home() {
           >
             Talk and share with others developers around the world
           </Text>
-          <VStack p={{ base: 5, desktop: 12 }}>
-            <Center>
+          <VStack
+            p={{ base: 5, desktop: 12 }}
+            h={{ base: "140px", desktop: "200px" }}
+          >
+            <Center display={dev ? "none" : "flex"}>
               <Button
                 onClick={SignWithGithub}
                 variant={"primary"}
@@ -92,7 +95,7 @@ export default function Home() {
                 </Center>
               </Button>
             </Center>
-            <Center>
+            <Center display={dev ? "none" : "flex"}>
               <Button
                 onClick={SignWithGoogle}
                 variant={"outline"}
