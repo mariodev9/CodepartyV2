@@ -19,7 +19,6 @@ export default function StartedAnimation() {
         direction="row"
         spacing="24px"
         w={{ base: "100%" }}
-        h="100%"
         justify="center"
         align="center"
       >
