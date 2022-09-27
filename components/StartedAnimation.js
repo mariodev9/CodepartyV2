@@ -34,7 +34,7 @@ export default function StartedAnimation() {
           <Box layerStyle="loginBox"></Box>
           <Box layerStyle="loginBox"></Box>
         </VStack>
-        <VStack spacing="14px" pb="100px">
+        <VStack spacing="14px">
           <Box layerStyle="loginBox"></Box>
           <Box layerStyle="loginBox">
             <Logo />
