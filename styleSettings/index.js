@@ -40,41 +40,24 @@ export const theme = extendTheme({
       borderRadius: "20px",
       boxShadow: "0 5px 5px rgba(0, 0, 0, 0.1)",
     },
-    stories: {
-      height: {
-        base: "130px",
-        md: "120px",
-      },
-      width: {
-        base: "110px",
-        md: "110px",
-      },
-      bg: "black.50",
-      borderColor: "gray.500",
-      borderRadius: "20px",
-      boxShadow: "0 5px 5px rgba(0, 0, 0, 0.1)",
-    },
     loginBox: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
       height: {
         base: "100px",
-        md: "120px",
+        md: "80px",
       },
       width: {
         base: "80px",
-        md: "100px",
+        md: "80px",
       },
+      // repeat
       bg: "black.50",
       borderColor: "gray.500",
       borderRadius: "20px",
       boxShadow: "0 5px 5px rgba(0, 0, 0, 0.2)",
-    },
-    code: {
-      bg: "black.50",
-      borderColor: "gray.500",
-      borderRadius: "20px",
-      width: "100%",
-      padding: "15px",
-      margin: "25px 0px",
+      //
     },
     mobilenav: {
       position: "fixed",
@@ -93,7 +76,6 @@ export const theme = extendTheme({
   },
   // COMPONENTES
   components: {
-    Avatar: {},
     Button: {
       baseStyle: {
         fontWeight: "bold",
@@ -111,6 +93,8 @@ export const theme = extendTheme({
           bg: "brand.100",
           fontSize: "md",
           padding: "12px 24px",
+          width: "full",
+          maxWidth: "md",
         },
       },
     },

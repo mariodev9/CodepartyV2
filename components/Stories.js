@@ -17,6 +17,7 @@ import {
   ModalOverlay,
   Text,
   useDisclosure,
+  AvatarBadge,
 } from "@chakra-ui/react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -24,7 +25,7 @@ import Slider from "react-slick";
 import { settings } from "../styleSettings";
 import useUser from "../hooks/useUser";
 import StorieBottom from "./Svg/StorieBottom";
-import { Photo } from "./Icons";
+import { Add, Photo } from "./Icons";
 import { addStory, listenLatestStories, uploadImage } from "../firebase/Client";
 
 export default function Stories() {
@@ -51,8 +52,8 @@ export default function Stories() {
 
   const handleUpload = (event) => {
     event.preventDefault();
-
     addStory({
+      creatorId: user.userId,
       avatar: user.avatar,
       userName: user.name,
       img: img,
@@ -60,70 +61,47 @@ export default function Stories() {
     handleDeleteImg();
     onClose();
   };
-  const back =
-    "https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80";
 
   return (
     <>
       <Box p="15px 0px">
         <Slider {...settings}>
-          <FormLabel htmlFor="file-input" cursor="pointer">
-            <Box p={5} onClick={onOpen} cursor="pointer" htmlFor="file-input">
-              <Input
-                type="file"
-                name="Add photo"
-                id="file-input"
-                onChange={(e) => {
-                  setFile(e.target.files[0]);
-                }}
-                display="none"
-              />
-              <Flex
-                border="2px"
-                borderColor="brand.100"
-                borderRadius="20px"
-                alignItems="end"
-                justifyContent="center"
-                w={{
-                  base: "110px",
-                  md: "110px",
-                }}
-                h={{
-                  base: "130px",
-                  md: "120px",
-                }}
+          <Flex p={5}>
+            <Input
+              type="file"
+              name="Add photo"
+              id="file-input"
+              onChange={(e) => {
+                setFile(e.target.files[0]);
+              }}
+              display="none"
+            />
+            <FormLabel htmlFor="file-input" cursor="pointer">
+              <Avatar
+                src={""}
+                size="lg"
+                border="2px solid #4DB0FA"
+                onClick={onOpen}
               >
-                Add Storie
-              </Flex>
-            </Box>
-          </FormLabel>
-
-          {stories.map((item) => (
-            <Box p={5} key={item.id}>
-              <Flex
-                layerStyle="stories"
-                alignItems="end"
-                justifyContent="center"
-                bgImage={`url('${item.img}')`}
-              >
-                <Avatar
-                  src={item.avatar}
-                  w="23px"
-                  h="23px"
-                  position="absolute"
-                  bottom="22%"
-                />
-                <Text
-                  position="absolute"
-                  bottom="14%"
-                  fontSize="7px"
-                  fontWeight={300}
+                <AvatarBadge
+                  boxSize="1em"
+                  color="green"
+                  border="2px"
+                  bg="brand.100"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
                 >
-                  {item.userName}
-                </Text>
-                <StorieBottom />
-              </Flex>
-            </Box>
+                  <Add />
+                </AvatarBadge>
+              </Avatar>
+            </FormLabel>
+          </Flex>
+
+          {stories.map((item, key) => (
+            <Flex p={5} key={key}>
+              <Avatar src={item.avatar} size="lg" border="2px solid #4DB0FA" />
+            </Flex>
           ))}
         </Slider>
       </Box>
@@ -166,11 +144,13 @@ export default function Stories() {
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
-              Close
-            </Button>
-            <Button variant="secondary" onClick={handleUpload}>
-              Upload
+            <Button
+              disabled={!img}
+              onClick={handleUpload}
+              variant="primary"
+              h="25px"
+            >
+              Share
             </Button>
           </ModalFooter>
         </ModalContent>

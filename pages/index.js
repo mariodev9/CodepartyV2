@@ -1,18 +1,14 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
+import { Box, Button, Center, Flex, Text, VStack } from "@chakra-ui/react";
 import {
-  Box,
-  Button,
-  Flex,
-  Grid,
-  GridItem,
-  Highlight,
-  Text,
-} from "@chakra-ui/react";
-import { loginWithGitHub, sessionChange } from "../firebase/Client";
+  loginWithGitHub,
+  loginWithGoogle,
+  sessionChange,
+} from "../firebase/Client";
 import { useRouter } from "next/router";
-import Slider from "react-slick";
-import { Logo } from "../components/Icons";
+import { Github, Google } from "../components/Icons";
+import StartedAnimation from "../components/StartedAnimation";
 
 export default function Home() {
   const [dev, setDev] = useState(undefined);
@@ -26,8 +22,14 @@ export default function Home() {
     dev && router.replace("/Home");
   }, [dev]);
 
-  const handleClick = () => {
+  const SignWithGithub = () => {
     loginWithGitHub().catch((error) => {
+      console.log(error);
+    });
+  };
+
+  const SignWithGoogle = () => {
+    loginWithGoogle().catch((error) => {
       console.log(error);
     });
   };
@@ -41,83 +43,74 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Grid templateColumns="repeat(3, 1fr)" gap={5} p={5} mt="30px">
-        <GridItem
-          layerStyle="loginBox"
-          alignSelf="center"
-          justifySelf="center"
-        ></GridItem>
-        <GridItem
-          layerStyle="loginBox"
-          alignSelf="center"
-          justifySelf="center"
-        ></GridItem>
-        <GridItem
-          layerStyle="loginBox"
-          alignSelf="center"
-          justifySelf="center"
-        ></GridItem>
-        <GridItem
-          layerStyle="loginBox"
-          alignSelf="center"
-          justifySelf="center"
-        ></GridItem>
-        <GridItem layerStyle="loginBox" alignSelf="center" justifySelf="center">
-          <Logo />
-        </GridItem>
-        <GridItem
-          layerStyle="loginBox"
-          alignSelf="center"
-          justifySelf="center"
-        ></GridItem>
-        <GridItem
-          layerStyle="loginBox"
-          alignSelf="center"
-          justifySelf="center"
-        ></GridItem>
-        <GridItem
-          layerStyle="loginBox"
-          alignSelf="center"
-          justifySelf="center"
-        ></GridItem>
-        <GridItem
-          layerStyle="loginBox"
-          alignSelf="center"
-          justifySelf="center"
-        ></GridItem>
-      </Grid>
-      <Box
-        display="flex"
-        flexDirection="column"
-        justifyContent="center"
-        alignContent="center"
-        alignItems="center"
-        textAlign="center"
+      <Flex
+        direction={{ base: "column", desktop: "row" }}
+        justify="center"
+        align="center"
+        h="100vh"
       >
-        <Text
+        <StartedAnimation />
+        <Box
+          w="50%"
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          alignContent="center"
+          alignItems="center"
           textAlign="center"
-          fontWeight={800}
-          fontSize="30px"
-          w="250px"
-          mt="40px"
         >
-          Find New Devs With
-          <span style={{ color: "#159BFF", marginLeft: "6px" }}>Codeparty</span>
-        </Text>
-        <Text
-          textAlign="center"
-          fontWeight={400}
-          fontSize="15px"
-          w="200px"
-          mt="15px"
-          color="gray"
-        >
-          Talk and share with others developers around the world
-        </Text>
-        <Button variant="primary" onClick={handleClick} mt="50px">
-          Iniciar sesion con Github
-        </Button>
-      </Box>
+          <Text
+            textAlign="center"
+            fontWeight={800}
+            fontSize="30px"
+            w="250px"
+            mt="40px"
+          >
+            Find New Devs With
+            <span style={{ color: "#159BFF", marginLeft: "6px" }}>
+              Codeparty
+            </span>
+          </Text>
+          <Text
+            textAlign="center"
+            fontWeight={400}
+            fontSize="15px"
+            w="200px"
+            mt="15px"
+            color="gray"
+          >
+            Talk and share with others developers around the world
+          </Text>
+          <VStack p={12}>
+            <Center>
+              <Button
+                onClick={SignWithGithub}
+                variant={"primary"}
+                leftIcon={<Github />}
+                w="300px"
+                color="#fff"
+                mb="2"
+              >
+                <Center>
+                  <Text>Sign in with Github</Text>
+                </Center>
+              </Button>
+            </Center>
+            <Center>
+              <Button
+                onClick={SignWithGoogle}
+                variant={"outline"}
+                leftIcon={<Google />}
+                w="300px"
+              >
+                <Center>
+                  <Text>Sign in with Google</Text>
+                </Center>
+              </Button>
+            </Center>
+          </VStack>
+        </Box>
+      </Flex>
     </>
   );
 }

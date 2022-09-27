@@ -18,7 +18,12 @@ export default function Code({
 
   return (
     <>
-      <Box layerStyle="code">
+      <Box
+        layerStyle="primaryBox"
+        width="100%"
+        padding="15px"
+        margin="25px 0px"
+      >
         <Flex p={1}>
           <Avatar size="sm" alt={userName} src={avatar} mr={3} />
           <Box>

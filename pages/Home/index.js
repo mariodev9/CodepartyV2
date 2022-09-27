@@ -2,9 +2,10 @@ import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import Layout from "../../components/Layout";
 import Timeline from "../../components/Timeline";
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Button, Text, Image, Avatar } from "@chakra-ui/react";
 import Stories from "../../components/Stories";
 import TopNav from "../../components/Layout/TopNavbar";
+import { sessionStories } from "../../firebase/Client";
 
 export default function Home() {
   const [session, onSession] = useState(true);
@@ -18,7 +19,6 @@ export default function Home() {
     <>
       <Layout>
         <TopNav />
-
         <Box display={{ base: "none", desktop: "flex" }} mb="50px">
           <Box
             position="fixed"

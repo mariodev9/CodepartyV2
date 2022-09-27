@@ -1,8 +1,22 @@
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Text,
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from "@chakra-ui/react";
 import React from "react";
 import { Logo, Home, User, Save } from "../../Icons";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import CreateForm from "../../Create/CreateForm";
 
 const NavLink = [
   {
@@ -50,6 +64,8 @@ function BoxLink({ item }) {
 }
 
 export default function LeftNavbar() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <>
       <Flex
@@ -63,18 +79,34 @@ export default function LeftNavbar() {
           <Box mb="20px" p="0px 10px">
             <Logo />
           </Box>
-          {NavLink.map((item) => (
-            <BoxLink key={item.name} item={item} />
-          ))}
-          <Link textDecoration="none" href="/Create">
-            <Flex justify="center">
-              <Button variant="primary" borderRadius="20px" w="100%" mt="30px">
-                Share
-              </Button>
-            </Flex>
-          </Link>
+          <Box mt="80px">
+            {NavLink.map((item) => (
+              <BoxLink key={item.name} item={item} />
+            ))}
+          </Box>
+          <Flex justify="center">
+            <Button
+              variant="primary"
+              borderRadius="20px"
+              w="100%"
+              mt="30px"
+              onClick={onOpen}
+            >
+              Share
+            </Button>
+          </Flex>
         </Box>
       </Flex>
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent bg="black.50" pt="30px">
+          <ModalCloseButton />
+          <ModalBody>
+            <CreateForm />
+          </ModalBody>
+        </ModalContent>
+      </Modal>
     </>
   );
 }

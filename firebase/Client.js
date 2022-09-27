@@ -6,6 +6,7 @@ import {
   signInWithPopup,
   onAuthStateChanged,
   signOut,
+  GoogleAuthProvider,
 } from "firebase/auth";
 import {
   getFirestore,
@@ -49,6 +50,7 @@ export const sessionChange = (onChange) => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
       const normalizedUser = mapUserFromFirebaseAuthToUser(user);
+
       onChange(normalizedUser);
     } else {
       onChange(null);
@@ -60,6 +62,12 @@ export const loginWithGitHub = async () => {
   const githubProvider = new GithubAuthProvider();
   githubProvider.setCustomParameters(firebaseConfig);
   return signInWithPopup(auth, githubProvider);
+};
+
+export const loginWithGoogle = async () => {
+  const googleProvider = new GoogleAuthProvider();
+  googleProvider.setCustomParameters(firebaseConfig);
+  return signInWithPopup(auth, googleProvider);
 };
 
 const mapUserFromFirebaseAuthToUser = (user) => {
@@ -160,9 +168,10 @@ export const uploadImage = (file, onChange) => {
   );
 };
 
-export const addStory = ({ avatar, userName, img }) => {
+export const addStory = ({ creatorId, avatar, userName, img }) => {
   try {
     const docRef = addDoc(collection(firestore, "stories"), {
+      creatorId,
       avatar,
       userName,
       img,
@@ -182,6 +191,39 @@ export const listenLatestStories = async (callback) => {
   onSnapshot(q, (querySnap) => {
     const { docs } = querySnap;
     const newStories = docs.map(mapFromFirebaseToStoryObject);
-    callback(newStories);
+
+    // Funcion que agrupa historias por user
+    let allUserStories = [];
+
+    for (let i = 0; i < newStories.length; i++) {
+      let story = newStories[i];
+
+      let currentUserId;
+      let userStories = {};
+
+      if (currentUserId !== story.creatorId) {
+        currentUserId = story.creatorId;
+
+        userStories.creatorId = currentUserId;
+        userStories.avatar = story.avatar;
+
+        userStories.stories = newStories.filter(
+          (item) => item.creatorId === currentUserId
+        );
+
+        if (allUserStories.length === 0) {
+          allUserStories.push(userStories);
+        } else {
+          let result = allUserStories.filter(
+            (story) => story.creatorId !== userStories.creatorId
+          );
+          if (result.length === allUserStories.length) {
+            allUserStories.push(userStories);
+          }
+        }
+      }
+    }
+
+    callback(allUserStories);
   });
 };
