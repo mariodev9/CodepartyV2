@@ -96,6 +96,9 @@ export const theme = extendTheme({
           bg: "brand.100",
           fontSize: "md",
           padding: "12px 24px",
+          _hover: {
+            bg: "#3ba0f9",
+          },
         },
       },
     },

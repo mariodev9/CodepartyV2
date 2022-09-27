@@ -51,7 +51,6 @@ export default function Home() {
       >
         <StartedAnimation />
         <Box
-          w="50%"
           display="flex"
           flexDirection="column"
           justifyContent="center"
@@ -61,13 +60,7 @@ export default function Home() {
           bg={{ base: "none", desktop: "black" }}
           h={{ desktop: "100vh" }}
         >
-          <Text
-            textAlign="center"
-            fontWeight={800}
-            fontSize="30px"
-            w="250px"
-            mt="40px"
-          >
+          <Text textAlign="center" fontWeight={800} fontSize="30px" mt="40px">
             {/* Agregar gradient a letras (probar efecto) */}
             Find New Devs With
             <span style={{ color: "#159BFF", marginLeft: "6px" }}>
@@ -84,7 +77,7 @@ export default function Home() {
           >
             Talk and share with others developers around the world
           </Text>
-          <VStack p={12}>
+          <VStack p={{ base: 5, desktop: 12 }}>
             <Center>
               <Button
                 onClick={SignWithGithub}
