@@ -58,6 +58,8 @@ export default function Home() {
           alignContent="center"
           alignItems="center"
           textAlign="center"
+          bg={{ base: "none", desktop: "black" }}
+          h={{ desktop: "100vh" }}
         >
           <Text
             textAlign="center"
@@ -66,6 +68,7 @@ export default function Home() {
             w="250px"
             mt="40px"
           >
+            {/* Agregar gradient a letras (probar efecto) */}
             Find New Devs With
             <span style={{ color: "#159BFF", marginLeft: "6px" }}>
               Codeparty
