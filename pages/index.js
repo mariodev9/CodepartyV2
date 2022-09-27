@@ -58,7 +58,7 @@ export default function Home() {
           textAlign="center"
           bg={{ base: "none", desktop: "black" }}
           h={{ base: "50%", desktop: "100vh" }}
-          w="350px"
+          w="300px"
         >
           <Text
             textAlign="center"
