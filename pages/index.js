@@ -63,7 +63,7 @@ export default function Home() {
           <Text
             textAlign="center"
             fontWeight={800}
-            fontSize={{ base: "20px", mobile: "30px" }}
+            fontSize={{ base: "25px", desktop: "30px" }}
           >
             {/* Agregar gradient a letras (probar efecto) */}
             Find New Devs With
@@ -84,33 +84,39 @@ export default function Home() {
           <VStack
             p={{ base: 5, desktop: 12 }}
             h={{ base: "140px", desktop: "200px" }}
+            width="350px"
           >
-            <Center display={dev ? "none" : "flex"}>
-              <Button
-                onClick={SignWithGithub}
-                variant={"primary"}
-                leftIcon={<Github />}
-                w="300px"
-                color="#fff"
-                mb="2"
-              >
+            {dev === undefined && <Text>loading</Text>}
+            {dev === null && (
+              <>
                 <Center>
-                  <Text>Sign in with Github</Text>
+                  <Button
+                    onClick={SignWithGithub}
+                    variant={"primary"}
+                    leftIcon={<Github />}
+                    w="300px"
+                    color="#fff"
+                    mb="2"
+                  >
+                    <Center>
+                      <Text>Sign in with Github</Text>
+                    </Center>
+                  </Button>
                 </Center>
-              </Button>
-            </Center>
-            <Center display={dev ? "none" : "flex"}>
-              <Button
-                onClick={SignWithGoogle}
-                variant={"outline"}
-                leftIcon={<Google />}
-                w="300px"
-              >
-                <Center>
-                  <Text>Sign in with Google</Text>
+                <Center display={dev ? "none" : "flex"}>
+                  <Button
+                    onClick={SignWithGoogle}
+                    variant={"outline"}
+                    leftIcon={<Google />}
+                    w="300px"
+                  >
+                    <Center>
+                      <Text>Sign in with Google</Text>
+                    </Center>
+                  </Button>
                 </Center>
-              </Button>
-            </Center>
+              </>
+            )}
           </VStack>
         </Box>
       </Flex>
