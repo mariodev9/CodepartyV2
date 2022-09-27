@@ -48,6 +48,7 @@ export default function Home() {
         justify="center"
         align="center"
         h="100vh"
+        border="1px"
       >
         {/* <StartedAnimation /> */}
         <Flex
@@ -58,7 +59,6 @@ export default function Home() {
           textAlign="center"
           bg={{ base: "none", desktop: "black" }}
           h={{ base: "50%", desktop: "100vh" }}
-          border="1px"
         >
           <Text
             textAlign="center"
