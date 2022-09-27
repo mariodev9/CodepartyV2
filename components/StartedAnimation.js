@@ -19,8 +19,10 @@ export default function StartedAnimation() {
         direction="row"
         spacing="24px"
         w={{ base: "100%" }}
+        h={{ base: "50%", desktop: "100vh" }}
         justify="center"
         align="center"
+        border="1px"
       >
         <VStack spacing="14px">
           <Box layerStyle="loginBox"></Box>

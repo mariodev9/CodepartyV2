@@ -50,15 +50,15 @@ export default function Home() {
         h="100vh"
       >
         <StartedAnimation />
-        <Box
+        <Flex
           display="flex"
-          flexDirection="column"
-          justifyContent="center"
-          alignContent="center"
-          alignItems="center"
+          direction="column"
+          justify="center"
+          align="center"
           textAlign="center"
           bg={{ base: "none", desktop: "black" }}
-          h={{ desktop: "100vh" }}
+          h={{ base: "50%", desktop: "100vh" }}
+          border="1px"
         >
           <Text
             textAlign="center"
@@ -118,7 +118,7 @@ export default function Home() {
               </>
             )}
           </VStack>
-        </Box>
+        </Flex>
       </Flex>
     </>
   );
