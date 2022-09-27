@@ -24,7 +24,7 @@ export default function StartedAnimation() {
         align="center"
         border="1px"
       >
-        {/* <VStack spacing="14px">
+        <VStack spacing="14px">
           <Box layerStyle="loginBox"></Box>
           <Box layerStyle="loginBox"></Box>
           <Box layerStyle="loginBox"></Box>
@@ -45,7 +45,7 @@ export default function StartedAnimation() {
           <Box layerStyle="loginBox"></Box>
           <Box layerStyle="loginBox"></Box>
           <Box layerStyle="loginBox"></Box>
-        </VStack> */}
+        </VStack>
       </Stack>
     </>
   );

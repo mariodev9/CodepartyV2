@@ -50,8 +50,11 @@ export default function Home() {
         h="100vh"
         border="1px"
       >
+        <Box h="100vh" bg="red" width="100%">
+          <StartedAnimation />
+        </Box>
         {/* <StartedAnimation /> */}
-        <Flex
+        {/* <Flex
           display="flex"
           direction="column"
           justify="center"
@@ -65,7 +68,6 @@ export default function Home() {
             fontWeight={800}
             fontSize={{ base: "25px", desktop: "30px" }}
           >
-            {/* Agregar gradient a letras (probar efecto) */}
             Find New Devs With
             <span style={{ color: "#159BFF", marginLeft: "6px" }}>
               Codeparty
@@ -118,7 +120,7 @@ export default function Home() {
               </>
             )}
           </VStack>
-        </Flex>
+        </Flex> */}
       </Flex>
     </>
   );
