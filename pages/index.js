@@ -49,7 +49,7 @@ export default function Home() {
         align="center"
         h="100vh"
       >
-        <StartedAnimation />
+        {/* <StartedAnimation /> */}
         <Flex
           display="flex"
           direction="column"
