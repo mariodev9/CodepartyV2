@@ -16,7 +16,7 @@ export default function Timeline() {
 
   return (
     <>
-      <Box p="0px 20px" mb="70px">
+      <Box p="10px 20px" mb="70px">
         <Text m="20px 0 15px 0" textAlign="center">
           Last Codes
         </Text>

@@ -8,10 +8,10 @@ import {
   Image,
   Avatar,
   FormControl,
+  Text,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { addCode, uploadImage } from "../../firebase/Client";
 import useUser from "../../hooks/useUser";
 import { Back, Photo } from "../Icons";
@@ -105,7 +105,7 @@ export default function CreateForm() {
               _focusVisible={{
                 boxShadow: "none",
               }}
-            ></Textarea>
+            />
             {/* component */}
 
             {img && (

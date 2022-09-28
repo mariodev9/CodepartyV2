@@ -162,6 +162,7 @@ export const uploadImage = (file, onChange) => {
     (error) => {},
     () => {
       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+        console.log(downloadURL, "TRA ELA URL?");
         onChange(downloadURL);
       });
     }

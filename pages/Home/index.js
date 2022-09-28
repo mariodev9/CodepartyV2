@@ -2,12 +2,14 @@ import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import Layout from "../../components/Layout";
 import Timeline from "../../components/Timeline";
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Text, useDisclosure } from "@chakra-ui/react";
 import Stories from "../../components/Stories";
 import TopNav from "../../components/Layout/TopNavbar";
 
 export default function Home() {
   const [session, onSession] = useState(true);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const router = useRouter();
 
   useEffect(() => {
@@ -29,7 +31,12 @@ export default function Home() {
             p="10px"
           >
             <Box>
-              <Text fontWeight="700" fontSize="20px" letterSpacing="1px">
+              <Text
+                fontWeight="700"
+                fontSize="20px"
+                letterSpacing="1px"
+                p="0px 10px"
+              >
                 Inicio
               </Text>
             </Box>

@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Button,
@@ -7,16 +8,35 @@ import {
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
+  Avatar,
+  FormLabel,
+  FormControl,
+  Textarea,
+  Input,
 } from "@chakra-ui/react";
-import React from "react";
-import { Logo, Home, User, Save } from "../../Icons";
-import { useRouter } from "next/router";
+import {
+  Logo,
+  Home,
+  User,
+  Save,
+  Settings,
+  Options,
+  Photo,
+  Back,
+} from "../../Icons";
 import Link from "next/link";
 import CreateForm from "../../Create/CreateForm";
+import { useRouter } from "next/router";
+import useUser from "../../../hooks/useUser";
+
+const COMPOSE_STATES = {
+  USER_NOT_KNOWN: 0,
+  LOADING: 1,
+  SUCCES: 2,
+  ERROR: -1,
+};
 
 const NavLink = [
   {
@@ -64,13 +84,40 @@ function BoxLink({ item }) {
 }
 
 export default function LeftNavbar() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const router = useRouter();
+
+  const user = useUser();
+
+  const handleRoute = () => {
+    router.push("/Create");
+  };
+
+  const [message, setMessage] = useState("");
+  const [status, setStatus] = useState(COMPOSE_STATES.USER_NOT_KNOWN);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setStatus(COMPOSE_STATES.LOADING);
+
+    addCode({
+      avatar: user.avatar,
+      content: message,
+      userId: user.userId,
+      userName: user.name,
+      img: img,
+    });
+
+    router.push("/Home");
+  };
+
+  const isButtonDisabled =
+    !message.length && (status || COMPOSE_STATES.LOADING);
 
   return (
     <>
       <Flex
         direction="column"
-        display={{ base: "none", desktop: "flex" }}
+        display={{ base: "none", tablet: "flex" }}
         w="23%"
         pt="30px"
         pl="50px"
@@ -90,23 +137,42 @@ export default function LeftNavbar() {
               borderRadius="20px"
               w="100%"
               mt="30px"
-              onClick={onOpen}
+              onClick={handleRoute}
             >
               Share
             </Button>
           </Flex>
+          <Flex
+            layerStyle="primaryBox"
+            h="150px"
+            mt="50px"
+            justify="center"
+            align="center"
+            direction="column"
+          >
+            <Flex layerStyle="tabletButton">
+              <Box display="flex" justifyContent="center" alignItems="center">
+                <Settings />
+              </Box>
+              <Text ml="10px" fontSize="20px" fontWeight={400}>
+                Settings
+              </Text>
+            </Flex>
+            <Flex
+              w="80%"
+              align="center"
+              justify="space-between"
+              layerStyle="tabletButton"
+            >
+              <Avatar src={""} size="xs" />
+              <Text fontSize="10px" fontWeight={300}>
+                Nombre usuario
+              </Text>
+              <Options />
+            </Flex>
+          </Flex>
         </Box>
       </Flex>
-
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent bg="black.50" pt="30px">
-          <ModalCloseButton />
-          <ModalBody>
-            <CreateForm />
-          </ModalBody>
-        </ModalContent>
-      </Modal>
     </>
   );
 }

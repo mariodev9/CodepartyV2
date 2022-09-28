@@ -10,10 +10,8 @@ export default function Layout({ children }) {
       <Flex w="100%">
         <LeftNavbar />
         <Box
-          w={{ base: "100%", desktop: "50%" }}
-          h={{ desktop: "100%" }}
-          borderLeft={{ base: "none", desktop: "1px" }}
-          borderColor="gray.100"
+          w={{ base: "100%", tablet: "65%", desktop: "50%" }}
+          h={{ desktop: "100vh" }}
         >
           {children}
           <MobileBottomNavbar />

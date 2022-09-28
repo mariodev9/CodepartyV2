@@ -76,6 +76,19 @@ export const theme = extendTheme({
       justifyContent: "space-around",
       alignItems: "center",
     },
+    tabletButton: {
+      pt: "5px",
+      align: "center",
+      p: "10px 16px",
+      borderRadius: "14px",
+      cursor: "pointer",
+      _hover: {
+        bg: "gray.100",
+        boxShadow: "0 5px 5px rgba(0, 0, 0, 0.1)",
+      },
+      mb: "10px",
+      w: "auto",
+    },
   },
   // COMPONENTES
   components: {

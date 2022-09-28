@@ -107,11 +107,7 @@ export default function Stories() {
               </Flex>
               {stories.map((item, key) => (
                 <Flex p={5} key={key} h="100px">
-                  <Avatar
-                    src={item.avatar}
-                    size="lg"
-                    border="2px solid #4DB0FA"
-                  />
+                  <Avatar src={item.avatar} size="lg" border="1px solid #333" />
                 </Flex>
               ))}
             </Slider>

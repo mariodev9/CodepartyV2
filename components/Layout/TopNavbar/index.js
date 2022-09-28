@@ -31,7 +31,7 @@ export default function TopNav() {
       <Flex
         align="center"
         justify="space-between"
-        display={{ base: "flex", desktop: "none" }}
+        display={{ base: "flex", tablet: "none" }}
         p="10px 20px"
       >
         <Avatar
