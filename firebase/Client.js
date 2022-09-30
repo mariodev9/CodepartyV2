@@ -140,6 +140,7 @@ const mapFromFirebaseToStoryObject = (doc) => {
   };
 };
 
+// export const uploadImage = (file, onChange, setPer) => {
 export const uploadImage = (file, onChange) => {
   const name = new Date().getTime() + file.name;
   const storageRef = ref(storage, file.name);
@@ -150,6 +151,7 @@ export const uploadImage = (file, onChange) => {
     (snapshot) => {
       const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       console.log("Upload is " + progress + "% done");
+      // setPer(progress);
       switch (snapshot.state) {
         case "paused":
           console.log("Upload is paused");
@@ -193,38 +195,66 @@ export const listenLatestStories = async (callback) => {
     const { docs } = querySnap;
     const newStories = docs.map(mapFromFirebaseToStoryObject);
 
-    // Funcion que agrupa historias por user
-    let allUserStories = [];
+    // Filter last 24hours stories
+    const last24HoursStories = newStories.filter(FilterLast24HourStories);
+    // Group Stories by userId
+    let allUserStories = groupStoriesByUser(last24HoursStories);
 
-    for (let i = 0; i < newStories.length; i++) {
-      let story = newStories[i];
-
-      let currentUserId;
-      let userStories = {};
-
-      if (currentUserId !== story.creatorId) {
-        currentUserId = story.creatorId;
-
-        userStories.creatorId = currentUserId;
-        userStories.avatar = story.avatar;
-
-        userStories.stories = newStories.filter(
-          (item) => item.creatorId === currentUserId
-        );
-
-        if (allUserStories.length === 0) {
-          allUserStories.push(userStories);
-        } else {
-          let result = allUserStories.filter(
-            (story) => story.creatorId !== userStories.creatorId
-          );
-          if (result.length === allUserStories.length) {
-            allUserStories.push(userStories);
-          }
-        }
-      }
-    }
-
+    // Save All stories in state
     callback(allUserStories);
   });
+};
+
+const FilterLast24HourStories = (item) => {
+  const today = new Date().getTime();
+  let diff = today - item.createdAt;
+  let diffHours = diff / (1000 * 60 * 60 * 24);
+
+  if (diffHours < 1) {
+    return item;
+  }
+};
+
+const groupStoriesByUser = (array) => {
+  let allUserStories = [];
+
+  for (let i = 0; i < array.length; i++) {
+    let story = array[i];
+
+    let currentUserId;
+    let userStories = {};
+
+    // userStories = {
+    //   userId: ""
+    //   userAvatar
+    //   Stories: [
+    //     story1
+    //     story2
+    //   ]
+    // }
+
+    if (currentUserId !== story.creatorId) {
+      currentUserId = story.creatorId;
+
+      userStories.creatorId = currentUserId;
+      userStories.avatar = story.avatar;
+      userStories.stories = array.filter(
+        (item) => item.creatorId === currentUserId
+      );
+
+      // Refactor ----
+      if (allUserStories.length === 0) {
+        allUserStories.push(userStories);
+      } else {
+        let result = allUserStories.filter(
+          (story) => story.creatorId !== userStories.creatorId
+        );
+        if (result.length === allUserStories.length) {
+          allUserStories.push(userStories);
+        }
+      }
+      // Refactor ----
+    }
+  }
+  return allUserStories;
 };

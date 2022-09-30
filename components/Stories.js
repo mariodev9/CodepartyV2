@@ -93,9 +93,8 @@ export default function Stories() {
                   >
                     <AvatarBadge
                       boxSize="1em"
-                      color="green"
-                      border="2px"
-                      bg="brand.100"
+                      border="0px"
+                      bg="black.50"
                       display="flex"
                       alignItems="center"
                       justifyContent="center"

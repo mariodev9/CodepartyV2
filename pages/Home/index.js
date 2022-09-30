@@ -2,9 +2,10 @@ import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import Layout from "../../components/Layout";
 import Timeline from "../../components/Timeline";
-import { Box, Text, useDisclosure } from "@chakra-ui/react";
+import { Box, Button, Text, useDisclosure } from "@chakra-ui/react";
 import Stories from "../../components/Stories";
 import TopNav from "../../components/Layout/TopNavbar";
+import { Timestamp } from "firebase/firestore";
 
 export default function Home() {
   const [session, onSession] = useState(true);

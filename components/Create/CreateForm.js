@@ -28,12 +28,14 @@ export default function CreateForm() {
   const [status, setStatus] = useState(COMPOSE_STATES.USER_NOT_KNOWN);
   const [file, setFile] = useState("");
   const [img, setImg] = useState("");
+  // const [percentage, setPer] = useState(null);
 
   const router = useRouter();
   const user = useUser();
 
   useEffect(() => {
     file && uploadImage(file, setImg);
+    // file && uploadImage(file, setImg, setPer);
   }, [file]);
 
   const handleChange = (event) => {
@@ -87,6 +89,7 @@ export default function CreateForm() {
         >
           Share
         </Button>
+        {/* <Text>{percentage}</Text> */}
       </Flex>
 
       <Flex>

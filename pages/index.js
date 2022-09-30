@@ -68,7 +68,7 @@ export default function Home() {
           h={{ base: "50%", desktop: "100vh" }}
           w="400px"
         >
-          <Box width="300px">
+          <Box width="290px">
             <Text
               textAlign="center"
               fontWeight={800}
@@ -95,7 +95,7 @@ export default function Home() {
             h={{ base: "140px", desktop: "200px" }}
             width="350px"
           >
-            {dev === undefined && <Spinner />}
+            {dev !== null && <Spinner />}
             {dev === null && (
               <>
                 <Center>
