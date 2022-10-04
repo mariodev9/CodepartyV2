@@ -24,7 +24,7 @@ export default function Home() {
 
   useEffect(() => {
     sessionChange(setDev);
-  }, []);
+  }, [dev]);
 
   useEffect(() => {
     dev && router.replace("/Home");

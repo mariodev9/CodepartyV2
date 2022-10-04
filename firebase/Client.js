@@ -43,7 +43,7 @@ const app = initializeApp(firebaseConfig);
 
 // const analytics = getAnalytics(app);
 const auth = getAuth();
-const firestore = getFirestore(app);
+export const firestore = getFirestore(app);
 const storage = getStorage(app);
 
 export const sessionChange = (onChange) => {
