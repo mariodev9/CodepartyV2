@@ -6,7 +6,11 @@ import { Add, Home, User } from "../../Icons";
 export default function MobileBottomNavbar() {
   return (
     <>
-      <Flex layerStyle="mobilenav" display={{ base: "flex", tablet: "none" }}>
+      <Flex
+        layerStyle="mobilenav"
+        display={{ base: "flex", tablet: "none" }}
+        zIndex={99}
+      >
         <Link href="/Home">
           <Box cursor="pointer">
             <Home fill={"#fff"} />
