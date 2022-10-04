@@ -1,7 +1,17 @@
-import { Avatar, Box, Flex, Image, Text } from "@chakra-ui/react";
+import {
+  Avatar,
+  Box,
+  Flex,
+  Image,
+  Text,
+  LinkBox,
+  LinkOverlay,
+} from "@chakra-ui/react";
+import { motion } from "framer-motion";
 import React from "react";
 import getTimeAgo from "../hooks/useTimeago";
 import { Like, Comment, Save } from "./Icons";
+import Link from "next/link";
 
 export default function Code({
   id,
@@ -14,6 +24,7 @@ export default function Code({
 }) {
   const timeago = getTimeAgo(createdAt);
 
+  const MotionBox = motion(Box);
   return (
     <>
       <Box
@@ -21,21 +32,31 @@ export default function Code({
         width="100%"
         padding="15px"
         margin="25px 0px"
+        cursor="pointer"
+        _hover={{ bgColor: "#2d2f30", transition: "0.5s" }}
       >
-        <Flex p={1}>
-          <Avatar size="sm" alt={userName} src={avatar} mr={3} />
-          <Box>
-            <Text fontSize="15px">{userName}</Text>
-            <Text fontWeight="400" fontSize="12px" color="gray">
-              {timeago}
-            </Text>
-          </Box>
-        </Flex>
-        <Flex direction="column">{content}</Flex>
+        <LinkBox>
+          <Flex p={1}>
+            <Avatar size="sm" alt={userName} src={avatar} mr={3} />
 
-        <Box width="100%" mt={5} w="100%" borderRadius="10px">
-          {img && <Image src={img} width="100%" borderRadius="10px" />}
-        </Box>
+            <Box>
+              <Link fontSize="15px" href="/Profile">
+                {userName}
+              </Link>
+              <Text fontWeight="400" fontSize="12px" color="gray">
+                {timeago}
+              </Text>
+            </Box>
+          </Flex>
+          <Link href="/Code">
+            <LinkOverlay>
+              <Flex direction="column">{content}</Flex>
+            </LinkOverlay>
+          </Link>
+          <Box width="100%" mt={5} w="100%" borderRadius="10px">
+            {img && <Image src={img} width="100%" borderRadius="10px" />}
+          </Box>
+        </LinkBox>
         <Flex mt={4}>
           <Like />
           <Comment />

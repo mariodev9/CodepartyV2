@@ -29,17 +29,25 @@ import useUser from "../hooks/useUser";
 import StorieBottom from "./Svg/StorieBottom";
 import { Add, Photo } from "./Icons";
 import { addStory, listenLatestStories, uploadImage } from "../firebase/Client";
+import Story from "./Story";
+
+const STORIES_STATE = {
+  NOT_KNOWN: undefined,
+};
 
 export default function Stories() {
-  const [stories, setStories] = useState([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const [stories, setStories] = useState(STORIES_STATE.NOT_KNOWN);
+  const [userStories, setUserStories] = useState(STORIES_STATE.NOT_KNOWN);
   const [img, setImg] = useState("");
   const [file, setFile] = useState("");
+
   const user = useUser();
 
   useEffect(() => {
     if (user) {
-      listenLatestStories(setStories);
+      listenLatestStories(setStories, setUserStories, user.userId);
     }
   }, [user]);
 
@@ -67,7 +75,7 @@ export default function Stories() {
   return (
     <>
       <Box p="15px 0px">
-        {stories.length === 0 ? (
+        {stories === STORIES_STATE.NOT_KNOWN ? (
           <Flex h="100px" p={5} justify="center">
             <Spinner />
           </Flex>
@@ -75,38 +83,50 @@ export default function Stories() {
           <>
             <Slider {...settings}>
               <Flex p={5}>
-                <Input
-                  type="file"
-                  name="Add photo"
-                  id="file-input"
-                  onChange={(e) => {
-                    setFile(e.target.files[0]);
-                  }}
-                  display="none"
-                />
-                <FormLabel htmlFor="file-input" cursor="pointer">
-                  <Avatar
-                    src={""}
-                    size="lg"
-                    border="2px solid #4DB0FA"
-                    onClick={onOpen}
-                  >
-                    <AvatarBadge
-                      boxSize="1em"
-                      border="0px"
-                      bg="black.50"
-                      display="flex"
-                      alignItems="center"
-                      justifyContent="center"
-                    >
-                      <Add />
-                    </AvatarBadge>
-                  </Avatar>
-                </FormLabel>
+                {userStories.length !== 0 ? (
+                  <>
+                    <Story
+                      avatar={userStories[0].avatar}
+                      stories={userStories[0].stories}
+                    />
+                  </>
+                ) : (
+                  <>
+                    <Input
+                      type="file"
+                      name="Add photo"
+                      id="file-input"
+                      onChange={(e) => {
+                        setFile(e.target.files[0]);
+                      }}
+                      display="none"
+                    />
+                    <FormLabel htmlFor="file-input" cursor="pointer">
+                      <Avatar
+                        src={user.avatar}
+                        size="lg"
+                        border="2px solid #4DB0FA"
+                        onClick={onOpen}
+                      >
+                        <AvatarBadge
+                          boxSize="1em"
+                          border="0px"
+                          bg="black.50"
+                          display="flex"
+                          alignItems="center"
+                          justifyContent="center"
+                        >
+                          <Add />
+                        </AvatarBadge>
+                      </Avatar>
+                    </FormLabel>
+                  </>
+                )}
               </Flex>
+
               {stories.map((item, key) => (
                 <Flex p={5} key={key} h="100px">
-                  <Avatar src={item.avatar} size="lg" border="1px solid #333" />
+                  <Story avatar={item.avatar} stories={item.stories} />
                 </Flex>
               ))}
             </Slider>

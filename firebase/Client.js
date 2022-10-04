@@ -185,7 +185,11 @@ export const addStory = ({ creatorId, avatar, userName, img }) => {
   }
 };
 
-export const listenLatestStories = async (callback) => {
+export const listenLatestStories = async (
+  saveAllStories,
+  saveUserStories,
+  userId
+) => {
   const q = query(
     collection(firestore, "stories"),
     orderBy("createdAt", "desc")
@@ -196,16 +200,28 @@ export const listenLatestStories = async (callback) => {
     const newStories = docs.map(mapFromFirebaseToStoryObject);
 
     // Filter last 24hours stories
-    const last24HoursStories = newStories.filter(FilterLast24HourStories);
-    // Group Stories by userId
-    let allUserStories = groupStoriesByUser(last24HoursStories);
+    const last24HoursStories = newStories.filter(Last24Hour);
 
-    // Save All stories in state
-    callback(allUserStories);
+    // Group Stories by userId
+    let allStories = groupStoriesByUser(last24HoursStories);
+
+    // Filter Stories from User
+    let onlyUserStories = allStories.filter(
+      (story) => story.creatorId === userId
+    );
+
+    // Filter Stories others users
+    let allOtherStories = allStories.filter(
+      (story) => story.creatorId !== userId
+    );
+
+    // Save Stories in state
+    saveUserStories(onlyUserStories);
+    saveAllStories(allOtherStories);
   });
 };
 
-const FilterLast24HourStories = (item) => {
+const Last24Hour = (item) => {
   const today = new Date().getTime();
   let diff = today - item.createdAt;
   let diffHours = diff / (1000 * 60 * 60 * 24);
@@ -216,6 +232,27 @@ const FilterLast24HourStories = (item) => {
 };
 
 const groupStoriesByUser = (array) => {
+  // Esta funcion agrupa las historias por usuario en un objeto asi
+
+  // userStories = [
+  // {
+  //   userId: "1"
+  //   userAvatar: "1"
+  //   Stories: [
+  //     story1
+  //     story2
+  //   ],
+  // },
+  //  {
+  //   userId: "2"
+  //   userAvatar: "2"
+  //   Stories: [
+  //     story1
+  //     story2
+  //   ],
+  // },
+  // ]
+
   let allUserStories = [];
 
   for (let i = 0; i < array.length; i++) {
@@ -223,15 +260,6 @@ const groupStoriesByUser = (array) => {
 
     let currentUserId;
     let userStories = {};
-
-    // userStories = {
-    //   userId: ""
-    //   userAvatar
-    //   Stories: [
-    //     story1
-    //     story2
-    //   ]
-    // }
 
     if (currentUserId !== story.creatorId) {
       currentUserId = story.creatorId;

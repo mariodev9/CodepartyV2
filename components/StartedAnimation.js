@@ -62,8 +62,6 @@ const LogoBox = ({ children }) => {
 };
 
 export default function StartedAnimation() {
-  const MotionBox = motion(Box);
-
   return (
     <>
       <Stack
