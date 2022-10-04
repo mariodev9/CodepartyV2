@@ -39,7 +39,6 @@ export default function Home() {
                 p="0px 10px"
               >
                 Inicio
-                {process.env.NEXT_PUBLIC_URL_API}
               </Text>
             </Box>
           </Box>
