@@ -32,8 +32,8 @@ export default function CodePage({ id }) {
   const user = useUser();
 
   useEffect(() => {
-    console.log(`http://${process.env.NEXT_PUBLIC_URL_API}/api/codes/${id}`);
-    fetch(`http://${process.env.NEXT_PUBLIC_URL_API}/api/codes/${id}`)
+    console.log(`https://codeparty-v2.vercel.app/api/codes/${id}`);
+    fetch(`${process.env.NEXT_PUBLIC_URL_API}/${id}`)
       .then((response) => response.json())
       .then((data) => setData(data))
       .catch((error) => console.log(error));
