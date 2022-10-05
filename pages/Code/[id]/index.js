@@ -15,7 +15,7 @@ import Layout from "../../../components/Layout";
 import SectionBar from "../../../components/SectionBar";
 import { Like, Save } from "../../../components/Icons";
 import useUser from "../../../hooks/useUser";
-import CommentForm from "../../../components/Comments/commentForm";
+import CommentForm from "../../../components/Comments/CommentForm";
 
 export default function CodePage({ codeId }) {
   const [data, setData] = useState(null);
