@@ -11,6 +11,7 @@ import {
   Avatar,
   Icon,
   Box,
+  Switch,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { logOut } from "../../../firebase/Client";
@@ -41,7 +42,7 @@ export default function TopNav() {
           cursor="pointer"
         />
         <Logo />
-        <Box>theme</Box>
+        <Switch colorScheme="blue" />
       </Flex>
 
       <Drawer placement={"left"} onClose={onClose} isOpen={isOpen}>

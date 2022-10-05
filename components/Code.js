@@ -7,11 +7,11 @@ import {
   LinkBox,
   LinkOverlay,
 } from "@chakra-ui/react";
-import { motion } from "framer-motion";
 import React from "react";
 import getTimeAgo from "../hooks/useTimeago";
 import { Like, Comment, Save } from "./Icons";
 import Link from "next/link";
+import useTimeAgo from "../hooks/useTimeago";
 
 export default function Code({
   id,
@@ -22,9 +22,8 @@ export default function Code({
   createdAt,
   userId,
 }) {
-  const timeago = getTimeAgo(createdAt);
+  const timeago = useTimeAgo(createdAt);
 
-  const MotionBox = motion(Box);
   return (
     <>
       <Box
@@ -48,7 +47,7 @@ export default function Code({
               </Text>
             </Box>
           </Flex>
-          <Link href="/Code">
+          <Link href={`/Code/${id}`}>
             <LinkOverlay>
               <Flex direction="column">{content}</Flex>
             </LinkOverlay>

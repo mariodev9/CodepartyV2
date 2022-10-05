@@ -46,6 +46,8 @@ const auth = getAuth();
 export const firestore = getFirestore(app);
 const storage = getStorage(app);
 
+// USER -------------------------
+
 export const sessionChange = (onChange) => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -89,6 +91,8 @@ export const logOut = () => {
     });
 };
 
+// CODES --------------------------
+
 export const addCode = ({ avatar, content, userId, userName, img }) => {
   try {
     const docRef = addDoc(collection(firestore, "codes"), {
@@ -128,6 +132,8 @@ const mapFromFirebaseToCodeObject = (doc) => {
   };
 };
 
+// STORIES -----------------------------------------
+
 const mapFromFirebaseToStoryObject = (doc) => {
   const data = doc.data();
   const id = doc.id;
@@ -140,7 +146,6 @@ const mapFromFirebaseToStoryObject = (doc) => {
   };
 };
 
-// export const uploadImage = (file, onChange, setPer) => {
 export const uploadImage = (file, onChange) => {
   const name = new Date().getTime() + file.name;
   const storageRef = ref(storage, file.name);
@@ -285,4 +290,18 @@ const groupStoriesByUser = (array) => {
     }
   }
   return allUserStories;
+};
+
+// COMENTARIOS -----------
+export const addComment = ({ id, avatar, content, userId, userName }) => {
+  try {
+    const docRef = addDoc(collection(firestore, "codes", `${id}`, "comments"), {
+      avatar,
+      content,
+      userId,
+      userName,
+    });
+  } catch (error) {
+    console.error("Error adding document: ", error);
+  }
 };

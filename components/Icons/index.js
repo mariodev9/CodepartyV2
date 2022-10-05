@@ -21,22 +21,26 @@ export const Add = () => {
   );
 };
 
-export const Back = () => {
+export const Back = (props) => {
   return (
     <svg
+      height="21"
+      viewBox="0 0 21 21"
+      width="21"
       xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="20"
-      viewBox="0 0 24 20"
-      fill="none"
+      {...props}
     >
-      <path
-        d="M6.75004 12.4167L1.08337 6.75001M1.08337 6.75001L6.75004 1.08334M1.08337 6.75001H16.6667C18.1696 6.75001 19.6109 7.34703 20.6736 8.40974C21.7364 9.47244 22.3334 10.9138 22.3334 12.4167C22.3334 13.9196 21.7364 15.3609 20.6736 16.4236C19.6109 17.4863 18.1696 18.0833 16.6667 18.0833H15.25"
-        stroke="white"
-        strokeWidth="2"
+      <g
+        fill="none"
+        fillRule="evenodd"
+        stroke="currentColor"
         strokeLinecap="round"
         strokeLinejoin="round"
-      />
+        transform="translate(4.5 6.5)"
+      >
+        <path d="m11 8v-2c0-1.65685425-1.34314575-3-3-3h-8" />
+        <path d="m3 6-3.001-3 3.001-3" />
+      </g>
     </svg>
   );
 };
@@ -50,10 +54,10 @@ export const Comment = () => {
       viewBox="0 0 18 18"
       fill="none"
       marginRight={3}
+      stroke="gray.50"
     >
       <path
         d="M9 9V9.0075M6 9V9.0075M12 9V9.0075M2.25 15.0001L3.225 12.0751C2.38233 10.8288 2.0775 9.35287 2.36716 7.92179C2.65683 6.4907 3.5213 5.20181 4.79983 4.29476C6.07835 3.38772 7.68394 2.92423 9.31807 2.99049C10.9522 3.05675 12.5036 3.64823 13.684 4.65498C14.8643 5.66172 15.5932 7.01522 15.735 8.4638C15.8769 9.91238 15.4222 11.3575 14.4554 12.5304C13.4886 13.7033 12.0755 14.5243 10.4788 14.8406C8.8822 15.1569 7.21065 14.947 5.775 14.2501L2.25 15.0001Z"
-        stroke="white"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
@@ -63,7 +67,7 @@ export const Comment = () => {
 
 export const Home = ({ fill }) => {
   return (
-    <svg
+    <Icon
       height="21"
       viewBox="0 0 21 21"
       width="21"
@@ -80,11 +84,11 @@ export const Home = ({ fill }) => {
         <path d="m.5 9.5 9-9 9 9" />
         <path d="m2.5 7.5v7c0 1.1045695.8954305 2 2 2h10c1.1045695 0 2-.8954305 2-2v-7" />
       </g>
-    </svg>
+    </Icon>
   );
 };
 
-export const Like = () => {
+export const Like = (props) => {
   return (
     <Icon
       width="21"
@@ -92,10 +96,11 @@ export const Like = () => {
       viewBox="0 0 18 18"
       fill="none"
       marginRight={3}
+      {...props}
+      stroke="gray.50"
     >
       <path
         d="M5.25 8.25V14.25C5.25 14.4489 5.17098 14.6397 5.03033 14.7803C4.88968 14.921 4.69891 15 4.5 15H3C2.80109 15 2.61032 14.921 2.46967 14.7803C2.32902 14.6397 2.25 14.4489 2.25 14.25V9C2.25 8.80109 2.32902 8.61032 2.46967 8.46967C2.61032 8.32902 2.80109 8.25 3 8.25H5.25ZM5.25 8.25C6.04565 8.25 6.80871 7.93393 7.37132 7.37132C7.93393 6.80871 8.25 6.04565 8.25 5.25V4.5C8.25 4.10218 8.40804 3.72064 8.68934 3.43934C8.97064 3.15804 9.35218 3 9.75 3C10.1478 3 10.5294 3.15804 10.8107 3.43934C11.092 3.72064 11.25 4.10218 11.25 4.5V8.25H13.5C13.8978 8.25 14.2794 8.40804 14.5607 8.68934C14.842 8.97064 15 9.35218 15 9.75L14.25 13.5C14.1421 13.9601 13.9375 14.3552 13.667 14.6257C13.3964 14.8963 13.0746 15.0276 12.75 15H7.5C6.90326 15 6.33097 14.7629 5.90901 14.341C5.48705 13.919 5.25 13.3467 5.25 12.75"
-        stroke="white"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
@@ -103,14 +108,15 @@ export const Like = () => {
   );
 };
 
-export const Save = () => {
+export const Save = (props) => {
   return (
     <svg
       fill="none"
       viewBox="0 0 25 25"
       strokeWidth={1.5}
-      stroke="currentColor"
+      stroke="white"
       width="21"
+      {...props}
     >
       <path
         strokeLinecap="round"
@@ -121,9 +127,9 @@ export const Save = () => {
   );
 };
 
-export const Logo = () => {
+export const Logo = (props) => {
   return (
-    <svg
+    <Icon
       xmlns="http://www.w3.org/2000/svg"
       width="35"
       height="33"
@@ -154,13 +160,13 @@ export const Logo = () => {
         d="M31 40V44C48 44 35 24 46 24V20C35 20 48 0 31 0V4C41 4 31 22 41 22C31 22 41 40 31 40Z"
         fill="#4DB0FA"
       />
-    </svg>
+    </Icon>
   );
 };
 
-export const Photo = () => {
+export const Photo = (props) => {
   return (
-    <svg
+    <Icon
       xmlns="http://www.w3.org/2000/svg"
       width="18"
       height="18"
@@ -174,7 +180,7 @@ export const Photo = () => {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-    </svg>
+    </Icon>
   );
 };
 

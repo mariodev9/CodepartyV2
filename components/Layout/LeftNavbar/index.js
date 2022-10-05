@@ -15,6 +15,10 @@ import {
   FormControl,
   Textarea,
   Input,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  Menu,
 } from "@chakra-ui/react";
 import {
   Logo,
@@ -158,18 +162,17 @@ export default function LeftNavbar() {
                 Settings
               </Text>
             </Flex>
-            <Flex
-              w="80%"
-              align="center"
-              justify="space-between"
-              layerStyle="tabletButton"
-            >
-              <Avatar src={""} size="xs" />
-              <Text fontSize="10px" fontWeight={300}>
-                Nombre usuario
-              </Text>
-              <Options />
-            </Flex>
+            <Menu>
+              <MenuButton as={Flex} layerStyle="tabletButton" w="60%">
+                <Flex align="center" justify="space-between">
+                  <Avatar mr="10px" src={user?.avatar} size="xs" />
+                  <Options />
+                </Flex>
+              </MenuButton>
+              <MenuList>
+                <MenuItem>Cerrar sesion</MenuItem>
+              </MenuList>
+            </Menu>
           </Flex>
         </Box>
       </Flex>

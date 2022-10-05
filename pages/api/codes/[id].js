@@ -9,8 +9,13 @@ export default async (request, response) => {
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {
-    let data = docSnap.data();
-    response.status(200).json(data);
+    const data = docSnap.data();
+    const id = docSnap.id;
+
+    response.status(200).json({
+      ...data,
+      id,
+    });
   } else {
     // doc.data() will be undefined in this case
     response.status(404).json({ message: `No existe` });
