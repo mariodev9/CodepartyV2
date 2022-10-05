@@ -293,14 +293,17 @@ const groupStoriesByUser = (array) => {
 };
 
 // COMENTARIOS -----------
-export const addComment = ({ id, avatar, content, userId, userName }) => {
+export const addComment = ({ codeId, avatar, content, userId, userName }) => {
   try {
-    const docRef = addDoc(collection(firestore, "codes", `${id}`, "comments"), {
-      avatar,
-      content,
-      userId,
-      userName,
-    });
+    const docRef = addDoc(
+      collection(firestore, "codes", `${codeId}`, "comments"),
+      {
+        avatar,
+        content,
+        userId,
+        userName,
+      }
+    );
   } catch (error) {
     console.error("Error adding document: ", error);
   }

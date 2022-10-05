@@ -15,52 +15,18 @@ import Layout from "../../../components/Layout";
 import SectionBar from "../../../components/SectionBar";
 import { Like, Save } from "../../../components/Icons";
 import useUser from "../../../hooks/useUser";
-import { addComment } from "../../../firebase/Client";
+import CommentForm from "../../../components/Comments/commentForm";
 
-const COMPOSE_STATES = {
-  USER_NOT_KNOWN: 0,
-  LOADING: 1,
-  SUCCES: 2,
-  ERROR: -1,
-};
-
-export default function CodePage({ id }) {
+export default function CodePage({ codeId }) {
   const [data, setData] = useState(null);
-  const [comment, setComment] = useState("");
-  const [status, setStatus] = useState(COMPOSE_STATES.USER_NOT_KNOWN);
-
   const user = useUser();
 
   useEffect(() => {
-    console.log(`https://codeparty-v2.vercel.app/api/codes/${id}`);
-    fetch(`${process.env.NEXT_PUBLIC_URL_API}/${id}`)
+    fetch(`${process.env.NEXT_PUBLIC_URL_API}${codeId}`)
       .then((response) => response.json())
       .then((data) => setData(data))
       .catch((error) => console.log(error));
   }, []);
-
-  const handleChange = (event) => {
-    const { value } = event.target;
-    setComment(value);
-    console.log(value);
-  };
-
-  const handleClick = () => {
-    setStatus(COMPOSE_STATES.LOADING);
-
-    addComment({
-      id,
-      avatar: user.avatar,
-      content: comment,
-      userId: user.userId,
-      userName: user.name,
-    });
-    setComment("");
-    setStatus(COMPOSE_STATES.SUCCES);
-  };
-
-  const isButtonDisabled =
-    !comment.length && (status || COMPOSE_STATES.LOADING);
 
   return (
     <Layout>
@@ -89,21 +55,12 @@ export default function CodePage({ id }) {
             </Flex>
           </Flex>
           <Divider />
-          <HStack p="15px 5px">
-            <Avatar src={user?.avatar} />
-            <Input
-              placeholder="Escribe un comentario"
-              onChange={handleChange}
-              value={comment}
-            />
-            <Button
-              variant="primary"
-              onClick={handleClick}
-              disabled={isButtonDisabled}
-            >
-              Comentar
-            </Button>
-          </HStack>
+          <CommentForm
+            codeId={codeId}
+            avatar={user.avatar}
+            userName={user.name}
+            userId={user.userId}
+          />
         </Box>
       )}
     </Layout>
@@ -114,5 +71,5 @@ export async function getServerSideProps(context) {
   const { params, res } = context;
   const { id } = params;
 
-  return { props: { id: id } };
+  return { props: { codeId: id } };
 }
