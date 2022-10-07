@@ -16,7 +16,6 @@ export default function CommentForm({ codeId, avatar, userName, userId }) {
   const handleChange = (event) => {
     const { value } = event.target;
     setComment(value);
-    console.log(value);
   };
 
   const handleClick = () => {

@@ -13,10 +13,11 @@ export default function RightNavbar() {
           borderLeft="1px"
           borderColor="gray.100"
           position="fixed"
-          w="100%"
+          w="27%"
           h="100vh"
+          p="25px"
         >
-          asd
+          <Box border={"1px"} borderRadius="10px" h="100px"></Box>
         </Box>
       </Flex>
     </>

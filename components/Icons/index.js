@@ -1,5 +1,5 @@
 import React from "react";
-import { Icon } from "@chakra-ui/react";
+import { Box, Icon } from "@chakra-ui/react";
 
 export const Add = () => {
   return (
@@ -49,8 +49,8 @@ export const Comment = () => {
   return (
     <Icon
       xmlns="http://www.w3.org/2000/svg"
-      width="21"
-      height="21"
+      width="25"
+      height="25"
       viewBox="0 0 18 18"
       fill="none"
       marginRight={3}
@@ -91,8 +91,8 @@ export const Home = ({ fill }) => {
 export const Like = (props) => {
   return (
     <Icon
-      width="21"
-      height="21"
+      width="25"
+      height="25"
       viewBox="0 0 18 18"
       fill="none"
       marginRight={3}
@@ -110,20 +110,23 @@ export const Like = (props) => {
 
 export const Save = (props) => {
   return (
-    <svg
-      fill="none"
-      viewBox="0 0 25 25"
-      strokeWidth={1.5}
-      stroke="white"
-      width="21"
-      {...props}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z"
-      />
-    </svg>
+    <Box fill="gray.50" _hover={{ color: "white", fill: "white" }}>
+      <Icon
+        height="25"
+        viewBox="0 0 21 21"
+        width="25"
+        xmlns="http://www.w3.org/2000/svg"
+        color="currentColor"
+        {...props}
+      >
+        <path
+          d="m1.5.5h6c.55228475 0 1 .44771525 1 1v12l-4-4-4 4v-12c0-.55228475.44771525-1 1-1z"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          transform="translate(6 4)"
+        />
+      </Icon>
+    </Box>
   );
 };
 

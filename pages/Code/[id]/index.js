@@ -10,15 +10,21 @@ import {
   Button,
   HStack,
   Divider,
+  Spinner,
 } from "@chakra-ui/react";
 import Layout from "../../../components/Layout";
 import SectionBar from "../../../components/SectionBar";
 import { Like, Save } from "../../../components/Icons";
 import useUser from "../../../hooks/useUser";
 import CommentForm from "../../../components/Comments/CommentForm";
+import CommentsList from "../../../components/Comments/CommentsList";
+import Comment from "../../../components/Comments/Comment";
+import { listenLatestComments } from "../../../firebase/Client";
 
 export default function CodePage({ codeId }) {
   const [data, setData] = useState(null);
+  const [comments, setComments] = useState(null);
+
   const user = useUser();
 
   useEffect(() => {
@@ -28,11 +34,17 @@ export default function CodePage({ codeId }) {
       .catch((error) => console.log(error));
   }, []);
 
+  useEffect(() => {
+    listenLatestComments(setComments, codeId);
+  }, []);
+
   return (
     <Layout>
       <SectionBar text={"Code"} back />
       {!data ? (
-        <Text>Loading...</Text>
+        <Flex justify="center" align="center" h="50vh">
+          <Spinner />
+        </Flex>
       ) : (
         <Box p="15px">
           <Flex align="center">
@@ -40,15 +52,24 @@ export default function CodePage({ codeId }) {
             <Text ml="10px">{data.userName}</Text>
           </Flex>
           <Box p="15px 0px">
-            <Text pb="10px">{data.content}</Text>
+            <Text pb="10px" fontWeight={"normal"} fontSize="20px">
+              {data.content}
+            </Text>
             {data.img && <Image src={data.img} borderRadius="10px" />}
           </Box>
-          <Divider colorScheme="gray.100" color="gray.100" />
 
           <Flex p="15px 5px" justify="space-evenly">
-            <Flex align="center">
-              <Like width="30px" height="30px" stroke="gray.100" />
-              <Text color="gray.50">140 Me gusta</Text>
+            <Flex>
+              <Text color="white">140 </Text>
+              <Text color="gray.50" ml="5px" fontWeight={"normal"}>
+                Me gusta
+              </Text>
+            </Flex>
+            <Flex>
+              <Text color="white">{comments?.length}</Text>
+              <Text color="gray.50" ml="5px" fontWeight={"normal"}>
+                Comentarios
+              </Text>
             </Flex>
             <Flex>
               <Save width="30px" height="30px" />
@@ -57,10 +78,28 @@ export default function CodePage({ codeId }) {
           <Divider />
           <CommentForm
             codeId={codeId}
-            avatar={user.avatar}
-            userName={user.name}
-            userId={user.userId}
+            avatar={user?.avatar}
+            userName={user?.name}
+            userId={user?.userId}
           />
+          {/* LIST */}
+          <Box>
+            {!comments ? (
+              <Flex justify="center" align="center" h="50vh">
+                <Spinner />
+              </Flex>
+            ) : (
+              comments.map((comment) => (
+                <Comment
+                  key={comment.id}
+                  avatar={comment.avatar}
+                  content={comment.content}
+                  userName={comment.userName}
+                  createdAt={comment.createdAt}
+                />
+              ))
+            )}
+          </Box>
         </Box>
       )}
     </Layout>

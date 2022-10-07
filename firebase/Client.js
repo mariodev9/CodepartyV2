@@ -302,9 +302,31 @@ export const addComment = ({ codeId, avatar, content, userId, userName }) => {
         content,
         userId,
         userName,
+        createdAt: Timestamp.fromDate(new Date()),
       }
     );
   } catch (error) {
     console.error("Error adding document: ", error);
   }
+};
+
+export const listenLatestComments = async (callback, codeId) => {
+  const q = query(collection(firestore, "codes", `${codeId}`, "comments"));
+  const querySnap = await getDocs(q);
+  onSnapshot(q, (querySnap) => {
+    const { docs } = querySnap;
+    const allComments = docs.map(mapFromFirebaseToCommentObject);
+    callback(allComments);
+  });
+};
+
+const mapFromFirebaseToCommentObject = (doc) => {
+  const data = doc.data();
+  const id = doc.id;
+  const { createdAt } = data;
+  return {
+    ...data,
+    id,
+    createdAt: +createdAt.toDate(),
+  };
 };

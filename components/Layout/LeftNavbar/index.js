@@ -123,10 +123,8 @@ export default function LeftNavbar() {
         direction="column"
         display={{ base: "none", tablet: "flex" }}
         w="23%"
-        pt="30px"
-        pl="50px"
       >
-        <Box position="fixed" width="15%">
+        <Box position="fixed" w="23%" pt="30px" pl="50px">
           <Box mb="20px" p="0px 10px">
             <Logo />
           </Box>
