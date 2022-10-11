@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Icon } from "@chakra-ui/react";
+import { Box, Flex, Icon } from "@chakra-ui/react";
 
 export const Add = () => {
   return (
@@ -88,36 +88,50 @@ export const Home = ({ fill }) => {
   );
 };
 
-export const Like = (props) => {
+export const Like = ({ isLiked }) => {
   return (
-    <Icon
-      width="25"
-      height="25"
-      viewBox="0 0 18 18"
-      fill="none"
-      marginRight={3}
-      {...props}
-      stroke="gray.50"
+    <Flex
+      align="center"
+      justify="center"
+      width="35px"
+      h="35px"
+      borderRadius={"full"}
+      _hover={{
+        bg: "#fdff946e",
+        transition: "0.3s",
+        color: "#ffd91e",
+      }}
     >
-      <path
-        d="M5.25 8.25V14.25C5.25 14.4489 5.17098 14.6397 5.03033 14.7803C4.88968 14.921 4.69891 15 4.5 15H3C2.80109 15 2.61032 14.921 2.46967 14.7803C2.32902 14.6397 2.25 14.4489 2.25 14.25V9C2.25 8.80109 2.32902 8.61032 2.46967 8.46967C2.61032 8.32902 2.80109 8.25 3 8.25H5.25ZM5.25 8.25C6.04565 8.25 6.80871 7.93393 7.37132 7.37132C7.93393 6.80871 8.25 6.04565 8.25 5.25V4.5C8.25 4.10218 8.40804 3.72064 8.68934 3.43934C8.97064 3.15804 9.35218 3 9.75 3C10.1478 3 10.5294 3.15804 10.8107 3.43934C11.092 3.72064 11.25 4.10218 11.25 4.5V8.25H13.5C13.8978 8.25 14.2794 8.40804 14.5607 8.68934C14.842 8.97064 15 9.35218 15 9.75L14.25 13.5C14.1421 13.9601 13.9375 14.3552 13.667 14.6257C13.3964 14.8963 13.0746 15.0276 12.75 15H7.5C6.90326 15 6.33097 14.7629 5.90901 14.341C5.48705 13.919 5.25 13.3467 5.25 12.75"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </Icon>
+      <Icon
+        width="25"
+        height="25"
+        viewBox="0 0 21 21"
+        xmlns="http://www.w3.org/2000/svg"
+        fill={isLiked ? "#faff5b" : "none"}
+        stroke={isLiked ? "#fbe03c" : "currentColor"}
+      >
+        <path
+          d="m7.5 11.5-5 3 2-5.131-4-3.869h5l2-5 2 5h5l-4 4 2 5z"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          transform="translate(3 3)"
+        />
+      </Icon>
+    </Flex>
   );
 };
 
-export const Save = (props) => {
+export const Save = ({ isSave, width, height }) => {
   return (
-    <Box fill="gray.50" _hover={{ color: "white", fill: "white" }}>
+    <Box _hover={{ color: "gray.50", fill: "white" }}>
       <Icon
-        height="25"
+        height={height}
         viewBox="0 0 21 21"
-        width="25"
+        width={width}
         xmlns="http://www.w3.org/2000/svg"
-        color="currentColor"
-        {...props}
+        strokeWidth="1px"
+        fill={isSave ? "white" : "black.50"}
+        stroke="currentColor"
       >
         <path
           d="m1.5.5h6c.55228475 0 1 .44771525 1 1v12l-4-4-4 4v-12c0-.55228475.44771525-1 1-1z"

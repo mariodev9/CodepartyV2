@@ -19,6 +19,9 @@ import {
   doc,
   orderBy,
   onSnapshot,
+  deleteDoc,
+  where,
+  getDoc,
 } from "firebase/firestore";
 
 import {
@@ -93,17 +96,17 @@ export const logOut = () => {
 
 // CODES --------------------------
 
-export const addCode = ({ avatar, content, userId, userName, img }) => {
+export const addCode = ({ avatar, content, creatorId, userName, img }) => {
   try {
     const docRef = addDoc(collection(firestore, "codes"), {
       avatar,
       content,
-      userId,
+      creatorId,
       userName,
       img,
       createdAt: Timestamp.fromDate(new Date()),
-      likesCount: 0,
-      sharedCount: 0,
+      // likesCount: 0,
+      // sharedCount: 0,
     });
   } catch (error) {
     console.error("Error adding document: ", error);
@@ -329,4 +332,44 @@ const mapFromFirebaseToCommentObject = (doc) => {
     id,
     createdAt: +createdAt.toDate(),
   };
+};
+
+// INTERACTIONS
+
+export const savePublication = async (codeId, userOnSession) => {
+  try {
+    await setDoc(
+      doc(firestore, "codes", `${codeId}`, "saves", `${userOnSession}`),
+      {}
+    );
+  } catch (error) {
+    console.error("Error adding document: ", error);
+  }
+};
+
+export const unsavedPublication = async (codeId, userOnSession) => {
+  await deleteDoc(
+    doc(firestore, "codes", `${codeId}`, "saves", `${userOnSession}`)
+  );
+};
+
+export const setIfPublicationIsSave = async (
+  codeId,
+  userOnSession,
+  callback
+) => {
+  const saveRef = doc(
+    firestore,
+    "codes",
+    `${codeId}`,
+    "saves",
+    `${userOnSession}`
+  );
+  const docSnap = await getDoc(saveRef);
+
+  if (docSnap.exists()) {
+    callback(true);
+  } else {
+    callback(false);
+  }
 };

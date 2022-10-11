@@ -1,61 +1,34 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   Box,
   Button,
   Flex,
   Text,
-  useDisclosure,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalBody,
-  ModalCloseButton,
   Avatar,
-  FormLabel,
-  FormControl,
-  Textarea,
-  Input,
   MenuButton,
   MenuList,
   MenuItem,
   Menu,
 } from "@chakra-ui/react";
-import {
-  Logo,
-  Home,
-  User,
-  Save,
-  Settings,
-  Options,
-  Photo,
-  Back,
-} from "../../Icons";
+import { Logo, Home, User, Save, Settings, Options } from "../../Icons";
 import Link from "next/link";
-import CreateForm from "../../Create/CreateForm";
 import { useRouter } from "next/router";
 import useUser from "../../../hooks/useUser";
 
-const COMPOSE_STATES = {
-  USER_NOT_KNOWN: 0,
-  LOADING: 1,
-  SUCCES: 2,
-  ERROR: -1,
-};
-
 const NavLink = [
   {
-    name: "Home",
+    name: "Inicio",
     link: "/Home",
     icon: <Home fill={"none"} />,
   },
   {
-    name: "Save",
+    name: "Guardados",
     link: "/Saves",
 
     icon: <Save />,
   },
   {
-    name: "Profile",
+    name: "Perfil",
     link: "/Profile",
     icon: <User fill={"none"} />,
   },
@@ -96,27 +69,6 @@ export default function LeftNavbar() {
     router.push("/Create");
   };
 
-  const [message, setMessage] = useState("");
-  const [status, setStatus] = useState(COMPOSE_STATES.USER_NOT_KNOWN);
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setStatus(COMPOSE_STATES.LOADING);
-
-    addCode({
-      avatar: user.avatar,
-      content: message,
-      userId: user.userId,
-      userName: user.name,
-      img: img,
-    });
-
-    router.push("/Home");
-  };
-
-  const isButtonDisabled =
-    !message.length && (status || COMPOSE_STATES.LOADING);
-
   return (
     <>
       <Flex
@@ -141,7 +93,7 @@ export default function LeftNavbar() {
               mt="30px"
               onClick={handleRoute}
             >
-              Share
+              Compartí
             </Button>
           </Flex>
           <Flex
@@ -157,7 +109,7 @@ export default function LeftNavbar() {
                 <Settings />
               </Box>
               <Text ml="10px" fontSize="20px" fontWeight={400}>
-                Settings
+                Configuracion
               </Text>
             </Flex>
             <Menu>

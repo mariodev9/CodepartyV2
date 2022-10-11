@@ -20,6 +20,7 @@ import CommentForm from "../../../components/Comments/CommentForm";
 import CommentsList from "../../../components/Comments/CommentsList";
 import Comment from "../../../components/Comments/Comment";
 import { listenLatestComments } from "../../../firebase/Client";
+import SavePublicationButton from "../../../components/Interactions/SavePublicationButton";
 
 export default function CodePage({ codeId }) {
   const [data, setData] = useState(null);
@@ -72,7 +73,10 @@ export default function CodePage({ codeId }) {
               </Text>
             </Flex>
             <Flex>
-              <Save width="30px" height="30px" />
+              <SavePublicationButton
+                userOnSession={user?.userId}
+                codeId={codeId && codeId}
+              />
             </Flex>
           </Flex>
           <Divider />

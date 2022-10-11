@@ -56,7 +56,7 @@ export default function CreateForm() {
     addCode({
       avatar: user.avatar,
       content: message,
-      userId: user.userId,
+      creatorId: user.userId,
       userName: user.name,
       img: img,
     });

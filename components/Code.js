@@ -11,6 +11,8 @@ import React from "react";
 import { Like, Comment, Save } from "./Icons";
 import Link from "next/link";
 import useTimeAgo from "../hooks/useTimeago";
+import SavePublicationButton from "./Interactions/SavePublicationButton";
+import LikePublicationButton from "./Interactions/LikePublication";
 
 export default function Code({
   id,
@@ -19,7 +21,8 @@ export default function Code({
   img,
   content,
   createdAt,
-  userId,
+  creatorId,
+  userOnSession,
 }) {
   const timeago = useTimeAgo(createdAt);
 
@@ -60,9 +63,9 @@ export default function Code({
           </LinkBox>
         </Flex>
         <Flex mt={4} justify={"space-around"}>
-          <Like />
+          <LikePublicationButton userOnSession={userOnSession} codeId={id} />
           <Comment />
-          <Save />
+          <SavePublicationButton userOnSession={userOnSession} codeId={id} />
         </Flex>
       </Box>
     </>

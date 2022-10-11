@@ -43,6 +43,7 @@ export default function CommentForm({ codeId, avatar, userName, userId }) {
           placeholder="Escribe un comentario"
           onChange={handleChange}
           value={comment}
+          fontSize="20px"
         />
         <Button
           variant="primary"
