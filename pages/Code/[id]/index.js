@@ -6,34 +6,31 @@ import {
   Box,
   Flex,
   Image,
-  Input,
-  Button,
-  HStack,
   Divider,
   Spinner,
 } from "@chakra-ui/react";
 import Layout from "../../../components/Layout";
 import SectionBar from "../../../components/SectionBar";
-import { Like, Save } from "../../../components/Icons";
-import useUser from "../../../hooks/useUser";
 import CommentForm from "../../../components/Comments/CommentForm";
-import CommentsList from "../../../components/Comments/CommentsList";
 import Comment from "../../../components/Comments/Comment";
 import { listenLatestComments } from "../../../firebase/Client";
 import SavePublicationButton from "../../../components/Interactions/SavePublicationButton";
+import useUser from "../../../hooks/useUser";
 
-export default function CodePage({ codeId }) {
-  const [data, setData] = useState(null);
+export default function CodePage({ codeId, data }) {
   const [comments, setComments] = useState(null);
-
   const user = useUser();
 
-  useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_URL_API}${codeId}`)
-      .then((response) => response.json())
-      .then((data) => setData(data))
-      .catch((error) => console.log(error));
-  }, []);
+  const {
+    id,
+    avatar,
+    userName,
+    img,
+    content,
+    createdAt,
+    creatorId,
+    userOnSession,
+  } = data;
 
   useEffect(() => {
     listenLatestComments(setComments, codeId);
@@ -47,16 +44,16 @@ export default function CodePage({ codeId }) {
           <Spinner />
         </Flex>
       ) : (
-        <Box p="15px">
+        <Box p="15px" mb="70px">
           <Flex align="center">
-            <Avatar src={data.avatar} />
-            <Text ml="10px">{data.userName}</Text>
+            <Avatar src={avatar} />
+            <Text ml="10px">{userName}</Text>
           </Flex>
           <Box p="15px 0px">
             <Text pb="10px" fontWeight={"normal"} fontSize="20px">
-              {data.content}
+              {content}
             </Text>
-            {data.img && <Image src={data.img} borderRadius="10px" />}
+            {img && <Image src={img} borderRadius="10px" />}
           </Box>
 
           <Flex p="15px 5px" justify="space-evenly">
@@ -74,8 +71,9 @@ export default function CodePage({ codeId }) {
             </Flex>
             <Flex>
               <SavePublicationButton
-                userOnSession={user?.userId}
-                codeId={codeId && codeId}
+                userOnSession={userOnSession}
+                codeId={id && id}
+                data={data}
               />
             </Flex>
           </Flex>
@@ -111,8 +109,7 @@ export default function CodePage({ codeId }) {
 }
 
 export async function getServerSideProps(context) {
-  const { params, res } = context;
+  const { params, res, query } = context;
   const { id } = params;
-
-  return { props: { codeId: id } };
+  return { props: { codeId: id, data: query } };
 }

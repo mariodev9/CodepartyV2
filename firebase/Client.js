@@ -314,7 +314,10 @@ export const addComment = ({ codeId, avatar, content, userId, userName }) => {
 };
 
 export const listenLatestComments = async (callback, codeId) => {
-  const q = query(collection(firestore, "codes", `${codeId}`, "comments"));
+  const q = query(
+    collection(firestore, "codes", `${codeId}`, "comments"),
+    orderBy("createdAt")
+  );
   const querySnap = await getDocs(q);
   onSnapshot(q, (querySnap) => {
     const { docs } = querySnap;
@@ -336,7 +339,7 @@ const mapFromFirebaseToCommentObject = (doc) => {
 
 // INTERACTIONS
 
-export const savePublication = async (codeId, userOnSession) => {
+export const savePublication = async (codeId, userOnSession, data) => {
   try {
     await setDoc(
       doc(firestore, "codes", `${codeId}`, "saves", `${userOnSession}`),
@@ -372,4 +375,45 @@ export const setIfPublicationIsSave = async (
   } else {
     callback(false);
   }
+};
+
+export const setIfPublicationIsLiked = async (
+  codeId,
+  userOnSession,
+  callback,
+  setLikesCount
+) => {
+  const q = query(collection(firestore, "codes", `${codeId}`, "likes"));
+
+  const querySnapshot = await getDocs(q);
+
+  onSnapshot(q, (querySnap) => {
+    const { docs } = querySnap;
+    setLikesCount(docs.length);
+  });
+
+  querySnapshot.forEach((doc) => {
+    if (doc.id === userOnSession) {
+      return callback(true);
+    } else {
+      callback(false);
+    }
+  });
+};
+
+export const likedPublication = async (codeId, userOnSession) => {
+  try {
+    await setDoc(
+      doc(firestore, "codes", `${codeId}`, "likes", `${userOnSession}`),
+      {}
+    );
+  } catch (error) {
+    console.error("Error adding document: ", error);
+  }
+};
+
+export const unlikedPublication = async (codeId, userOnSession) => {
+  await deleteDoc(
+    doc(firestore, "codes", `${codeId}`, "likes", `${userOnSession}`)
+  );
 };

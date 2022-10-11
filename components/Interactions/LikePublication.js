@@ -1,32 +1,36 @@
 import React, { useEffect, useState } from "react";
-import { Box } from "@chakra-ui/react";
+import { Box, Text, Flex } from "@chakra-ui/react";
 import {
-  savePublication,
-  setIfPublicationIsSave,
-  unsavedPublication,
+  likedPublication,
+  setIfPublicationIsLiked,
+  unlikedPublication,
 } from "../../firebase/Client";
 import { Like } from "../Icons";
 
 export default function LikePublicationButton({ userOnSession, codeId }) {
-  const [isLiked, setIsLiked] = useState(false);
+  const [isLiked, setIsLiked] = useState(undefined);
+  const [likesCount, setLikesCount] = useState(undefined);
 
   useEffect(() => {
-    // setIfPublicationIsSave(codeId, userOnSession, setIsSave);
+    setIfPublicationIsLiked(codeId, userOnSession, setIsLiked, setLikesCount);
   }, []);
 
   const handleLikePublication = () => {
     if (isLiked) {
-      //   unsavedPublication(codeId, userOnSession);
+      unlikedPublication(codeId, userOnSession);
       setIsLiked(!isLiked);
     } else {
-      //   savePublication(codeId, userOnSession);
+      likedPublication(codeId, userOnSession);
       setIsLiked(!isLiked);
     }
   };
 
   return (
-    <Box onClick={handleLikePublication} cursor="pointer">
+    <Flex onClick={handleLikePublication} cursor="pointer" align={"center"}>
       <Like isLiked={isLiked} />
-    </Box>
+      <Flex w="20px" align="center" justify="center">
+        <Text fontWeight={"light"}>{likesCount}</Text>
+      </Flex>
+    </Flex>
   );
 }

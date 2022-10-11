@@ -26,6 +26,17 @@ export default function Code({
 }) {
   const timeago = useTimeAgo(createdAt);
 
+  const data = {
+    id,
+    avatar,
+    userName,
+    img,
+    content,
+    createdAt,
+    creatorId,
+    userOnSession,
+  };
+
   return (
     <>
       <Box
@@ -51,7 +62,12 @@ export default function Code({
                   {timeago}
                 </Text>
               </Flex>
-              <Link href={`/Code/${id}`}>
+              <Link
+                href={{
+                  pathname: `/Code/${id}`,
+                  query: data,
+                }}
+              >
                 <LinkOverlay>
                   <Flex direction="column">{content}</Flex>
                 </LinkOverlay>
