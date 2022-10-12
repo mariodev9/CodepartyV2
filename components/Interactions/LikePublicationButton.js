@@ -26,7 +26,12 @@ export default function LikePublicationButton({ userOnSession, codeId }) {
   };
 
   return (
-    <Flex onClick={handleLikePublication} cursor="pointer" align={"center"}>
+    <Flex
+      onClick={handleLikePublication}
+      cursor="pointer"
+      align={"center"}
+      // mb="10px"
+    >
       <Like isLiked={isLiked} />
       <Flex w="20px" align="center" justify="center">
         <Text fontWeight={"light"}>{likesCount}</Text>

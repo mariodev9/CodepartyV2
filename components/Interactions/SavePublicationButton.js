@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import {
   savePublication,
   setIfPublicationIsSave,
@@ -25,8 +25,14 @@ export default function SavePublicationButton({ userOnSession, codeId, data }) {
   };
 
   return (
-    <Box onClick={handleSavePublication} cursor="pointer">
+    <Flex
+      onClick={handleSavePublication}
+      cursor="pointer"
+      display="flex"
+      justify="center"
+      align="center"
+    >
       <Save width="30px" height="30px" isSave={isSave} />
-    </Box>
+    </Flex>
   );
 }

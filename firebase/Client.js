@@ -316,7 +316,7 @@ export const addComment = ({ codeId, avatar, content, userId, userName }) => {
 export const listenLatestComments = async (callback, codeId) => {
   const q = query(
     collection(firestore, "codes", `${codeId}`, "comments"),
-    orderBy("createdAt")
+    orderBy("createdAt", "desc")
   );
   const querySnap = await getDocs(q);
   onSnapshot(q, (querySnap) => {
