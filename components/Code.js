@@ -10,6 +10,7 @@ import {
   AccordionItem,
   AccordionButton,
   AccordionPanel,
+  HStack,
 } from "@chakra-ui/react";
 import React from "react";
 import { Like, Comment, Save } from "./Icons";
@@ -18,6 +19,10 @@ import useTimeAgo from "../hooks/useTimeago";
 import SavePublicationButton from "./Interactions/SavePublicationButton";
 import LikePublicationButton from "./Interactions/LikePublicationButton";
 import CommentButton from "./Interactions/CommentButton";
+import CommentForm from "./Comments/CommentForm";
+import { useState } from "react";
+import { listenLatestComments } from "../firebase/Client";
+import { useEffect } from "react";
 
 export default function Code({
   id,
@@ -30,6 +35,11 @@ export default function Code({
   userOnSession,
 }) {
   const timeago = useTimeAgo(createdAt);
+  const [comments, setComments] = useState(null);
+
+  useEffect(() => {
+    listenLatestComments(setComments, id);
+  }, []);
 
   const data = {
     id,
@@ -53,13 +63,17 @@ export default function Code({
             cursor="pointer"
           >
             <Flex width="100%">
-              <Avatar size="sm" alt={userName} src={avatar} mr={3} />
+              <LinkBox>
+                <Link href={`/Profile`}>
+                  <LinkOverlay>
+                    <Avatar size="sm" alt={userName} src={avatar} mr={3} />
+                  </LinkOverlay>
+                </Link>
+              </LinkBox>
               <LinkBox w="100%">
                 <Box>
                   <Flex align={"center"}>
-                    <Link fontSize="15px" href="/Profile">
-                      <Text fontWeight={"semibold"}>{userName}</Text>
-                    </Link>
+                    <Text fontWeight={"semibold"}>{userName}</Text>
                     <Text
                       fontWeight={"normal"}
                       fontSize="12px"
@@ -89,7 +103,7 @@ export default function Code({
             </Flex>
             <Flex mt={4} justify={"space-around"}>
               <AccordionButton w={"35px"} _hover={{ bg: "none" }}>
-                <CommentButton />
+                <CommentButton commentsCount={comments?.length} />
               </AccordionButton>
 
               <LikePublicationButton
@@ -102,7 +116,11 @@ export default function Code({
               />
             </Flex>
           </Box>
-          <AccordionPanel pb={4}>Comentar Pub</AccordionPanel>
+          <AccordionPanel pb={4}>
+            <HStack>
+              <CommentForm codeId={id} fontSize="15px" avatarSize="sm" />
+            </HStack>
+          </AccordionPanel>
         </AccordionItem>
       </Accordion>
     </>

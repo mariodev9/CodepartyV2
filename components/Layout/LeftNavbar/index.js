@@ -10,10 +10,19 @@ import {
   MenuItem,
   Menu,
 } from "@chakra-ui/react";
-import { Logo, Home, User, Save, Settings, Options } from "../../Icons";
+import {
+  Logo,
+  Home,
+  User,
+  Save,
+  Settings,
+  Options,
+  CommonSave,
+} from "../../Icons";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import useUser from "../../../hooks/useUser";
+import { logOut } from "../../../firebase/Client";
 
 const NavLink = [
   {
@@ -25,7 +34,7 @@ const NavLink = [
     name: "Guardados",
     link: "/Saves",
 
-    icon: <Save />,
+    icon: <CommonSave />,
   },
   {
     name: "Perfil",
@@ -76,7 +85,7 @@ export default function LeftNavbar() {
         display={{ base: "none", tablet: "flex" }}
         w="23%"
       >
-        <Box position="fixed" w="23%" pt="30px" pl="50px">
+        <Box position="fixed" w="23%" pt="30px" pl="50px" zIndex={2}>
           <Box mb="20px" p="0px 10px">
             <Logo />
           </Box>
@@ -104,11 +113,18 @@ export default function LeftNavbar() {
             align="center"
             direction="column"
           >
-            <Flex layerStyle="tabletButton">
+            <Flex layerStyle="tabletButton" w="80%" justify={"center"}>
               <Box display="flex" justifyContent="center" alignItems="center">
                 <Settings />
               </Box>
-              <Text ml="10px" fontSize="20px" fontWeight={400}>
+              <Text
+                ml="10px"
+                fontSize="20px"
+                fontWeight={400}
+                textOverflow={"ellipsis"}
+                whiteSpace="nowrap"
+                overflow={"hidden"}
+              >
                 Configuracion
               </Text>
             </Flex>
@@ -119,8 +135,14 @@ export default function LeftNavbar() {
                   <Options />
                 </Flex>
               </MenuButton>
-              <MenuList>
-                <MenuItem>Cerrar sesion</MenuItem>
+              <MenuList bg={"black.50"} borderColor="gray.100" p="10px">
+                <MenuItem
+                  fontSize={"20px"}
+                  borderRadius="10px"
+                  onClick={logOut}
+                >
+                  Cerrar sesion
+                </MenuItem>
               </MenuList>
             </Menu>
           </Flex>

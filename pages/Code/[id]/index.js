@@ -8,6 +8,7 @@ import {
   Image,
   Divider,
   Spinner,
+  HStack,
 } from "@chakra-ui/react";
 import Layout from "../../../components/Layout";
 import SectionBar from "../../../components/SectionBar";
@@ -78,12 +79,9 @@ export default function CodePage({ codeId, data }) {
             </Flex>
           </Flex>
           <Divider />
-          <CommentForm
-            codeId={codeId}
-            avatar={user?.avatar}
-            userName={user?.name}
-            userId={user?.userId}
-          />
+          <HStack p="15px 5px">
+            <CommentForm codeId={codeId} fontSize="20px" avatarSize="md" />
+          </HStack>
           {/* LIST */}
           <Box>
             {!comments ? (

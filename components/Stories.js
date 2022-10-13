@@ -103,7 +103,7 @@ export default function Stories() {
                     />
                     <FormLabel htmlFor="file-input" cursor="pointer">
                       <Avatar
-                        src={user.avatar}
+                        src={user?.avatar}
                         size="lg"
                         border="2px solid #4DB0FA"
                         onClick={onOpen}

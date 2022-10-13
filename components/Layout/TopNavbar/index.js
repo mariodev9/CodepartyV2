@@ -12,11 +12,14 @@ import {
   Icon,
   Box,
   Switch,
+  Divider,
+  HStack,
+  VStack,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { logOut } from "../../../firebase/Client";
 import useUser from "../../../hooks/useUser";
-import { Logo } from "../../Icons";
+import { Logo, User } from "../../Icons";
 
 export default function TopNav() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -55,13 +58,32 @@ export default function TopNav() {
                 src={user?.avatar}
                 onClick={onOpen}
                 cursor="pointer"
-                border="2px solid #4DB0FA"
               />
-              <Text>{user?.name}</Text>
+              <Text mt="3px">{user?.name}</Text>
             </Box>
-            <Text>Hola</Text>
-            <Text>Hola2</Text>
-            <Text>Hola3</Text>
+            <Divider m="20px 0px 30px 0px" />
+            <VStack align={"start"} spacing="20px">
+              <HStack align={"center"} spacing={"10px"}>
+                <User fill={"none"} height="30px" />
+                <Text fontSize={"24px"}>Perfil</Text>
+              </HStack>
+              <HStack align={"center"} spacing={"10px"}>
+                <User fill={"none"} height="30px" />
+                <Text
+                  fontSize={"24px"}
+                  textOverflow={"ellipsis"}
+                  whiteSpace="nowrap"
+                  overflow={"hidden"}
+                >
+                  Elementos guardados
+                </Text>
+              </HStack>{" "}
+              <HStack align={"center"} spacing={"10px"}>
+                <User fill={"none"} height="30px" />
+                <Text fontSize={"24px"}>Perfil</Text>
+              </HStack>
+            </VStack>
+
             <Button onClick={handleLogOut}>Log Out</Button>
           </DrawerBody>
         </DrawerContent>

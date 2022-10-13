@@ -28,7 +28,7 @@ export default function Timeline() {
           timeline.map(
             ({ id, userName, avatar, content, createdAt, userId, img }) => (
               <Code
-                userOnSession={user.userId}
+                userOnSession={user?.userId}
                 avatar={avatar}
                 id={id}
                 key={id}

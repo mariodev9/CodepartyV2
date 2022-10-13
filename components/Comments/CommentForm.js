@@ -1,6 +1,7 @@
 import { Avatar, Button, HStack, Input } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { addComment } from "../../firebase/Client";
+import useUser from "../../hooks/useUser";
 
 const COMPOSE_STATES = {
   USER_NOT_KNOWN: 0,
@@ -8,10 +9,12 @@ const COMPOSE_STATES = {
   SUCCES: 2,
   ERROR: -1,
 };
+// export default function CommentForm({ codeId, avatar, userName, userId }) {
 
-export default function CommentForm({ codeId, avatar, userName, userId }) {
+export default function CommentForm({ codeId, fontSize, avatarSize }) {
   const [comment, setComment] = useState("");
   const [status, setStatus] = useState(COMPOSE_STATES.USER_NOT_KNOWN);
+  const user = useUser();
 
   const handleChange = (event) => {
     const { value } = event.target;
@@ -23,10 +26,10 @@ export default function CommentForm({ codeId, avatar, userName, userId }) {
 
     addComment({
       codeId,
-      avatar: avatar,
+      avatar: user?.avatar,
       content: comment,
-      userId: userId,
-      userName: userName,
+      userId: user?.userId,
+      userName: user?.name,
     });
     setComment("");
     setStatus(COMPOSE_STATES.SUCCES);
@@ -37,22 +40,20 @@ export default function CommentForm({ codeId, avatar, userName, userId }) {
 
   return (
     <>
-      <HStack p="15px 5px">
-        <Avatar src={avatar} />
-        <Input
-          placeholder="Escribe un comentario"
-          onChange={handleChange}
-          value={comment}
-          fontSize="20px"
-        />
-        <Button
-          variant="primary"
-          onClick={handleClick}
-          disabled={isButtonDisabled}
-        >
-          Comentar
-        </Button>
-      </HStack>
+      <Avatar src={user?.avatar} size={avatarSize} />
+      <Input
+        placeholder="Escribe un comentario"
+        onChange={handleChange}
+        value={comment}
+        fontSize={fontSize}
+      />
+      <Button
+        variant="primary"
+        onClick={handleClick}
+        disabled={isButtonDisabled}
+      >
+        Comentar
+      </Button>
     </>
   );
 }
