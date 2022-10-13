@@ -380,24 +380,19 @@ export const setIfPublicationIsSave = async (
 export const setIfPublicationIsLiked = async (
   codeId,
   userOnSession,
-  callback,
+  setIsLiked,
   setLikesCount
 ) => {
   const q = query(collection(firestore, "codes", `${codeId}`, "likes"));
 
-  const querySnapshot = await getDocs(q);
-
   onSnapshot(q, (querySnap) => {
     const { docs } = querySnap;
     setLikesCount(docs.length);
-  });
-
-  querySnapshot.forEach((doc) => {
-    if (doc.id === userOnSession) {
-      return callback(true);
-    } else {
-      callback(false);
-    }
+    docs.map((doc) => {
+      if (doc.id === userOnSession) {
+        setIsLiked(true);
+      }
+    });
   });
 };
 

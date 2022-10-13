@@ -8,7 +8,7 @@ import {
 import { Like } from "../Icons";
 
 export default function LikePublicationButton({ userOnSession, codeId }) {
-  const [isLiked, setIsLiked] = useState(undefined);
+  const [isLiked, setIsLiked] = useState(false);
   const [likesCount, setLikesCount] = useState(undefined);
 
   useEffect(() => {
