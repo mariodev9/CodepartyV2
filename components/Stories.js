@@ -5,7 +5,6 @@ import {
   Button,
   Flex,
   FormLabel,
-  Label,
   Image,
   Input,
   Modal,
@@ -15,19 +14,17 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  Text,
   useDisclosure,
   AvatarBadge,
-  SkeletonCircle,
   Spinner,
+  Text,
 } from "@chakra-ui/react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { settings } from "../styleSettings";
 import useUser from "../hooks/useUser";
-import StorieBottom from "./Svg/StorieBottom";
-import { Add, Photo } from "./Icons";
+import { Add, Cross, Photo, Upload } from "./Icons";
 import { addStory, listenLatestStories, uploadImage } from "../firebase/Client";
 import Story from "./Story";
 
@@ -142,32 +139,40 @@ export default function Stories() {
       >
         <ModalOverlay />
         <ModalContent bg="black.50">
-          <ModalHeader>Add storie</ModalHeader>
+          <ModalHeader mt="20px">
+            <Text textAlign={"center"}>Share a photo to your story</Text>
+          </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             {img && (
               /* component */
 
-              <Box>
+              <Flex>
                 <Button
-                  borderRadius="99px"
+                  borderRadius="full"
                   position="absolute"
-                  zIndex="2"
                   _hover={{
-                    bg: "gray",
+                    bg: "red.500",
                   }}
                   onClick={handleDeleteImg}
                 >
-                  X
+                  <Cross />
                 </Button>
-                <Image src={img} width={250} height={250} borderRadius="10px" />
-              </Box>
+                <Image src={img} width={"100%"} borderRadius="10px" />
+              </Flex>
             )}
 
-            {!img && (
+            {!img && !file && (
               <FormLabel htmlFor="file-input" cursor="pointer" mt="20px">
-                <Photo />
+                <Flex w="100%" justify="center">
+                  <Upload height="30px" width="30px" />
+                </Flex>
               </FormLabel>
+            )}
+            {file && !img && (
+              <Box w="100%">
+                <Spinner />
+              </Box>
             )}
           </ModalBody>
 

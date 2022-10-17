@@ -15,11 +15,12 @@ import {
   Divider,
   HStack,
   VStack,
+  DrawerFooter,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { logOut } from "../../../firebase/Client";
 import useUser from "../../../hooks/useUser";
-import { Logo, User } from "../../Icons";
+import { CommonSave, Cross, Logo, Message, Options, User } from "../../Icons";
 
 export default function TopNav() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -63,29 +64,61 @@ export default function TopNav() {
             </Box>
             <Divider m="20px 0px 30px 0px" />
             <VStack align={"start"} spacing="20px">
-              <HStack align={"center"} spacing={"10px"}>
+              <HStack
+                align={"center"}
+                spacing={"10px"}
+                layerStyle="tabletButton"
+              >
                 <User fill={"none"} height="30px" />
                 <Text fontSize={"24px"}>Perfil</Text>
               </HStack>
-              <HStack align={"center"} spacing={"10px"}>
-                <User fill={"none"} height="30px" />
+              <HStack
+                align={"center"}
+                spacing={"10px"}
+                layerStyle="tabletButton"
+              >
+                <CommonSave width="30px" height="30px" />
                 <Text
                   fontSize={"24px"}
                   textOverflow={"ellipsis"}
                   whiteSpace="nowrap"
                   overflow={"hidden"}
                 >
-                  Elementos guardados
+                  Guardados
                 </Text>
-              </HStack>{" "}
-              <HStack align={"center"} spacing={"10px"}>
-                <User fill={"none"} height="30px" />
-                <Text fontSize={"24px"}>Perfil</Text>
+              </HStack>
+              <HStack
+                align={"center"}
+                spacing={"10px"}
+                layerStyle="tabletButton"
+              >
+                <Message width="30px" height="30px" />
+                <Text fontSize={"24px"}>Mensajes</Text>
+              </HStack>
+              <HStack
+                align={"center"}
+                spacing={"10px"}
+                layerStyle="tabletButton"
+              >
+                <Options width="30px" height="30px" />
+                <Text fontSize={"24px"}>Configuración</Text>
               </HStack>
             </VStack>
-
-            <Button onClick={handleLogOut}>Log Out</Button>
           </DrawerBody>
+          <DrawerFooter>
+            <Flex w="100%">
+              {/* <Cross></Cross> */}
+              <Button
+                onClick={handleLogOut}
+                bg="none"
+                _hover={{ bg: "red.400" }}
+                fontSize="20px"
+                fontWeight={"semibold"}
+              >
+                Log Out
+              </Button>
+            </Flex>
+          </DrawerFooter>
         </DrawerContent>
       </Drawer>
     </>

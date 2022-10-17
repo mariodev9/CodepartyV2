@@ -9,6 +9,7 @@ import {
   Avatar,
   FormControl,
   Text,
+  Spinner,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -49,7 +50,7 @@ export default function CreateForm() {
     setFile("");
   };
 
-  const handleSubmit = (event) => {
+  const handleAddPublication = (event) => {
     event.preventDefault();
     setStatus(COMPOSE_STATES.LOADING);
 
@@ -69,65 +70,77 @@ export default function CreateForm() {
 
   return (
     <Flex padding="20px 10px" direction="column">
-      <Flex
-        justify={{ base: "space-between", desktop: "end" }}
-        mb="20px"
-        order={{ base: 0, desktop: 1 }}
+      <Box
+        onClick={() => router.replace("/Home")}
+        cursor="pointer"
+        display={{ base: "flex", desktop: "none" }}
+        p="20px 10px"
       >
-        <Box
-          onClick={() => router.replace("/Home")}
-          cursor="pointer"
-          display={{ base: "flex", desktop: "none" }}
-        >
-          <Back />
-        </Box>
-        <Button
-          disabled={isButtonDisabled}
-          onClick={handleSubmit}
-          variant="primary"
-          h="25px"
-        >
-          Share
-        </Button>
-        {/* <Text>{percentage}</Text> */}
-      </Flex>
-
+        <Back width="30px" height="30px" />
+      </Box>
       <Flex>
         <Box pr="10px">
           <Avatar src={user?.avatar} size="md" />
         </Box>
-        <FormControl onSubmit={handleSubmit}>
-          <Box border="1px" borderColor="gray.100" borderRadius="10px">
-            <Textarea
-              placeholder="¿Qué está pasando?"
-              type="textarea"
-              onChange={handleChange}
-              value={message}
-              border="none"
-              resize="none"
-              _focusVisible={{
-                boxShadow: "none",
-              }}
-            />
-            {/* component */}
+        <FormControl onSubmit={handleAddPublication}>
+          <Box>
+            <Box
+              border="1px"
+              borderColor="gray.100"
+              borderRadius="10px"
+              p="10px"
+            >
+              <Textarea
+                placeholder="¿Qué está pasando?"
+                type="textarea"
+                onChange={handleChange}
+                value={message}
+                border="none"
+                resize="none"
+                _focusVisible={{
+                  boxShadow: "none",
+                }}
+              />
 
-            {img && (
+              {img && (
+                <Box>
+                  <Button
+                    borderRadius="99px"
+                    onClick={handleDeleteImg}
+                    position="absolute"
+                    zIndex="2"
+                    _hover={{
+                      bg: "gray",
+                    }}
+                  >
+                    X
+                  </Button>
+                  <Image src={img} width={"100%"} borderRadius="10px" />
+                </Box>
+              )}
+            </Box>
+            <Flex align={"center"} justify="space-between" mt="10px">
               <Box>
-                <Button
-                  borderRadius="99px"
-                  onClick={handleDeleteImg}
-                  position="absolute"
-                  zIndex="2"
-                  _hover={{
-                    bg: "gray",
-                  }}
-                >
-                  X
-                </Button>
-                <Image src={img} width={250} height={250} borderRadius="10px" />
+                {!img && (
+                  <FormLabel htmlFor="file-input" cursor="pointer">
+                    <Photo />
+                  </FormLabel>
+                )}
               </Box>
-            )}
-            {/* component */}
+              {file && !img && (
+                <Box w="100%">
+                  <Spinner />
+                </Box>
+              )}
+              <Button
+                disabled={isButtonDisabled}
+                onClick={handleAddPublication}
+                variant="primary"
+                h="25px"
+              >
+                Share
+              </Button>
+            </Flex>
           </Box>
           <Input
             type="file"
@@ -138,11 +151,6 @@ export default function CreateForm() {
             }}
             display="none"
           />
-          {!img && (
-            <FormLabel htmlFor="file-input" cursor="pointer" mt="20px">
-              <Photo />
-            </FormLabel>
-          )}
         </FormControl>
       </Flex>
     </Flex>
