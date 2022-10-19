@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Box, Flex, Spinner, Text } from "@chakra-ui/react";
-import Code from "./Code";
+import Publication from "./Publication";
 import useUser from "../hooks/useUser";
 import { listenLatestCodes } from "../firebase/Client";
 
@@ -21,13 +21,13 @@ export default function Timeline() {
           Last Codes
         </Text>
         {timeline.length === 0 ? (
-          <Flex h="100vh" p={5} justify="center">
-            <Spinner />
+          <Flex h="70vh" p={5} justify="center" align={"center"}>
+            <Spinner color="brand.100" />
           </Flex>
         ) : (
           timeline.map(
             ({ id, userName, avatar, content, createdAt, userId, img }) => (
-              <Code
+              <Publication
                 userOnSession={user?.userId}
                 avatar={avatar}
                 id={id}

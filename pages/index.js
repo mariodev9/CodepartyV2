@@ -95,7 +95,7 @@ export default function Home() {
             h={{ base: "140px", desktop: "200px" }}
             width="350px"
           >
-            {dev !== null && <Spinner />}
+            {dev !== null && <Spinner color="brand.100" />}
             {dev === null && (
               <>
                 <Center>

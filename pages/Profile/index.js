@@ -21,7 +21,7 @@ export default function Profile() {
             <Text mt="15px" fontSize="20px">
               Luciano Mariotti
             </Text>
-            <Text>Description</Text>
+            <Text>descripcion.....</Text>
             <Flex mt="20px">
               <Image src={python} />
               <Image src={python} />

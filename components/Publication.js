@@ -24,7 +24,7 @@ import { useState } from "react";
 import { listenLatestComments } from "../firebase/Client";
 import { useEffect } from "react";
 
-export default function Code({
+export default function Publication({
   id,
   avatar,
   userName,
@@ -40,17 +40,6 @@ export default function Code({
   useEffect(() => {
     listenLatestComments(setComments, id);
   }, []);
-
-  const data = {
-    id,
-    avatar,
-    userName,
-    img,
-    content,
-    createdAt,
-    creatorId,
-    userOnSession,
-  };
 
   return (
     <>
@@ -86,7 +75,7 @@ export default function Code({
                   <Link
                     href={{
                       pathname: `/Code/${id}`,
-                      query: data,
+                      query: { userOnSession: userOnSession },
                     }}
                   >
                     <LinkOverlay>
@@ -108,11 +97,11 @@ export default function Code({
 
               <LikePublicationButton
                 userOnSession={userOnSession}
-                codeId={id}
+                publicationId={id}
               />
               <SavePublicationButton
                 userOnSession={userOnSession}
-                codeId={id}
+                publicationId={id}
               />
             </Flex>
           </Box>

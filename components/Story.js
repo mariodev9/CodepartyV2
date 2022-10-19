@@ -12,6 +12,7 @@ import {
   Button,
   Text,
   Image,
+  Box,
 } from "@chakra-ui/react";
 import React from "react";
 
@@ -31,16 +32,17 @@ export default function Story({ avatar, stories }) {
       <Modal
         isOpen={isOpen}
         onClose={onClose}
-        blockScrollOnMount={false}
-        size={"xl"}
+        size={{ base: "full", desktop: "xl" }}
       >
         <ModalOverlay />
         <ModalContent bg="rgba(255,255,255,0.1)" backdropFilter="blur(10px)">
           <ModalCloseButton />
-          <ModalBody display={"flex"} justifyContent="center">
-            {stories.map((item, key) => (
-              <Image key={key} w="350px" src={item.img} />
-            ))}
+          <ModalBody display={"flex"} alignContent={"center"}>
+            <Flex align={"center"}>
+              {stories.map((item, key) => (
+                <Image key={key} h="350px" src={item.img} borderRadius="10px" />
+              ))}
+            </Flex>
           </ModalBody>
         </ModalContent>
       </Modal>

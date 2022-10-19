@@ -7,20 +7,29 @@ import {
 } from "../../firebase/Client";
 import { Like } from "../Icons";
 
-export default function LikePublicationButton({ userOnSession, codeId }) {
+export default function LikePublicationButton({
+  userOnSession,
+  publicationId,
+  withoutNumber,
+}) {
   const [isLiked, setIsLiked] = useState(false);
   const [likesCount, setLikesCount] = useState(undefined);
 
   useEffect(() => {
-    setIfPublicationIsLiked(codeId, userOnSession, setIsLiked, setLikesCount);
+    setIfPublicationIsLiked(
+      publicationId,
+      userOnSession,
+      setIsLiked,
+      setLikesCount
+    );
   }, []);
 
   const handleLikePublication = () => {
     if (isLiked) {
-      unlikedPublication(codeId, userOnSession);
+      unlikedPublication(publicationId, userOnSession);
       setIsLiked(!isLiked);
     } else {
-      likedPublication(codeId, userOnSession);
+      likedPublication(publicationId, userOnSession);
       setIsLiked(!isLiked);
     }
   };
@@ -34,7 +43,7 @@ export default function LikePublicationButton({ userOnSession, codeId }) {
     >
       <Like isLiked={isLiked} />
       <Flex w="20px" align="center" justify="center">
-        <Text fontWeight={"light"}>{likesCount}</Text>
+        {!withoutNumber && <Text fontWeight={"light"}>{likesCount}</Text>}
       </Flex>
     </Flex>
   );

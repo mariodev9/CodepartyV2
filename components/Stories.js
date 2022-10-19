@@ -73,8 +73,8 @@ export default function Stories() {
     <>
       <Box p="15px 0px">
         {stories === STORIES_STATE.NOT_KNOWN ? (
-          <Flex h="100px" p={5} justify="center">
-            <Spinner />
+          <Flex h="100px" p={5} justify="center" align={"center"}>
+            <Spinner color="brand.100" size="xs" />
           </Flex>
         ) : (
           <>
@@ -171,7 +171,7 @@ export default function Stories() {
             )}
             {file && !img && (
               <Box w="100%">
-                <Spinner />
+                <Spinner color="brand.100" />
               </Box>
             )}
           </ModalBody>

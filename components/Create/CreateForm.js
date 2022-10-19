@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import { addCode, uploadImage } from "../../firebase/Client";
 import useUser from "../../hooks/useUser";
 import { Back, Photo } from "../Icons";
+import ToggleModeButton from "./ToggleModeButton";
 
 const COMPOSE_STATES = {
   USER_NOT_KNOWN: 0,
@@ -29,14 +30,13 @@ export default function CreateForm() {
   const [status, setStatus] = useState(COMPOSE_STATES.USER_NOT_KNOWN);
   const [file, setFile] = useState("");
   const [img, setImg] = useState("");
-  // const [percentage, setPer] = useState(null);
+  const [publicationMode, setPublicationMode] = useState(false);
 
   const router = useRouter();
   const user = useUser();
 
   useEffect(() => {
     file && uploadImage(file, setImg);
-    // file && uploadImage(file, setImg, setPer);
   }, [file]);
 
   const handleChange = (event) => {
@@ -69,7 +69,8 @@ export default function CreateForm() {
     !message.length && (status || COMPOSE_STATES.LOADING);
 
   return (
-    <Flex padding="20px 10px" direction="column">
+    <>
+      {/* BACK nav */}
       <Box
         onClick={() => router.replace("/Home")}
         cursor="pointer"
@@ -78,81 +79,89 @@ export default function CreateForm() {
       >
         <Back width="30px" height="30px" />
       </Box>
-      <Flex>
-        <Box pr="10px">
-          <Avatar src={user?.avatar} size="md" />
-        </Box>
-        <FormControl onSubmit={handleAddPublication}>
-          <Box>
-            <Box
-              border="1px"
-              borderColor="gray.100"
-              borderRadius="10px"
-              p="10px"
-            >
-              <Textarea
-                placeholder="¿Qué está pasando?"
-                type="textarea"
-                onChange={handleChange}
-                value={message}
-                border="none"
-                resize="none"
-                _focusVisible={{
-                  boxShadow: "none",
-                }}
-              />
+      {/* Back nav */}
 
-              {img && (
-                <Box>
-                  <Button
-                    borderRadius="99px"
-                    onClick={handleDeleteImg}
-                    position="absolute"
-                    zIndex="2"
-                    _hover={{
-                      bg: "gray",
-                    }}
-                  >
-                    X
-                  </Button>
-                  <Image src={img} width={"100%"} borderRadius="10px" />
-                </Box>
-              )}
-            </Box>
-            <Flex align={"center"} justify="space-between" mt="10px">
-              <Box>
-                {!img && (
-                  <FormLabel htmlFor="file-input" cursor="pointer">
-                    <Photo />
-                  </FormLabel>
+      {/* <ToggleModeButton setPublicationMode={setPublicationMode} /> */}
+
+      {!publicationMode && (
+        <Flex>
+          <Box pr="10px">
+            <Avatar src={user?.avatar} size="md" />
+          </Box>
+          <FormControl onSubmit={handleAddPublication}>
+            <Box>
+              <Box
+                border="1px"
+                borderColor="gray.100"
+                borderRadius="10px"
+                p="10px"
+              >
+                <Textarea
+                  placeholder="¿Qué está pasando?"
+                  type="textarea"
+                  onChange={handleChange}
+                  value={message}
+                  border="none"
+                  resize="none"
+                  _focusVisible={{
+                    boxShadow: "none",
+                  }}
+                />
+
+                {img && (
+                  <Box>
+                    <Button
+                      borderRadius="99px"
+                      onClick={handleDeleteImg}
+                      position="absolute"
+                      zIndex="2"
+                      _hover={{
+                        bg: "gray",
+                      }}
+                    >
+                      X
+                    </Button>
+                    <Image src={img} width={"100%"} borderRadius="10px" />
+                  </Box>
                 )}
               </Box>
-              {file && !img && (
-                <Box w="100%">
-                  <Spinner />
+              <Flex align={"center"} justify="space-between" mt="10px">
+                <Box>
+                  {!img && (
+                    <FormLabel htmlFor="file-input" cursor="pointer">
+                      <Photo />
+                    </FormLabel>
+                  )}
                 </Box>
-              )}
-              <Button
-                disabled={isButtonDisabled}
-                onClick={handleAddPublication}
-                variant="primary"
-                h="25px"
-              >
-                Share
-              </Button>
-            </Flex>
-          </Box>
-          <Input
-            type="file"
-            name="Add photo"
-            id="file-input"
-            onChange={(e) => {
-              setFile(e.target.files[0]);
-            }}
-            display="none"
-          />
-        </FormControl>
-      </Flex>
-    </Flex>
+                {file && !img && (
+                  <Box w="100%">
+                    <Spinner color="brand.100" />
+                  </Box>
+                )}
+                <Button
+                  disabled={isButtonDisabled}
+                  onClick={handleAddPublication}
+                  variant="primary"
+                  h="25px"
+                >
+                  Share
+                </Button>
+              </Flex>
+            </Box>
+            <Input
+              type="file"
+              name="Add photo"
+              id="file-input"
+              onChange={(e) => {
+                setFile(e.target.files[0]);
+              }}
+              display="none"
+            />
+          </FormControl>
+        </Flex>
+      )}
+
+      {publicationMode && <Text>Subir historia</Text>}
+    </>
   );
 }

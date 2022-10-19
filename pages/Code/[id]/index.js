@@ -14,35 +14,40 @@ import Layout from "../../../components/Layout";
 import SectionBar from "../../../components/SectionBar";
 import CommentForm from "../../../components/Comments/CommentForm";
 import Comment from "../../../components/Comments/Comment";
-import { listenLatestComments } from "../../../firebase/Client";
+import {
+  firestore,
+  listenLatestComments,
+  setIfPublicationIsLiked,
+} from "../../../firebase/Client";
 import SavePublicationButton from "../../../components/Interactions/SavePublicationButton";
 import useUser from "../../../hooks/useUser";
+import LikePublicationButton from "../../../components/Interactions/LikePublicationButton";
+import { doc, getDoc } from "firebase/firestore";
+import useTimeAgo from "../../../hooks/useTimeago";
 
-export default function CodePage({ codeId, data }) {
+export default function CodePage({ data, userOnSession, message }) {
   const [comments, setComments] = useState(null);
+  const [isLiked, setIsLiked] = useState(false);
+  const [likesCount, setLikesCount] = useState(undefined);
+
+  const { id, avatar, userName, img, content, createdAt, creatorId } = data;
   const user = useUser();
 
-  const {
-    id,
-    avatar,
-    userName,
-    img,
-    content,
-    createdAt,
-    creatorId,
-    userOnSession,
-  } = data;
+  useEffect(() => {
+    listenLatestComments(setComments, id);
+  }, []);
 
   useEffect(() => {
-    listenLatestComments(setComments, codeId);
+    setIfPublicationIsLiked(id, userOnSession, setIsLiked, setLikesCount);
   }, []);
 
   return (
     <Layout>
       <SectionBar text={"Code"} back />
+      {message && <Text>{message}</Text>}
       {!data ? (
         <Flex justify="center" align="center" h="50vh">
-          <Spinner />
+          <Spinner color="brand.100" />
         </Flex>
       ) : (
         <Box p="15px" mb="70px">
@@ -56,10 +61,9 @@ export default function CodePage({ codeId, data }) {
             </Text>
             {img && <Image src={img} borderRadius="10px" />}
           </Box>
-
-          <Flex p="15px 5px" justify="space-evenly">
+          <Flex p="15px 5px" justify="space-evenly" align={"center"}>
             <Flex>
-              <Text color="white">140 </Text>
+              <Text color="white">{likesCount} </Text>
               <Text color="gray.50" ml="5px" fontWeight={"normal"}>
                 Me gusta
               </Text>
@@ -71,22 +75,29 @@ export default function CodePage({ codeId, data }) {
               </Text>
             </Flex>
             <Flex>
+              <LikePublicationButton
+                userOnSession={userOnSession}
+                publicationId={id}
+                withoutNumber
+              />
+            </Flex>
+            <Flex>
               <SavePublicationButton
                 userOnSession={userOnSession}
-                codeId={id && id}
+                publicationId={id && id}
                 data={data}
               />
             </Flex>
           </Flex>
+
           <Divider />
           <HStack p="15px 5px">
-            <CommentForm codeId={codeId} fontSize="20px" avatarSize="md" />
+            <CommentForm codeId={id} fontSize="20px" avatarSize="md" />
           </HStack>
-          {/* LIST */}
           <Box>
             {!comments ? (
               <Flex justify="center" align="center" h="50vh">
-                <Spinner />
+                <Spinner color="brand.100" />
               </Flex>
             ) : (
               comments.map((comment) => (
@@ -107,7 +118,20 @@ export default function CodePage({ codeId, data }) {
 }
 
 export async function getServerSideProps(context) {
-  const { params, res, query } = context;
-  const { id } = params;
-  return { props: { codeId: id, data: query } };
+  const { query } = context;
+  const { id, userOnSession } = query;
+
+  const res = await fetch(`${process.env.NEXT_PUBLIC_URL_API}${id}`);
+  const data = await res.json();
+  if (!data) {
+    return {
+      redirect: {
+        destination: "/Home",
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: { data: data, userOnSession: userOnSession },
+  };
 }

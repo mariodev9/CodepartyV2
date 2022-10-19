@@ -7,19 +7,23 @@ import {
 } from "../../firebase/Client";
 import { Save } from "../Icons";
 
-export default function SavePublicationButton({ userOnSession, codeId, data }) {
+export default function SavePublicationButton({
+  userOnSession,
+  publicationId,
+  data,
+}) {
   const [isSave, setIsSave] = useState(undefined);
 
   useEffect(() => {
-    setIfPublicationIsSave(codeId, userOnSession, setIsSave);
+    setIfPublicationIsSave(publicationId, userOnSession, setIsSave);
   }, []);
 
   const handleSavePublication = () => {
     if (isSave) {
-      unsavedPublication(codeId, userOnSession);
+      unsavedPublication(publicationId, userOnSession);
       setIsSave(false);
     } else {
-      savePublication(codeId, userOnSession, data);
+      savePublication(publicationId, userOnSession, data);
       setIsSave(true);
     }
   };
