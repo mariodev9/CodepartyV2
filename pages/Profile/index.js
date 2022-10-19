@@ -1,7 +1,6 @@
 import { Avatar, Box, Flex, Text } from "@chakra-ui/react";
 import Image from "next/image";
 import React from "react";
-import Code from "../../components/Code";
 import python from "../../public/Python.png";
 import Layout from "../../components/Layout";
 
