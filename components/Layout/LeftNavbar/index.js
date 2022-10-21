@@ -10,19 +10,11 @@ import {
   MenuItem,
   Menu,
 } from "@chakra-ui/react";
-import {
-  Logo,
-  Home,
-  User,
-  Save,
-  Settings,
-  Options,
-  CommonSave,
-} from "../../Icons";
+import { Logo, Home, User, Settings, Options, CommonSave } from "../../Icons";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import useUser from "../../../hooks/useUser";
-import { logOut } from "../../../firebase/Client";
+import { logOut } from "../../../firebase/services/User";
 
 const NavLink = [
   {

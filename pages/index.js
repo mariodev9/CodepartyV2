@@ -13,7 +13,7 @@ import {
   loginWithGitHub,
   loginWithGoogle,
   sessionChange,
-} from "../firebase/Client";
+} from "../firebase/services/User";
 import { useRouter } from "next/router";
 import { Github, Google } from "../components/Icons";
 import StartedAnimation from "../components/StartedAnimation";

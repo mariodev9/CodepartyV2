@@ -14,16 +14,11 @@ import Layout from "../../../components/Layout";
 import SectionBar from "../../../components/SectionBar";
 import CommentForm from "../../../components/Comments/CommentForm";
 import Comment from "../../../components/Comments/Comment";
-import {
-  firestore,
-  listenLatestComments,
-  setIfPublicationIsLiked,
-} from "../../../firebase/Client";
+import { setIfPublicationIsLiked } from "../../../firebase/services/Interactions";
+import { listenLatestComments } from "../../../firebase/services/Comments";
 import SavePublicationButton from "../../../components/Interactions/SavePublicationButton";
 import useUser from "../../../hooks/useUser";
 import LikePublicationButton from "../../../components/Interactions/LikePublicationButton";
-import { doc, getDoc } from "firebase/firestore";
-import useTimeAgo from "../../../hooks/useTimeago";
 
 export default function CodePage({ data, userOnSession, message }) {
   const [comments, setComments] = useState(null);
@@ -31,6 +26,7 @@ export default function CodePage({ data, userOnSession, message }) {
   const [likesCount, setLikesCount] = useState(undefined);
 
   const { id, avatar, userName, img, content, createdAt, creatorId } = data;
+
   const user = useUser();
 
   useEffect(() => {

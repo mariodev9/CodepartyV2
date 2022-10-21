@@ -13,7 +13,8 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { addCode, addStory, uploadImage } from "../../firebase/Client";
+import { addCode } from "../../firebase/services/Publications";
+import { addStory, uploadImage } from "../../firebase/services/Stories";
 import useUser from "../../hooks/useUser";
 import { Back, Photo, Upload } from "../Icons";
 import ToggleModeButton from "./ToggleModeButton";

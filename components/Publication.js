@@ -13,7 +13,6 @@ import {
   HStack,
 } from "@chakra-ui/react";
 import React from "react";
-import { Like, Comment, Save } from "./Icons";
 import Link from "next/link";
 import useTimeAgo from "../hooks/useTimeago";
 import SavePublicationButton from "./Interactions/SavePublicationButton";
@@ -21,7 +20,7 @@ import LikePublicationButton from "./Interactions/LikePublicationButton";
 import CommentButton from "./Interactions/CommentButton";
 import CommentForm from "./Comments/CommentForm";
 import { useState } from "react";
-import { listenLatestComments } from "../firebase/Client";
+import { listenLatestComments } from "../firebase/services/Comments";
 import { useEffect } from "react";
 
 export default function Publication({

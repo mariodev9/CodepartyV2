@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Box, Text, Flex } from "@chakra-ui/react";
+import { Text, Flex } from "@chakra-ui/react";
 import {
   likedPublication,
   setIfPublicationIsLiked,
   unlikedPublication,
-} from "../../firebase/Client";
+} from "../../firebase/services/Interactions";
 import { Like } from "../Icons";
 
 export default function LikePublicationButton({

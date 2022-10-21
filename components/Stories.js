@@ -1,5 +1,11 @@
 import { useState, useEffect } from "react";
 import {
+  addStory,
+  listenLatestStories,
+  uploadImage,
+} from "../firebase/services/Stories";
+
+import {
   Avatar,
   Box,
   Button,
@@ -24,8 +30,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { settings } from "../styleSettings";
 import useUser from "../hooks/useUser";
-import { Add, Cross, Photo, Upload } from "./Icons";
-import { addStory, listenLatestStories, uploadImage } from "../firebase/Client";
+import { Add, Cross, Upload } from "./Icons";
 import Story from "./Story";
 
 const STORIES_STATE = {

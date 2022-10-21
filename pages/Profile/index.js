@@ -1,16 +1,35 @@
 import React, { useState, useEffect } from "react";
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, HStack, Image, Text } from "@chakra-ui/react";
 import python from "../../public/Python.png";
 import Layout from "../../components/Layout";
 import useUser from "../../hooks/useUser";
 import SectionBar from "../../components/SectionBar";
+import { Add } from "../../components/Icons";
+import { AnimatePresence, motion } from "framer-motion";
 
-export const LOADING_STATES = {
+const LOADING_STATES = {
   NOT_LOGGED: null,
   NOT_KNOWN: undefined,
 };
 
+const Skill = ({ text, color }) => {
+  return (
+    <Box
+      layerStyle={"primaryBox"}
+      bg={color}
+      p="5px 15px"
+      borderRadius={"10px"}
+    >
+      <Text color="white" fontSize="15px">
+        {text}
+      </Text>
+    </Box>
+  );
+};
+
 export default function Profile() {
+  const [isOn, setIsOn] = useState(false);
+
   // const [publications, setPublications] = useState(null);
   const user = useUser();
   // const img =
@@ -20,49 +39,79 @@ export default function Profile() {
     // user && getUserPublications(setPublications);
   }, []);
 
-  return (
-    <>
-      <Layout>
-        <Box
-          // bgImage={`url('${img}')`}
-          bg="black"
-        >
-          <SectionBar text={"Perfil"} back></SectionBar>
+  const MotionBox = motion(Box);
 
-          <Flex
-            direction="column"
-            bgGradient="linear(to-b, #7928ca00 0%, #222124 65%)"
-            align="center"
-          >
-            <Box
-              mt="100px"
-              layerStyle={"primaryBox"}
-              h="70px"
-              w="70px"
-              bgSize={"70px"}
-              bgImage={user?.avatar}
-            ></Box>
-            <Text mt="15px" fontSize="20px">
-              Luciano Mariotti
+  return (
+    <Layout>
+      <Box
+        // bgImage={`url('${img}')`}
+        bg="black"
+      >
+        <SectionBar text={"Perfil"} back></SectionBar>
+
+        <Flex
+          direction="column"
+          bgGradient="linear(to-b, #7928ca00 0%, #222124 65%)"
+          align="center"
+        >
+          <Image
+            src={user?.avatar}
+            layerStyle={"primaryBox"}
+            mt="100px"
+            h="100px"
+            w="100px"
+          />
+          <Text mt="15px" fontSize="20px">
+            Luciano Mariotti
+          </Text>
+          <Box w="40%">
+            <Text mt="20px" fontWeight={400} color="gray.50" fontSize={"15px"}>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
             </Text>
-            <Text>descripcion.....</Text>
-            <Flex mt="20px">
-              {/* <Image src={python} /> */}
-              <Box bg="yellow.400" p="4px 12px" borderRadius={"10px"}>
-                <Text color={"gray"} fontSize="12px">
-                  Javascript
-                </Text>
-              </Box>
-            </Flex>
-          </Flex>
-        </Box>
-        <Flex p="30px 0px" justify="center" align="center">
-          <Box>Publicaciones - Historias </Box>
+          </Box>
+          <HStack mt="20px" spacing={"5px"}>
+            <Skill text={"Javascript"} color={"#ffcc13"} />
+            <Skill text={"Php"} color={"#787cb4"} />
+            <Add />
+          </HStack>
         </Flex>
-        <Box p="15px">
-          <Box> pub 1</Box>
-        </Box>
-      </Layout>
-    </>
+      </Box>
+      <Flex p="30px 0px" justify="center" align="center">
+        <Flex
+          layerStyle={"primaryBox"}
+          w="300px"
+          h="70px"
+          p="12px 32px"
+          align={"center"}
+          onClick={() => setIsOn(!isOn)}
+        >
+          <Box w="50%" zIndex={3}>
+            <Text textAlign={"center"}>Publicaciones</Text>
+          </Box>
+          <Box w="50%" zIndex={3}>
+            <Text textAlign={"center"}>Historias</Text>
+          </Box>
+          <AnimatePresence initial={false}>
+            {user && (
+              <MotionBox
+                w="122px"
+                h="40px"
+                bg={"brand.100"}
+                position="absolute"
+                borderRadius="10px"
+                initial={{ x: isOn ? 0 : 120 }}
+                animate={{ x: isOn ? 120 : 0 }}
+                exit={{ x: 0 }}
+                transition={{ duration: 1 }}
+                // style={{ marginLeft: isOn ? "115px" : "0px" }}
+              ></MotionBox>
+            )}
+          </AnimatePresence>
+        </Flex>
+      </Flex>
+      <Box p="15px">
+        <Box> pub 1</Box>
+      </Box>
+    </Layout>
   );
 }

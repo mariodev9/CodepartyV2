@@ -1,6 +1,6 @@
-import { Avatar, Button, HStack, Input } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
-import { addComment } from "../../firebase/Client";
+import { Avatar, Button, Input } from "@chakra-ui/react";
+import React, { useState } from "react";
+import { addComment } from "../../firebase/services/Comments";
 import useUser from "../../hooks/useUser";
 
 const COMPOSE_STATES = {
@@ -9,7 +9,6 @@ const COMPOSE_STATES = {
   SUCCES: 2,
   ERROR: -1,
 };
-// export default function CommentForm({ codeId, avatar, userName, userId }) {
 
 export default function CommentForm({ codeId, fontSize, avatarSize }) {
   const [comment, setComment] = useState("");

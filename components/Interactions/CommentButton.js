@@ -1,4 +1,4 @@
-import { Flex, Like, Text } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 import React from "react";
 import { Comment } from "../Icons";
 

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Box, Flex, Spinner, Text } from "@chakra-ui/react";
 import Publication from "./Publication";
 import useUser from "../hooks/useUser";
-import { listenLatestCodes } from "../firebase/Client";
+import { listenLatestCodes } from "../firebase/services/Publications";
 
 export default function Timeline() {
   const [timeline, setTimeline] = useState([]);

@@ -4,7 +4,7 @@ import {
   savePublication,
   setIfPublicationIsSave,
   unsavedPublication,
-} from "../../firebase/Client";
+} from "../../firebase/services/Interactions";
 import { Save } from "../Icons";
 
 export default function SavePublicationButton({

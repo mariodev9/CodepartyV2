@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { sessionChange } from "../firebase/Client";
+import { sessionChange } from "../firebase/services/User";
 
 export const USER_STATES = {
   NOT_LOGGED: null,
