@@ -395,10 +395,10 @@ export const Cross = (props) => {
     >
       <g
         fill="none"
-        fill-rule="evenodd"
+        fillRule="evenodd"
         stroke="currentColor"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
         transform="translate(5 5)"
       >
         <path d="m10.5 10.5-10-10z" />
