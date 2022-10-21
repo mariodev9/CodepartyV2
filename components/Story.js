@@ -3,18 +3,16 @@ import {
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
   Avatar,
   Flex,
   useDisclosure,
-  Button,
-  Text,
   Image,
   Box,
 } from "@chakra-ui/react";
 import React from "react";
+import Slider from "react-slick";
 
 export default function Story({ avatar, stories }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -32,16 +30,28 @@ export default function Story({ avatar, stories }) {
       <Modal
         isOpen={isOpen}
         onClose={onClose}
-        size={{ base: "full", desktop: "xl" }}
+        size={{ base: "full", desktop: "full" }}
       >
         <ModalOverlay />
         <ModalContent bg="rgba(255,255,255,0.1)" backdropFilter="blur(10px)">
-          <ModalCloseButton />
-          <ModalBody display={"flex"} alignContent={"center"}>
-            <Flex align={"center"}>
-              {stories.map((item, key) => (
-                <Image key={key} h="350px" src={item.img} borderRadius="10px" />
-              ))}
+          <ModalHeader>
+            <ModalCloseButton />
+          </ModalHeader>
+          <ModalBody justify="center" align="center">
+            <Flex justify="center" align="center" h="80vh">
+              <Box w="100%">
+                <Slider>
+                  {stories.map((item, key) => (
+                    <Box m="50px 0px" p="5px" key={key}>
+                      <Image
+                        h={{ base: "200px", desktop: "400px" }}
+                        src={item.img}
+                        borderRadius="10px"
+                      />
+                    </Box>
+                  ))}
+                </Slider>
+              </Box>
             </Flex>
           </ModalBody>
         </ModalContent>

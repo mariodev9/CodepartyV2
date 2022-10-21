@@ -140,7 +140,7 @@ export default function Stories() {
         <ModalOverlay />
         <ModalContent bg="black.50">
           <ModalHeader mt="20px">
-            <Text textAlign={"center"}>Share a photo to your story</Text>
+            <Text textAlign={"center"}>Subí una historia</Text>
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
@@ -170,9 +170,9 @@ export default function Stories() {
               </FormLabel>
             )}
             {file && !img && (
-              <Box w="100%">
+              <Flex w="100%" justify="center" align="center">
                 <Spinner color="brand.100" />
-              </Box>
+              </Flex>
             )}
           </ModalBody>
 

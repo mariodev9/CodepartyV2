@@ -370,10 +370,10 @@ export const Upload = (props) => {
     >
       <g
         fill="none"
-        fill-rule="evenodd"
+        fillRule="evenodd"
         stroke="currentColor"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
         transform="translate(3 3)"
       >
         <path d="m11.5 4.5-3.978-4-4.022 4" />
