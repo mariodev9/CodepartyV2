@@ -11,7 +11,6 @@ export const sessionChange = (onChange) => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
       const normalizedUser = mapUserFromFirebaseAuthToUser(user);
-
       onChange(normalizedUser);
     } else {
       onChange(null);

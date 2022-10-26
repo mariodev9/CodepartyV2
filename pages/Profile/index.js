@@ -6,6 +6,7 @@ import useUser from "../../hooks/useUser";
 import SectionBar from "../../components/SectionBar";
 import { Add } from "../../components/Icons";
 import { AnimatePresence, motion } from "framer-motion";
+import ToggleButton from "../../components/Common/ToggleButton";
 
 const LOADING_STATES = {
   NOT_LOGGED: null,
@@ -27,17 +28,24 @@ const Skill = ({ text, color }) => {
   );
 };
 
-export default function Profile() {
-  const [isOn, setIsOn] = useState(false);
+const USER_PROFILE_STATES = {
+  NOT_KNOWN: undefined,
+  NOT_PROFILE: null,
+};
 
-  // const [publications, setPublications] = useState(null);
+export default function Profile() {
+  const [timelineMode, setTimelineMode] = useState(false);
+  const [userProfile, setUserProfile] = useState(USER_PROFILE_STATES.NOT_KNOWN);
+
   const user = useUser();
-  // const img =
-  //   "https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80";
+
+  useEffect(() => {
+    // user && getUserPublications(user.userId);
+  }, []);
 
   useEffect(() => {
     // user && getUserPublications(setPublications);
-  }, []);
+  }, [user]);
 
   const MotionBox = motion(Box);
 
@@ -64,7 +72,7 @@ export default function Profile() {
           <Text mt="15px" fontSize="20px">
             Luciano Mariotti
           </Text>
-          <Box w="40%">
+          <Box w="50%">
             <Text mt="20px" fontWeight={400} color="gray.50" fontSize={"15px"}>
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
             </Text>
@@ -76,42 +84,20 @@ export default function Profile() {
           </HStack>
         </Flex>
       </Box>
-      <Flex p="30px 0px" justify="center" align="center">
-        <Flex
-          layerStyle={"primaryBox"}
-          w="300px"
-          h="70px"
-          p="12px 32px"
-          align={"center"}
-          onClick={() => setIsOn(!isOn)}
-        >
-          <Box w="50%" zIndex={3}>
-            <Text textAlign={"center"}>Publicaciones</Text>
-          </Box>
-          <Box w="50%" zIndex={3}>
-            <Text textAlign={"center"}>Historias</Text>
-          </Box>
-          <AnimatePresence initial={false}>
-            {user && (
-              <MotionBox
-                w="122px"
-                h="40px"
-                bg={"brand.100"}
-                position="absolute"
-                borderRadius="10px"
-                initial={{ x: isOn ? 0 : 120 }}
-                animate={{ x: isOn ? 120 : 0 }}
-                exit={{ x: 0 }}
-                transition={{ duration: 1 }}
-                // style={{ marginLeft: isOn ? "115px" : "0px" }}
-              ></MotionBox>
-            )}
-          </AnimatePresence>
-        </Flex>
-      </Flex>
-      <Box p="15px">
-        <Box> pub 1</Box>
-      </Box>
+      {user && (
+        <ToggleButton
+          timelineMode={timelineMode}
+          setTimelineMode={setTimelineMode}
+        />
+      )}
+
+      {timelineMode ? (
+        <Box p="15px">
+          <Box> hISTORIAS</Box>
+        </Box>
+      ) : (
+        <Text>PUBLICACIONES</Text>
+      )}
     </Layout>
   );
 }

@@ -18,7 +18,7 @@ import {
   DrawerFooter,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { logOut } from "../../../firebase/Client";
+import { logOut } from "../../../firebase/services/User";
 import useUser from "../../../hooks/useUser";
 import { CommonSave, Cross, Logo, Message, Options, User } from "../../Icons";
 
