@@ -41,7 +41,6 @@ export const loginWithGoogle = async () => {
 };
 
 export const createProfile = (userId, profileData) => {
-  console.log("se creo el perfil", userId);
   setDoc(doc(firestore, "users", `${userId}`), profileData);
 };
 
