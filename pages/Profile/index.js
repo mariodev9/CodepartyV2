@@ -104,8 +104,9 @@ export default function Profile() {
                   fontWeight={400}
                   color="gray.50"
                   fontSize={"15px"}
+                  textAlign="center"
                 >
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Que miras brodi ta en desarrollo esto
                 </Text>
               </Box>
               <HStack mt="20px" spacing={"5px"}>
