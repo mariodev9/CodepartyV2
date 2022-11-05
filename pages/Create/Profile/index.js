@@ -19,8 +19,10 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 import { Skill } from "../../../components/Common/Skill";
+import { createProfile } from "../../../firebase/services/User";
+import { useRouter } from "next/router";
 
-const Skills = [
+const SkillsList = [
   {
     name: "Javascript",
     color: "#CFA22D",
@@ -73,6 +75,7 @@ const Skills = [
 
 export default function CreateProfilePage() {
   const user = useUser();
+  const router = useRouter();
   const [description, setDescription] = useState("");
   const [tecnologies, setTecnologies] = useState([]);
 
@@ -80,14 +83,14 @@ export default function CreateProfilePage() {
     setDescription(e.target.value);
   };
 
-  const handleDelete = (tecnologieName) => {
+  const handleDeleteSkill = (tecnologieName) => {
     let arrayWithoutSkill = tecnologies.filter(
       (element) => element.name != tecnologieName
     );
     setTecnologies(arrayWithoutSkill);
   };
 
-  const handleAdd = (text, color) => {
+  const handleAddSkill = (text, color) => {
     let skillData = {
       name: text,
       color: color,
@@ -98,6 +101,13 @@ export default function CreateProfilePage() {
     if (tecnologies.length < 4 && isRepeat === false) {
       setTecnologies([...tecnologies, skillData]);
     }
+  };
+
+  const handleCreateProfile = () => {
+    const { userId, avatar, name } = user;
+    const profileData = { tecnologies, description, userId, avatar, name };
+    createProfile(userId, profileData);
+    router.replace("/Profile");
   };
 
   const isButtonDisabled = !description.length || !tecnologies.length;
@@ -177,7 +187,7 @@ export default function CreateProfilePage() {
                           <Skill
                             text={item.name}
                             color={item.color}
-                            handleClick={handleDelete}
+                            handleClick={handleDeleteSkill}
                           />
                         </WrapItem>
                       ))}
@@ -191,18 +201,23 @@ export default function CreateProfilePage() {
                   justify="center"
                   align="center"
                 >
-                  {Skills.map((item) => (
+                  {SkillsList.map((item) => (
                     <WrapItem key={item.name}>
                       <Skill
                         text={item.name}
                         color={item.color}
-                        handleClick={handleAdd}
+                        handleClick={handleAddSkill}
                       />
                     </WrapItem>
                   ))}
                 </Wrap>
               </Box>
-              <Button mt="30px" variant="primary" disabled={isButtonDisabled}>
+              <Button
+                mt="30px"
+                variant="primary"
+                disabled={isButtonDisabled}
+                onClick={handleCreateProfile}
+              >
                 Crear usuario
               </Button>
             </Flex>

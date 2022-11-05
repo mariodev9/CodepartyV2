@@ -6,7 +6,7 @@ import {
   signOut,
   GoogleAuthProvider,
 } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 export const sessionChange = (onChange) => {
   onAuthStateChanged(auth, (user) => {
@@ -40,8 +40,9 @@ export const loginWithGoogle = async () => {
   return signInWithPopup(auth, googleProvider);
 };
 
-export const createProfile = (userId) => {
+export const createProfile = (userId, profileData) => {
   console.log("se creo el perfil", userId);
+  setDoc(doc(firestore, "users", `${userId}`), profileData);
 };
 
 // Busca un Perfil de usuario, si existe da undefined, si no existe devuelve la data del user
