@@ -67,7 +67,7 @@ export default function LeftNavbar() {
   const user = useUser();
 
   const handleRoute = () => {
-    router.push("/Create");
+    router.push("/Create/Publication");
   };
 
   return (

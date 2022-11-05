@@ -1,9 +1,9 @@
 import { Box } from "@chakra-ui/react";
 import Head from "next/head";
-import CreateForm from "../../components/Create/CreateForm";
-import Layout from "../../components/Layout";
+import CreateForm from "../../../components/Create/CreateForm";
+import Layout from "../../../components/Layout";
 
-export default function Create() {
+export default function CreatePublicationPage() {
   return (
     <>
       <Head>
