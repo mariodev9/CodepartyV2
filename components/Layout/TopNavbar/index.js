@@ -27,6 +27,10 @@ export default function TopNav() {
   const user = useUser();
   const router = useRouter();
 
+  const handlePush = (url) => {
+    router.push(`${url}`);
+  };
+
   const handleLogOut = () => {
     logOut();
   };
@@ -68,6 +72,7 @@ export default function TopNav() {
                 align={"center"}
                 spacing={"10px"}
                 layerStyle="tabletButton"
+                onClick={() => handlePush("/Profile")}
               >
                 <User fill={"none"} height="30px" />
                 <Text fontSize={"24px"}>Perfil</Text>
@@ -76,6 +81,7 @@ export default function TopNav() {
                 align={"center"}
                 spacing={"10px"}
                 layerStyle="tabletButton"
+                onClick={() => handlePush("/Saves")}
               >
                 <CommonSave width="30px" height="30px" />
                 <Text
@@ -91,6 +97,7 @@ export default function TopNav() {
                 align={"center"}
                 spacing={"10px"}
                 layerStyle="tabletButton"
+                onClick={() => handlePush("/Mensajes")}
               >
                 <Message width="30px" height="30px" />
                 <Text fontSize={"24px"}>Mensajes</Text>

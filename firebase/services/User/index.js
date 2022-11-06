@@ -51,13 +51,9 @@ export const getProfile = async (userId, setUserProfileData) => {
 
   if (docSnap.exists()) {
     console.log("trae un objeto?", docSnap.data());
-    // setUserProfileData(docSnap.data())
-    // or
-    setUserProfileData(true);
+    setUserProfileData(docSnap.data());
   } else {
-    // doc.data() will be undefined in this case
-    console.log("No such document!");
-    // setUserProfileData(false)
+    // console.log("No such document!");
     setUserProfileData(false);
   }
 };

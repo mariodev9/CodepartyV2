@@ -11,7 +11,7 @@ import {
 import Layout from "../../components/Layout";
 import useUser from "../../hooks/useUser";
 import SectionBar from "../../components/SectionBar";
-import { Add } from "../../components/Icons";
+import { Add, Logo } from "../../components/Icons";
 import { motion } from "framer-motion";
 import ToggleButton from "../../components/Common/ToggleButton";
 import { createProfile, getProfile } from "../../firebase/services/User";
@@ -40,12 +40,7 @@ export default function Profile() {
 
   useEffect(() => {
     if (user) {
-      let userData = { ...user };
-      console.log(userData, "esto que trae");
-      // Cambiar nombre? userprofiledata State
-      // Un estado para traer la data y otro para manejar el estado ---> false: no hay data, true: hay data
-      // getProfile(user.userId, setUserProfileData, setUserStatusData);
-
+      // let userData = { ...user };
       getProfile(user.userId, setUserProfileData);
     }
   }, [user]);
@@ -69,34 +64,42 @@ export default function Profile() {
       )}
 
       {userProfileData === USER_PROFILE_STATES.NOT_PROFILE && (
-        <Flex direction={"column"}>
-          <Text fontSize={"2rem"}>
-            Hola {user.name}, veo que eres nuevo!. Crea tu perfil para que otros
-            devs lo vean!
-          </Text>
-          <Button onClick={goToCreateProfile}>Crear Perfil</Button>
-        </Flex>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+          <Flex justify="center" align="center" h={"100vh"}>
+            <Flex direction={"column"} justify={"center"}>
+              <Text textAlign={"center"} fontSize={"2rem"}>
+                Bienvenido a codeparty!
+              </Text>
+              <Text textAlign={"center"}>
+                Crea tu perfil para que otros devs lo vean!
+              </Text>
+              <Button mt="20px" variant={"primary"} onClick={goToCreateProfile}>
+                Crear Perfil
+              </Button>
+            </Flex>
+          </Flex>
+        </motion.div>
       )}
 
-      {userProfileData === USER_PROFILE_STATES.HAVE_PROFILE && (
-        <Box>
+      {/* {userProfileData === USER_PROFILE_STATES.HAVE_PROFILE && ( */}
+      {userProfileData && (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
           <Box bg="black">
             <SectionBar text={"Perfil"} back />
-
             <Flex
               direction="column"
               bgGradient="linear(to-b, #7928ca00 0%, #222124 65%)"
               align="center"
             >
               <Image
-                src={user?.avatar}
+                src={userProfileData.avatar}
                 layerStyle={"primaryBox"}
                 mt="100px"
                 h="100px"
                 w="100px"
               />
               <Text mt="15px" fontSize="20px">
-                Luciano Mariotti
+                {userProfileData.name}
               </Text>
               <Box w="50%">
                 <Text
@@ -106,13 +109,13 @@ export default function Profile() {
                   fontSize={"15px"}
                   textAlign="center"
                 >
-                  Que miras brodi ta en desarrollo esto
+                  {userProfileData.description}
                 </Text>
               </Box>
               <HStack mt="20px" spacing={"5px"}>
-                <Skill text={"Javascript"} color={"#CFA22D"} />
-                <Skill text={"Php"} color={"#787cb4"} />
-                <Add />
+                {userProfileData.tecnologies.map((item) => (
+                  <Skill key={item.name} text={item.name} color={item.color} />
+                ))}
               </HStack>
             </Flex>
           </Box>
@@ -128,7 +131,7 @@ export default function Profile() {
           ) : (
             <Text>PUBLICACIONES</Text>
           )}
-        </Box>
+        </motion.div>
       )}
     </Layout>
   );

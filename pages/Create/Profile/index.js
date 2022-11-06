@@ -120,7 +120,13 @@ export default function CreateProfilePage() {
       {user ? (
         <Flex justify={"center"}>
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-            <Flex direction={"column"} align="center" pb="30px" width="350px">
+            <Flex
+              direction={"column"}
+              align="center"
+              pb="30px"
+              width={{ base: "100%", tablet: "350px" }}
+              p="20px"
+            >
               <Image
                 src={user?.avatar}
                 layerStyle={"primaryBox"}
@@ -164,19 +170,23 @@ export default function CreateProfilePage() {
 
               {/* Tecnolgies List */}
               <Box w="100%" mt="30px">
-                <Text color="gray.50" fontSize={"16px"}>
-                  Stack
-                </Text>
+                <Flex justify={"space-between"}>
+                  <Text color="gray.50" fontSize={"16px"}>
+                    Stack
+                  </Text>
+                  <Text color="gray.50" fontSize={"16px"}>
+                    {tecnologies.length}/4
+                  </Text>
+                </Flex>
                 <Box mt="20px" p="10px">
                   {tecnologies.length === 0 ? (
                     <Box h="40px">
                       <Text fontSize={"14px"} color="gray.50">
-                        Seleccione las tecnologías que mas te gusten! <br /> (4
-                        máximo)
+                        Seleccione las tecnologías que mas te gusten!
                       </Text>
                     </Box>
                   ) : (
-                    <Wrap w="100%" display="flex" justifyContent="center">
+                    <Wrap w="100%" display="flex" justifyContent="start">
                       {tecnologies.map((item) => (
                         <WrapItem
                           key={item.name}

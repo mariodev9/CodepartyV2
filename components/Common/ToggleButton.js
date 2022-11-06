@@ -9,7 +9,7 @@ export default function ToggleButton({ timelineMode, setTimelineMode }) {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ delay: 1 }}
+      transition={{ delay: 0.2 }}
     >
       <Flex p="30px 0px" justify="center" align="center" cursor={"pointer"}>
         <Flex

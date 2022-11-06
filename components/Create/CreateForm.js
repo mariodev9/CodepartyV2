@@ -11,13 +11,14 @@ import {
   Text,
   Spinner,
 } from "@chakra-ui/react";
+import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { addCode } from "../../firebase/services/Publications";
 import { addStory, uploadImage } from "../../firebase/services/Stories";
 import useUser from "../../hooks/useUser";
+import ToggleButton from "../Common/ToggleButton";
 import { Back, Photo, Upload } from "../Icons";
-import ToggleModeButton from "./ToggleModeButton";
 
 const COMPOSE_STATES = {
   USER_NOT_KNOWN: 0,
@@ -94,41 +95,120 @@ export default function CreateForm() {
 
       {user ? (
         <>
-          <ToggleModeButton setPublicationMode={setPublicationMode} />
+          <Box p="10px">
+            {/* <ToggleModeButton setPublicationMode={setPublicationMode} /> */}
+            <ToggleButton
+              timelineMode={publicationMode}
+              setTimelineMode={setPublicationMode}
+            />
 
-          {!publicationMode && (
-            <Flex>
-              <Box pr="10px">
-                <Avatar src={user?.avatar} size="md" />
-              </Box>
-              <FormControl>
-                <Box>
-                  <Box
-                    border="1px"
-                    borderColor="gray.100"
-                    borderRadius="20px"
-                    p="10px"
-                  >
-                    <Textarea
-                      placeholder="¿Qué está pasando?"
-                      type="textarea"
-                      onChange={handleChange}
-                      value={message}
-                      border="none"
-                      resize="none"
-                      _focusVisible={{
-                        boxShadow: "none",
+            {!publicationMode && (
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                <Flex>
+                  <Box pr="10px">
+                    <Avatar src={user.avatar} size="md" />
+                  </Box>
+                  <FormControl>
+                    <Box>
+                      <Box
+                        border="1px"
+                        borderColor="gray.100"
+                        borderRadius="20px"
+                        p="10px"
+                      >
+                        <Textarea
+                          placeholder="¿Qué está pasando?"
+                          type="textarea"
+                          onChange={handleChange}
+                          value={message}
+                          border="none"
+                          resize="none"
+                          _focusVisible={{
+                            boxShadow: "none",
+                          }}
+                        />
+
+                        {img && (
+                          <Box>
+                            <Button
+                              borderRadius="99px"
+                              onClick={handleDeleteImg}
+                              position="absolute"
+                              bg="red.400"
+                              zIndex="2"
+                              _hover={{
+                                bg: "gray",
+                              }}
+                            >
+                              X
+                            </Button>
+                            <Image
+                              src={img}
+                              width={"100%"}
+                              borderRadius="10px"
+                            />
+                          </Box>
+                        )}
+                      </Box>
+                      <Flex align={"center"} justify="space-between" mt="10px">
+                        <Box>
+                          {!img && (
+                            <FormLabel htmlFor="file-input" cursor="pointer">
+                              <Photo />
+                            </FormLabel>
+                          )}
+                        </Box>
+                        {file && !img && (
+                          <Box w="100%">
+                            <Spinner color="brand.100" />
+                          </Box>
+                        )}
+                        <Button
+                          disabled={isButtonDisabled}
+                          onClick={handleAddPublication}
+                          variant="primary"
+                          p="12px 32px"
+                        >
+                          Compartir
+                        </Button>
+                      </Flex>
+                    </Box>
+                    <Input
+                      type="file"
+                      name="Add photo"
+                      id="file-input"
+                      onChange={(e) => {
+                        setFile(e.target.files[0]);
                       }}
+                      display="none"
                     />
+                  </FormControl>
+                </Flex>
+              </motion.div>
+            )}
 
+            {publicationMode && (
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                <Flex justify={"center"} align={"center"} direction="column">
+                  <Flex
+                    justify={"center"}
+                    align={"center"}
+                    direction={"column"}
+                    p="15px"
+                    w={{ base: "250px", desktop: "400px" }}
+                    h={{ base: "250px", desktop: "350px" }}
+                    border="1px"
+                    borderColor={"gray.50"}
+                    borderRadius={"20px"}
+                  >
                     {img && (
                       <Box>
                         <Button
-                          borderRadius="99px"
+                          borderRadius="full"
                           onClick={handleDeleteImg}
                           position="absolute"
-                          bg="red.400"
                           zIndex="2"
+                          bg="red.400"
                           _hover={{
                             bg: "gray",
                           }}
@@ -138,110 +218,40 @@ export default function CreateForm() {
                         <Image src={img} width={"100%"} borderRadius="10px" />
                       </Box>
                     )}
-                  </Box>
-                  <Flex align={"center"} justify="space-between" mt="10px">
-                    <Box>
-                      {!img && (
+
+                    {!img && (
+                      <>
+                        <Text mb="10px" color="gray.50">
+                          Subí una historia
+                        </Text>
                         <FormLabel htmlFor="file-input" cursor="pointer">
-                          <Photo />
+                          <Upload width="30px" height="30px" />
                         </FormLabel>
-                      )}
-                    </Box>
-                    {file && !img && (
-                      <Box w="100%">
-                        <Spinner color="brand.100" />
-                      </Box>
+                      </>
                     )}
-                    <Button
-                      disabled={isButtonDisabled}
-                      onClick={handleAddPublication}
-                      variant="primary"
-                      p="12px 32px"
-                    >
-                      Compartir
-                    </Button>
                   </Flex>
-                </Box>
-                <Input
-                  type="file"
-                  name="Add photo"
-                  id="file-input"
-                  onChange={(e) => {
-                    setFile(e.target.files[0]);
-                  }}
-                  display="none"
-                />
-              </FormControl>
-            </Flex>
-          )}
-
-          {publicationMode && (
-            <Flex
-              justify={"center"}
-              align={"center"}
-              direction="column"
-              mb="100px"
-            >
-              <Flex
-                justify={"center"}
-                align={"center"}
-                direction={"column"}
-                p="15px"
-                w={{ base: "250px", desktop: "400px" }}
-                h={{ base: "250px", desktop: "400px" }}
-                border="1px"
-                borderColor={"gray.50"}
-                borderRadius={"20px"}
-              >
-                {img && (
-                  <Box>
-                    <Button
-                      borderRadius="full"
-                      onClick={handleDeleteImg}
-                      position="absolute"
-                      zIndex="2"
-                      bg="red.400"
-                      _hover={{
-                        bg: "gray",
-                      }}
-                    >
-                      X
-                    </Button>
-                    <Image src={img} width={"100%"} borderRadius="10px" />
-                  </Box>
-                )}
-
-                {!img && (
-                  <>
-                    <Text mb="10px" color="gray.50">
-                      Subí una historia
-                    </Text>
-                    <FormLabel htmlFor="file-input" cursor="pointer">
-                      <Upload width="30px" height="30px" />
-                    </FormLabel>
-                  </>
-                )}
-              </Flex>
-              <Input
-                type="file"
-                name="Add photo"
-                id="file-input"
-                onChange={(e) => {
-                  setFile(e.target.files[0]);
-                }}
-                display="none"
-              />
-              <Button
-                disabled={!img}
-                onClick={handleAddStory}
-                variant="primary"
-                p="12px 32px"
-                mt="20px"
-              >
-                Compartir
-              </Button>
-            </Flex>
-          )}
+                  <Input
+                    type="file"
+                    name="Add photo"
+                    id="file-input"
+                    onChange={(e) => {
+                      setFile(e.target.files[0]);
+                    }}
+                    display="none"
+                  />
+                  <Button
+                    disabled={!img}
+                    onClick={handleAddStory}
+                    variant="primary"
+                    p="12px 32px"
+                    mt="20px"
+                  >
+                    Compartir
+                  </Button>
+                </Flex>
+              </motion.div>
+            )}
+          </Box>
         </>
       ) : (
         <Flex align={"center"} justify={"center"} h="70vh" color={"brand.100"}>
