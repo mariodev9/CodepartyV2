@@ -16,7 +16,7 @@ export default function MobileBottomNavbar() {
             <Home fill={"#fff"} />
           </Box>
         </Link>
-        <Link href="/Create">
+        <Link href="/Create/Publication">
           <Box
             display="flex"
             justifyContent="center"

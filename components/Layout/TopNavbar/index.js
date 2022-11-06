@@ -72,7 +72,7 @@ export default function TopNav() {
                 align={"center"}
                 spacing={"10px"}
                 layerStyle="tabletButton"
-                onClick={() => handlePush("/Profile")}
+                // onClick={() => handlePush("/Profile")}
               >
                 <User fill={"none"} height="30px" />
                 <Text fontSize={"24px"}>Perfil</Text>
@@ -81,7 +81,7 @@ export default function TopNav() {
                 align={"center"}
                 spacing={"10px"}
                 layerStyle="tabletButton"
-                onClick={() => handlePush("/Saves")}
+                // onClick={() => handlePush("/Saves")}
               >
                 <CommonSave width="30px" height="30px" />
                 <Text
@@ -97,7 +97,7 @@ export default function TopNav() {
                 align={"center"}
                 spacing={"10px"}
                 layerStyle="tabletButton"
-                onClick={() => handlePush("/Mensajes")}
+                // onClick={() => handlePush("/Mensajes")}
               >
                 <Message width="30px" height="30px" />
                 <Text fontSize={"24px"}>Mensajes</Text>

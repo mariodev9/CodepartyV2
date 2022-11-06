@@ -96,7 +96,6 @@ export default function CreateForm() {
       {user ? (
         <>
           <Box p="10px">
-            {/* <ToggleModeButton setPublicationMode={setPublicationMode} /> */}
             <ToggleButton
               timelineMode={publicationMode}
               setTimelineMode={setPublicationMode}

@@ -50,7 +50,6 @@ export const getProfile = async (userId, setUserProfileData) => {
   const docSnap = await getDoc(userProfileRef);
 
   if (docSnap.exists()) {
-    console.log("trae un objeto?", docSnap.data());
     setUserProfileData(docSnap.data());
   } else {
     // console.log("No such document!");
