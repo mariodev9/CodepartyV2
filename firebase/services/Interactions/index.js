@@ -1,76 +1,39 @@
-import { auth, firestore, storage } from "../../Client";
-
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import { firestore } from "../../Client";
 import {
-  getAuth,
-  GithubAuthProvider,
-  signInWithPopup,
-  onAuthStateChanged,
-  signOut,
-  GoogleAuthProvider,
-} from "firebase/auth";
-import {
-  getFirestore,
   collection,
   query,
-  getDocs,
   setDoc,
-  Timestamp,
-  addDoc,
   doc,
-  orderBy,
   onSnapshot,
   deleteDoc,
-  where,
   getDoc,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
+  where,
+  getDocs,
 } from "firebase/firestore";
-
-import {
-  getStorage,
-  ref,
-  uploadBytesResumable,
-  getDownloadURL,
-} from "firebase/storage";
-
 // Saves
 
-export const savePublication = async (codeId, userOnSession, data) => {
+// Se PUSHEA en el array "SAVES" el id usuario
+export const savePublication = async (codeId, userOnSession) => {
   try {
-    await setDoc(
-      doc(firestore, "codes", `${codeId}`, "saves", `${userOnSession}`),
-      {}
-    );
+    const publicationRef = doc(firestore, "codes", codeId);
+    await updateDoc(publicationRef, {
+      saves: arrayUnion(`${userOnSession}`),
+    });
   } catch (error) {
     console.error("Error adding document: ", error);
   }
 };
 
+// Se BORRA el id usuario en el array "SAVES"
 export const unsavedPublication = async (codeId, userOnSession) => {
-  await deleteDoc(
-    doc(firestore, "codes", `${codeId}`, "saves", `${userOnSession}`)
-  );
-};
+  const publicationRef = doc(firestore, "codes", codeId);
 
-export const setIfPublicationIsSave = async (
-  codeId,
-  userOnSession,
-  callback
-) => {
-  const saveRef = doc(
-    firestore,
-    "codes",
-    `${codeId}`,
-    "saves",
-    `${userOnSession}`
-  );
-  const docSnap = await getDoc(saveRef);
-
-  if (docSnap.exists()) {
-    callback(true);
-  } else {
-    callback(false);
-  }
+  await updateDoc(publicationRef, {
+    saves: arrayRemove(`${userOnSession}`),
+  });
 };
 
 // Likes

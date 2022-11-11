@@ -26,7 +26,16 @@ export default function Timeline() {
           </Flex>
         ) : (
           timeline.map(
-            ({ id, userName, avatar, content, createdAt, userId, img }) => (
+            ({
+              id,
+              userName,
+              avatar,
+              content,
+              createdAt,
+              userId,
+              img,
+              saves,
+            }) => (
               <Publication
                 userOnSession={user?.userId}
                 avatar={avatar}
@@ -37,6 +46,7 @@ export default function Timeline() {
                 img={img}
                 createdAt={createdAt}
                 userId={userId}
+                saves={saves}
               />
             )
           )

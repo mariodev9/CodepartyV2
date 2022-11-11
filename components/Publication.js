@@ -32,6 +32,7 @@ export default function Publication({
   createdAt,
   creatorId,
   userOnSession,
+  saves,
 }) {
   const timeago = useTimeAgo(createdAt);
   const [comments, setComments] = useState(null);
@@ -101,6 +102,7 @@ export default function Publication({
               <SavePublicationButton
                 userOnSession={userOnSession}
                 publicationId={id}
+                saves={saves}
               />
             </Flex>
           </Box>

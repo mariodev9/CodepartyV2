@@ -9,13 +9,17 @@ import { Save } from "../Icons";
 
 export default function SavePublicationButton({
   userOnSession,
+  saves,
   publicationId,
-  data,
 }) {
   const [isSave, setIsSave] = useState(undefined);
 
+  const publicationIsSave = (element) => element === userOnSession;
+
   useEffect(() => {
-    setIfPublicationIsSave(publicationId, userOnSession, setIsSave);
+    // Se busca el idUsuario dentro del array "saves"
+    // true = se encontro el id por lo tanto el usuario guardo la publicacion
+    saves && setIsSave(saves.some(publicationIsSave));
   }, []);
 
   const handleSavePublication = () => {
@@ -23,7 +27,7 @@ export default function SavePublicationButton({
       unsavedPublication(publicationId, userOnSession);
       setIsSave(false);
     } else {
-      savePublication(publicationId, userOnSession, data);
+      savePublication(publicationId, userOnSession);
       setIsSave(true);
     }
   };

@@ -25,7 +25,8 @@ export default function CodePage({ data, userOnSession, message }) {
   const [isLiked, setIsLiked] = useState(false);
   const [likesCount, setLikesCount] = useState(undefined);
 
-  const { id, avatar, userName, img, content, createdAt, creatorId } = data;
+  const { id, avatar, userName, img, content, createdAt, creatorId, saves } =
+    data;
 
   const user = useUser();
 
@@ -34,6 +35,8 @@ export default function CodePage({ data, userOnSession, message }) {
   }, []);
 
   useEffect(() => {
+    // Cambiar: Ahora la publicacion tiene un array con el id del user --> array.some
+
     setIfPublicationIsLiked(id, userOnSession, setIsLiked, setLikesCount);
   }, []);
 
@@ -80,8 +83,8 @@ export default function CodePage({ data, userOnSession, message }) {
             <Flex>
               <SavePublicationButton
                 userOnSession={userOnSession}
-                publicationId={id && id}
-                data={data}
+                saves={saves}
+                publicationId={id}
               />
             </Flex>
           </Flex>

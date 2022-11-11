@@ -77,7 +77,7 @@ export default function LeftNavbar() {
         display={{ base: "none", tablet: "flex" }}
         w="23%"
       >
-        <Box position="fixed" w="23%" pt="30px" pl="50px" zIndex={2}>
+        <Box position="fixed" w="23%" p="20px" zIndex={2}>
           <Box mb="20px" p="0px 10px">
             <Logo />
           </Box>
