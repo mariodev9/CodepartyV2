@@ -4,6 +4,7 @@ import Layout from "../../components/Layout";
 import SectionBar from "../../components/SectionBar";
 import { GetAllUserSaves } from "../../firebase/services/Saves";
 import useUser from "../../hooks/useUser";
+import PublicationSaved from "../../components/Saves/publicationSaved";
 
 export default function Saves() {
   const [saves, setSaves] = useState([]);
@@ -22,7 +23,15 @@ export default function Saves() {
       <Grid templateColumns="repeat(2, 1fr)" gap={6} padding={"10px"}>
         {saves &&
           saves.map((item, key) => (
-            <GridItem key={item.id} layerStyle={"primaryBox"} h="150px" />
+            <GridItem key={item.id} layerStyle={"primaryBox"} h="150px">
+              <PublicationSaved
+                content={item.content}
+                avatar={item.avatar}
+                userName={item.userName}
+                createdAt={item.createdAt}
+                saves={item.saves}
+              />
+            </GridItem>
           ))}
       </Grid>
     </Layout>

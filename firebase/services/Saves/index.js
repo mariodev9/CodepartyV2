@@ -1,5 +1,12 @@
-import { collection, getDocs, query, where } from "firebase/firestore";
 import { firestore } from "../../Client";
+import {
+  collection,
+  getDocs,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
+import { mapFromFirebaseToCodeObject } from "../Publications";
 
 export const GetAllUserSaves = async (userId, callback) => {
   const q = query(
@@ -8,10 +15,10 @@ export const GetAllUserSaves = async (userId, callback) => {
   );
 
   const querySnapshot = await getDocs(q);
-  let listSaves = [];
-  querySnapshot.forEach((doc) => {
-    const dataSave = doc.data();
-    listSaves.push(dataSave);
+
+  onSnapshot(q, (querySnapshot) => {
+    const { docs } = querySnapshot;
+    const newSaves = docs.map(mapFromFirebaseToCodeObject);
+    callback(newSaves);
   });
-  callback(listSaves);
 };

@@ -7,6 +7,7 @@ import {
   addDoc,
   orderBy,
   onSnapshot,
+  where,
 } from "firebase/firestore";
 
 export const addCode = ({ avatar, content, creatorId, userName, img }) => {
@@ -34,7 +35,7 @@ export const listenLatestCodes = async (callback) => {
   });
 };
 
-const mapFromFirebaseToCodeObject = (doc) => {
+export const mapFromFirebaseToCodeObject = (doc) => {
   const data = doc.data();
   const id = doc.id;
   const { createdAt } = data;
@@ -44,4 +45,17 @@ const mapFromFirebaseToCodeObject = (doc) => {
     id,
     createdAt: +createdAt.toDate(),
   };
+};
+
+export const getUserPublications = async (userId, callback) => {
+  const q = query(
+    collection(firestore, "codes"),
+    where("creatorId", "==", userId)
+  );
+  const querySnap = await getDocs(q);
+  onSnapshot(q, (querySnap) => {
+    const { docs } = querySnap;
+    const publications = docs.map(mapFromFirebaseToCodeObject);
+    callback(publications);
+  });
 };

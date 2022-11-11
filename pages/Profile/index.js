@@ -17,6 +17,8 @@ import ToggleButton from "../../components/Common/ToggleButton";
 import { createProfile, getProfile } from "../../firebase/services/User";
 import { useRouter } from "next/router";
 import { Skill } from "../../components/Common/Skill";
+import { getUserPublications } from "../../firebase/services/Publications";
+import Publication from "../../components/Publication";
 
 const LOADING_STATES = {
   NOT_LOGGED: null,
@@ -34,26 +36,26 @@ export default function Profile() {
   const [userProfileData, setUserProfileData] = useState(
     USER_PROFILE_STATES.NOT_KNOWN
   );
+  const [userPublications, setUserPublications] = useState([]);
 
   const router = useRouter();
   const user = useUser();
 
   useEffect(() => {
     if (user) {
-      // let userData = { ...user };
       getProfile(user.userId, setUserProfileData);
     }
   }, [user]);
 
+  useEffect(() => {
+    if (user && userProfileData) {
+      getUserPublications(user.userId, setUserPublications);
+    }
+  }, [userProfileData]);
+
   const goToCreateProfile = () => {
     router.replace("/Create/Profile");
   };
-
-  // useEffect(() => {
-  //   if (userProfileData === USER_PROFILE_STATES.HAVE_PROFILE) {
-  //     GetProfile(setProfileData)
-  //   }
-  // }, [userProfileData]);
 
   return (
     <Layout>
@@ -81,7 +83,6 @@ export default function Profile() {
         </motion.div>
       )}
 
-      {/* {userProfileData === USER_PROFILE_STATES.HAVE_PROFILE && ( */}
       {userProfileData && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
           <Box bg="black">
@@ -125,11 +126,36 @@ export default function Profile() {
           />
 
           {timelineMode ? (
-            <Box p="15px">
-              <Box> hISTORIAS</Box>
-            </Box>
+            <Text>Historias</Text>
           ) : (
-            <Text>PUBLICACIONES</Text>
+            <Box p="15px">
+              {userProfileData &&
+                userPublications.map(
+                  ({
+                    id,
+                    userName,
+                    avatar,
+                    content,
+                    createdAt,
+                    userId,
+                    img,
+                    saves,
+                  }) => (
+                    <Publication
+                      userOnSession={user?.userId}
+                      avatar={avatar}
+                      id={id}
+                      key={id}
+                      content={content}
+                      userName={userName}
+                      img={img}
+                      createdAt={createdAt}
+                      userId={userId}
+                      saves={saves}
+                    />
+                  )
+                )}
+            </Box>
           )}
         </motion.div>
       )}
