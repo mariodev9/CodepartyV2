@@ -3,6 +3,8 @@ import {
   Box,
   Button,
   Flex,
+  Grid,
+  GridItem,
   HStack,
   Image,
   Spinner,
@@ -11,14 +13,14 @@ import {
 import Layout from "../../components/Layout";
 import useUser from "../../hooks/useUser";
 import SectionBar from "../../components/SectionBar";
-import { Add, Logo } from "../../components/Icons";
 import { motion } from "framer-motion";
-import ToggleButton from "../../components/Common/ToggleButton";
-import { createProfile, getProfile } from "../../firebase/services/User";
+import { getProfile } from "../../firebase/services/User";
 import { useRouter } from "next/router";
 import { Skill } from "../../components/Common/Skill";
 import { getUserPublications } from "../../firebase/services/Publications";
 import Publication from "../../components/Publication";
+import { Toggle } from "../../components/Common/Toggle";
+import { getUserStories } from "../../firebase/services/Stories";
 
 const LOADING_STATES = {
   NOT_LOGGED: null,
@@ -37,6 +39,7 @@ export default function Profile() {
     USER_PROFILE_STATES.NOT_KNOWN
   );
   const [userPublications, setUserPublications] = useState([]);
+  const [userStories, setUserStories] = useState([]);
 
   const router = useRouter();
   const user = useUser();
@@ -50,6 +53,7 @@ export default function Profile() {
   useEffect(() => {
     if (user && userProfileData) {
       getUserPublications(user.userId, setUserPublications);
+      getUserStories(user.userId, setUserStories);
     }
   }, [userProfileData]);
 
@@ -85,11 +89,11 @@ export default function Profile() {
 
       {userProfileData && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-          <Box bg="black">
+          <Box>
             <SectionBar text={"Perfil"} back />
             <Flex
               direction="column"
-              bgGradient="linear(to-b, #7928ca00 0%, #222124 65%)"
+              // bgGradient="linear(to-b, #7928ca00 0%, #222124 65%)"
               align="center"
             >
               <Image
@@ -120,15 +124,31 @@ export default function Profile() {
               </HStack>
             </Flex>
           </Box>
-          <ToggleButton
-            timelineMode={timelineMode}
-            setTimelineMode={setTimelineMode}
-          />
+
+          <Flex justify={"center"} p="30px 0px">
+            <Toggle
+              setPublicationMode={setTimelineMode}
+              publicationMode={timelineMode}
+            />
+          </Flex>
 
           {timelineMode ? (
-            <Text>Historias</Text>
+            <Flex>
+              <Grid templateColumns="repeat(2, 1fr)" gap={6} padding={"10px"}>
+                {userStories.map((item) => (
+                  <GridItem key={item.id} layerStyle={"primaryBox"}>
+                    <Image
+                      width="300px"
+                      height="300px"
+                      src={item.img}
+                      borderRadius="10px"
+                    />
+                  </GridItem>
+                ))}
+              </Grid>
+            </Flex>
           ) : (
-            <Box p="15px">
+            <Box p="40px 15px">
               {userProfileData &&
                 userPublications.map(
                   ({

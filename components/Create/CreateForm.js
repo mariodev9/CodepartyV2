@@ -17,7 +17,7 @@ import { useEffect, useState } from "react";
 import { addCode } from "../../firebase/services/Publications";
 import { addStory, uploadImage } from "../../firebase/services/Stories";
 import useUser from "../../hooks/useUser";
-import ToggleButton from "../Common/ToggleButton";
+import { Toggle } from "../Common/Toggle";
 import { Back, Photo, Upload } from "../Icons";
 
 const COMPOSE_STATES = {
@@ -96,10 +96,12 @@ export default function CreateForm() {
       {user ? (
         <>
           <Box p="10px">
-            <ToggleButton
-              timelineMode={publicationMode}
-              setTimelineMode={setPublicationMode}
-            />
+            <Flex justify={"center"} p="30px 0px">
+              <Toggle
+                setPublicationMode={setPublicationMode}
+                publicationMode={publicationMode}
+              />
+            </Flex>
 
             {!publicationMode && (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>

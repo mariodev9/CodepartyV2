@@ -8,6 +8,7 @@ import {
   addDoc,
   orderBy,
   onSnapshot,
+  where,
 } from "firebase/firestore";
 
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
@@ -115,26 +116,11 @@ const Last24Hour = (item) => {
 };
 
 const groupStoriesByUser = (array) => {
-  // Esta funcion agrupa las historias por usuario en un objeto asi
-
-  // userStories = [
+  // Esta funcion agrupa las historias POR USUARIO en un objeto asi
   // {
-  //   userId: "1"
-  //   userAvatar: "1"
-  //   Stories: [
-  //     story1
-  //     story2
-  //   ],
-  // },
-  //  {
-  //   userId: "2"
-  //   userAvatar: "2"
-  //   Stories: [
-  //     story1
-  //     story2
-  //   ],
-  // },
-  // ]
+  //   userName: pepe
+  //   stories: []
+  // }
 
   let allUserStories = [];
 
@@ -168,4 +154,17 @@ const groupStoriesByUser = (array) => {
     }
   }
   return allUserStories;
+};
+
+export const getUserStories = async (userId, callback) => {
+  const q = query(
+    collection(firestore, "stories"),
+    where("creatorId", "==", userId)
+  );
+  const querySnap = await getDocs(q);
+  onSnapshot(q, (querySnap) => {
+    const { docs } = querySnap;
+    const userStories = docs.map(mapFromFirebaseToStoryObject);
+    callback(userStories);
+  });
 };

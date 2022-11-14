@@ -46,7 +46,7 @@ export const createProfile = (userId, profileData) => {
 
 // Busca un Perfil de usuario, si existe da undefined, si no existe devuelve la data del user
 export const getProfile = async (userId, setUserProfileData) => {
-  const userProfileRef = doc(firestore, "users", userId);
+  const userProfileRef = doc(firestore, "users", `${userId}`);
   const docSnap = await getDoc(userProfileRef);
 
   if (docSnap.exists()) {

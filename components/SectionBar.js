@@ -10,11 +10,11 @@ export default function SectionBar({ text, back }) {
     router.back();
   };
   return (
-    <Box display={{ base: "none", tablet: "flex" }} mb="50px">
+    <Box display={{ base: "flex", tablet: "flex" }} mb="50px">
       <Box
         position="fixed"
         zIndex="3"
-        w="50%"
+        w={{ base: "100%", tablet: "70%", desktop: "50%" }}
         h="50px"
         bg="#22212475"
         backdropFilter="blur(20px)"

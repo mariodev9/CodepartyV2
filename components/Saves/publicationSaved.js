@@ -15,19 +15,18 @@ export default function PublicationSaved({
     <Box p="10px">
       <Flex align={"center"}>
         <Avatar src={avatar} size={"sm"} />
-        <Text p="0px 5px">{userName}</Text>
+        <Text p="0px 10px">{userName}</Text>
         <Text fontWeight={"normal"} fontSize="12px" color="gray" ml="10px">
           {timeago}
         </Text>
       </Flex>
-      {/* <Text mt="10px">{content}</Text> */}
       <Box
         mt="20px"
         height={"65px"}
         overflow={"hidden"}
         textOverflow={"ellipsis"}
       >
-        <Text>{content}</Text>
+        <Text fontSize={"20px"}>{content}</Text>
       </Box>
     </Box>
   );

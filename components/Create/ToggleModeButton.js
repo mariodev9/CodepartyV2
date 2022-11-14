@@ -36,7 +36,7 @@ export default function ToggleModeButton({ setPublicationMode }) {
           transition={{ duration: 0.8, type: "spring" }}
         >
           <Text textAlign={"center"} color={active ? "white" : "#adadad"}>
-            Publicacion
+            Publiddcacion
           </Text>
         </MotionBox>
         <MotionBox
