@@ -2,14 +2,12 @@ import {
   Drawer,
   DrawerOverlay,
   Button,
-  DrawerHeader,
   DrawerBody,
   DrawerContent,
   useDisclosure,
   Text,
   Flex,
   Avatar,
-  Icon,
   Box,
   Switch,
   Divider,
@@ -20,7 +18,7 @@ import {
 import { useRouter } from "next/router";
 import { logOut } from "../../../firebase/services/User";
 import useUser from "../../../hooks/useUser";
-import { CommonSave, Cross, Logo, Message, Options, User } from "../../Icons";
+import { Chat, CommonSave, Cross, Logo, Options, User } from "../../Icons";
 
 export default function TopNav() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -99,7 +97,7 @@ export default function TopNav() {
                 layerStyle="tabletButton"
                 onClick={() => handlePush("/Mensajes")}
               >
-                <Message width="30px" height="30px" />
+                <Chat width="30px" height="30px" />
                 <Text fontSize={"24px"}>Mensajes</Text>
               </HStack>
               <HStack

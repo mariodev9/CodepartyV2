@@ -10,7 +10,15 @@ import {
   MenuItem,
   Menu,
 } from "@chakra-ui/react";
-import { Logo, Home, User, Settings, Options, CommonSave } from "../../Icons";
+import {
+  Logo,
+  Home,
+  User,
+  Settings,
+  Options,
+  CommonSave,
+  Chat,
+} from "../../Icons";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import useUser from "../../../hooks/useUser";
@@ -32,6 +40,11 @@ const NavLink = [
     name: "Perfil",
     link: "/Profile",
     icon: <User fill={"none"} />,
+  },
+  {
+    name: "Mensajes",
+    link: "/Mensajes",
+    icon: <Chat fill={"none"} />,
   },
 ];
 
