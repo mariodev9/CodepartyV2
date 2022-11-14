@@ -35,6 +35,7 @@ export default function Timeline() {
               userId,
               img,
               saves,
+              creatorId,
             }) => (
               <Publication
                 userOnSession={user?.userId}
@@ -47,6 +48,7 @@ export default function Timeline() {
                 createdAt={createdAt}
                 userId={userId}
                 saves={saves}
+                creatorId={creatorId}
               />
             )
           )

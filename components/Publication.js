@@ -53,7 +53,13 @@ export default function Publication({
           >
             <Flex width="100%">
               <LinkBox>
-                <Link href={`/Profile`}>
+                <Link
+                  href={
+                    creatorId == userOnSession
+                      ? `/Profile`
+                      : `/Profile/${creatorId}`
+                  }
+                >
                   <LinkOverlay>
                     <Avatar size="sm" alt={userName} src={avatar} mr={3} />
                   </LinkOverlay>
