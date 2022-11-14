@@ -125,7 +125,8 @@ export default function Profile() {
             </Flex>
           </Box>
 
-          <Flex justify={"center"} p="30px 0px">
+          <Flex justify={"center"} mt="30px">
+            {/* 1 */}
             <Toggle
               setPublicationMode={setTimelineMode}
               publicationMode={timelineMode}
@@ -133,8 +134,9 @@ export default function Profile() {
           </Flex>
 
           {timelineMode ? (
-            <Flex>
-              <Grid templateColumns="repeat(2, 1fr)" gap={6} padding={"10px"}>
+            <Flex p="45px 15px">
+              {/* 2 */}
+              <Grid templateColumns="repeat(2, 1fr)" gap={6}>
                 {userStories.map((item) => (
                   <GridItem key={item.id} layerStyle={"primaryBox"}>
                     <Image
@@ -148,7 +150,7 @@ export default function Profile() {
               </Grid>
             </Flex>
           ) : (
-            <Box p="40px 15px">
+            <Box p="20px 15px">
               {userProfileData &&
                 userPublications.map(
                   ({
