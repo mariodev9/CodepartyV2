@@ -90,7 +90,15 @@ export default function LeftNavbar() {
         display={{ base: "none", tablet: "flex" }}
         w="23%"
       >
-        <Box position="fixed" w="23%" p="20px" zIndex={2}>
+        <Box
+          position="fixed"
+          w="23%"
+          p="20px"
+          zIndex={2}
+          h="100vh"
+          borderRight="1px"
+          borderColor="gray.100"
+        >
           <Box mb="20px" p="0px 10px">
             <Logo />
           </Box>
@@ -102,9 +110,9 @@ export default function LeftNavbar() {
           <Flex justify="center">
             <Button
               variant="primary"
-              borderRadius="20px"
+              borderRadius="15px"
               w="100%"
-              mt="30px"
+              mt="10px"
               onClick={handleRoute}
             >
               Compartí
@@ -113,7 +121,7 @@ export default function LeftNavbar() {
           <Flex
             layerStyle="primaryBox"
             h="150px"
-            mt="50px"
+            mt="20px"
             justify="center"
             align="center"
             direction="column"
