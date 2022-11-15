@@ -10,6 +10,7 @@ import {
   FormControl,
   Text,
   Spinner,
+  CircularProgress,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
@@ -127,6 +128,7 @@ export default function CreateForm() {
                           _focusVisible={{
                             boxShadow: "none",
                           }}
+                          maxLength={120}
                         />
 
                         {img && (
@@ -164,14 +166,23 @@ export default function CreateForm() {
                             <Spinner color="brand.100" />
                           </Box>
                         )}
-                        <Button
-                          disabled={isButtonDisabled}
-                          onClick={handleAddPublication}
-                          variant="primary"
-                          p="12px 32px"
-                        >
-                          Compartir
-                        </Button>
+                        <Box>
+                          <CircularProgress
+                            value={message.length}
+                            max={120}
+                            size={"20px"}
+                            color={"brand.100"}
+                            p="0px 10px"
+                          />
+                          <Button
+                            disabled={isButtonDisabled}
+                            onClick={handleAddPublication}
+                            variant="primary"
+                            p="12px 32px"
+                          >
+                            Compartir
+                          </Button>
+                        </Box>
                       </Flex>
                     </Box>
                     <Input

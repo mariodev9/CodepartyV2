@@ -20,7 +20,7 @@ export default function Saves() {
     <Layout>
       <SectionBar text={"Guardados"} back />
 
-      <Grid templateColumns="repeat(2, 1fr)" gap={6} padding={"10px"}>
+      <Grid templateColumns="repeat(2, 1fr)" gap={3} padding={"10px"}>
         {saves &&
           saves.map((item, key) => (
             <GridItem key={item.id} layerStyle={"primaryBox"} h="150px">

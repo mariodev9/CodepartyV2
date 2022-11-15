@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import {
   Avatar,
   Box,
@@ -11,17 +12,24 @@ import {
   AccordionButton,
   AccordionPanel,
   HStack,
+  Button,
+  useDisclosure,
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,
 } from "@chakra-ui/react";
-import React from "react";
 import Link from "next/link";
 import useTimeAgo from "../hooks/useTimeago";
 import SavePublicationButton from "./Interactions/SavePublicationButton";
 import LikePublicationButton from "./Interactions/LikePublicationButton";
 import CommentButton from "./Interactions/CommentButton";
 import CommentForm from "./Comments/CommentForm";
-import { useState } from "react";
 import { listenLatestComments } from "../firebase/services/Comments";
-import { useEffect } from "react";
+import { Trash } from "./Icons";
+import { deleteCode } from "../firebase/services/Publications";
 
 export default function Publication({
   id,
@@ -36,10 +44,17 @@ export default function Publication({
 }) {
   const timeago = useTimeAgo(createdAt);
   const [comments, setComments] = useState(null);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const cancelRef = React.useRef();
 
   useEffect(() => {
     listenLatestComments(setComments, id);
   }, []);
+
+  const handleDeletePublication = () => {
+    deleteCode(id);
+    onClose();
+  };
 
   return (
     <>
@@ -78,6 +93,7 @@ export default function Publication({
                       {timeago}
                     </Text>
                   </Flex>
+
                   <Link
                     href={{
                       pathname: `/Code/${id}`,
@@ -85,7 +101,11 @@ export default function Publication({
                     }}
                   >
                     <LinkOverlay>
-                      <Flex direction="column">{content}</Flex>
+                      <Box p="15px 0px">
+                        <Text pb="10px" fontWeight={"normal"} fontSize="16px">
+                          {content}
+                        </Text>
+                      </Box>
                     </LinkOverlay>
                   </Link>
                   <Box width="100%" mt={5} w="100%" borderRadius="10px">
@@ -96,7 +116,7 @@ export default function Publication({
                 </Box>
               </LinkBox>
             </Flex>
-            <Flex mt={4} justify={"space-around"}>
+            <Flex mt={4} justify={"space-around"} align="center">
               <AccordionButton w={"35px"} _hover={{ bg: "none" }}>
                 <CommentButton commentsCount={comments?.length} />
               </AccordionButton>
@@ -110,6 +130,11 @@ export default function Publication({
                 publicationId={id}
                 saves={saves}
               />
+              {creatorId == userOnSession && (
+                <Box onClick={onOpen}>
+                  <Trash />
+                </Box>
+              )}
             </Flex>
           </Box>
           <AccordionPanel pb={4}>
@@ -119,6 +144,38 @@ export default function Publication({
           </AccordionPanel>
         </AccordionItem>
       </Accordion>
+
+      <AlertDialog
+        isOpen={isOpen}
+        leastDestructiveRef={cancelRef}
+        onClose={onClose}
+      >
+        <AlertDialogOverlay>
+          <AlertDialogContent>
+            <AlertDialogHeader fontSize="lg" fontWeight="bold">
+              Eliminar publicacion
+            </AlertDialogHeader>
+
+            <AlertDialogBody>
+              ¿Estas seguro que quieres eliminar tu publicacion? No puedes
+              deshacer esta accion!
+            </AlertDialogBody>
+
+            <AlertDialogFooter>
+              <Button ref={cancelRef} onClick={onClose}>
+                Cancelar
+              </Button>
+              <Button
+                colorScheme="red"
+                onClick={handleDeletePublication}
+                ml={3}
+              >
+                Eliminar
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
     </>
   );
 }

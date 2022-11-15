@@ -157,12 +157,13 @@ export default function Profile() {
                     avatar,
                     content,
                     createdAt,
-                    userId,
                     img,
                     saves,
+                    creatorId,
                   }) => (
                     <Publication
                       userOnSession={user?.userId}
+                      creatorId={creatorId}
                       avatar={avatar}
                       id={id}
                       key={id}
@@ -170,7 +171,6 @@ export default function Profile() {
                       userName={userName}
                       img={img}
                       createdAt={createdAt}
-                      userId={userId}
                       saves={saves}
                     />
                   )

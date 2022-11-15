@@ -99,7 +99,7 @@ export default function UserProfile() {
             </Box>
             {/* PROFILE HEADER */}
 
-            <Flex justify={"center"} mt="30px">
+            <Flex justify={"center"} mt="40px">
               {/* 1 */}
               <Toggle
                 setPublicationMode={setTimelineMode}
@@ -124,7 +124,7 @@ export default function UserProfile() {
                 </Grid>
               </Flex>
             ) : (
-              <Box p="40px 15px">
+              <Box p="0px 10px 40px 10px">
                 {profileData &&
                   userPublications.map(
                     ({

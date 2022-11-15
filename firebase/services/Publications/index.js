@@ -8,6 +8,8 @@ import {
   orderBy,
   onSnapshot,
   where,
+  deleteDoc,
+  doc,
 } from "firebase/firestore";
 
 export const addCode = ({ avatar, content, creatorId, userName, img }) => {
@@ -22,6 +24,14 @@ export const addCode = ({ avatar, content, creatorId, userName, img }) => {
     });
   } catch (error) {
     console.error("Error adding document: ", error);
+  }
+};
+
+export const deleteCode = async (publicationId) => {
+  try {
+    await deleteDoc(doc(firestore, "codes", publicationId));
+  } catch (error) {
+    console.error("Error delete document: ", error);
   }
 };
 
