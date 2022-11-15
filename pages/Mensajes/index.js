@@ -14,12 +14,7 @@ export default function MensajesPage() {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
         >
-          <Flex
-            direction="column"
-            h="100vh"
-            justify={"center"}
-            align={"center"}
-          >
+          <Flex direction="column" h="80vh" justify={"center"} align={"center"}>
             <Logo404 width="70px" height="70" />
             <Text pt="15px" fontSize={"40px"}>
               Proximamente

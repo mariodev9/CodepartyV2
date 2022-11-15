@@ -59,10 +59,7 @@ export default function Publication({
 
   return (
     <>
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-      >
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
         <Accordion allowToggle borderColor="black.100">
           <AccordionItem>
             <Box

@@ -88,10 +88,7 @@ export default function Profile() {
       )}
 
       {userProfileData && (
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-        >
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
           {/* Component: ProfileHeader */}
           <Box>
             <SectionBar text={"Perfil"} back />
