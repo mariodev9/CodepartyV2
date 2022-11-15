@@ -35,11 +35,11 @@ const USER_PROFILE_STATES = {
 
 export default function Profile() {
   const [timelineMode, setTimelineMode] = useState(false);
+  const [userPublications, setUserPublications] = useState([]);
+  const [userStories, setUserStories] = useState([]);
   const [userProfileData, setUserProfileData] = useState(
     USER_PROFILE_STATES.NOT_KNOWN
   );
-  const [userPublications, setUserPublications] = useState([]);
-  const [userStories, setUserStories] = useState([]);
 
   const router = useRouter();
   const user = useUser();
@@ -89,13 +89,10 @@ export default function Profile() {
 
       {userProfileData && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+          {/* Component: ProfileHeader */}
           <Box>
             <SectionBar text={"Perfil"} back />
-            <Flex
-              direction="column"
-              // bgGradient="linear(to-b, #7928ca00 0%, #222124 65%)"
-              align="center"
-            >
+            <Flex direction="column" align="center">
               <Image
                 src={userProfileData.avatar}
                 layerStyle={"primaryBox"}
@@ -124,6 +121,7 @@ export default function Profile() {
               </HStack>
             </Flex>
           </Box>
+          {/* Component: ProfileHeader */}
 
           <Flex justify={"center"} mt="30px">
             {/* 1 */}
