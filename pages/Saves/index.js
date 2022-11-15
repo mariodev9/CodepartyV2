@@ -29,12 +29,15 @@ export default function Saves() {
         <Box>
           {saves.length === 0 ? (
             <Flex h="80vh" justify="center" align="center">
-              <Text fontSize={"25px"} color="gray.50">
+              <Text fontSize={"25px"} color="gray.50" textAlign={"center"}>
                 No tienes publicaciones guardadas
               </Text>
             </Flex>
           ) : (
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+            >
               <Grid templateColumns="repeat(2, 1fr)" gap={3} padding={"10px"}>
                 {saves.map((item, key) => (
                   <GridItem key={item.id} layerStyle={"primaryBox"} h="150px">

@@ -88,7 +88,10 @@ export default function Profile() {
       )}
 
       {userProfileData && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+        >
           {/* Component: ProfileHeader */}
           <Box>
             <SectionBar text={"Perfil"} back />
@@ -122,7 +125,6 @@ export default function Profile() {
             </Flex>
           </Box>
           {/* Component: ProfileHeader */}
-
           <Flex justify={"center"} mt="30px">
             {/* 1 */}
             <Toggle
@@ -130,7 +132,6 @@ export default function Profile() {
               publicationMode={timelineMode}
             />
           </Flex>
-
           {timelineMode ? (
             <Flex p="45px 15px">
               {/* 2 */}
