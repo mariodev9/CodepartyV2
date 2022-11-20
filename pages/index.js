@@ -76,7 +76,7 @@ export default function Home() {
             >
               {/* Agregar gradient a letras (probar efecto) */}
               Find New Devs With
-              <span style={{ color: "#159BFF", marginLeft: "6px" }}>
+              <span style={{ color: "brand.100", marginLeft: "6px" }}>
                 Codeparty
               </span>
             </Text>

@@ -11,7 +11,8 @@ export default function Layout({ children }) {
         <LeftNavbar />
         <Box
           w={{ base: "100%", tablet: "65%", desktop: "50%" }}
-          h={{ desktop: "100vh" }}
+          h={{ desktop: "" }}
+          bg={"black.200"}
         >
           {children}
           <MobileBottomNavbar />

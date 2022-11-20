@@ -21,12 +21,12 @@ export default function Saves() {
     <Layout>
       <SectionBar text={"Guardados"} back />
       {saves === undefined && (
-        <Flex h="100vh" justify="center" align="center">
+        <Flex h="100vh" justify="center" align="center" bg={"brand.200"}>
           <Spinner color="brand.100" />
         </Flex>
       )}
       {saves && (
-        <Box>
+        <Box h={"100vh"} bg={"brand.200"}>
           {saves.length === 0 ? (
             <Flex h="80vh" justify="center" align="center">
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>

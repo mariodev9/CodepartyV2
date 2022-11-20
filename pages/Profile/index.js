@@ -63,120 +63,134 @@ export default function Profile() {
 
   return (
     <Layout>
-      {userProfileData === USER_PROFILE_STATES.NOT_KNOWN && (
-        <Flex h="100vh" justify="center" align="center">
-          <Spinner color="brand.100" />
-        </Flex>
-      )}
-
-      {userProfileData === USER_PROFILE_STATES.NOT_PROFILE && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-          <Flex justify="center" align="center" h={"100vh"}>
-            <Flex direction={"column"} justify={"center"}>
-              <Text textAlign={"center"} fontSize={"2rem"}>
-                Bienvenido a codeparty!
-              </Text>
-              <Text textAlign={"center"}>
-                Crea tu perfil para que otros devs lo vean!
-              </Text>
-              <Button mt="20px" variant={"primary"} onClick={goToCreateProfile}>
-                Crear Perfil
-              </Button>
-            </Flex>
+      <Box bg={"brand.200"}>
+        {userProfileData === USER_PROFILE_STATES.NOT_KNOWN && (
+          <Flex h="100vh" justify="center" align="center" bg={"black.200"}>
+            <Spinner color="brand.100" />
           </Flex>
-        </motion.div>
-      )}
+        )}
 
-      {userProfileData && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-          {/* Component: ProfileHeader */}
-          <Box>
-            <SectionBar text={"Perfil"} back />
-            <Flex direction="column" align="center">
-              <Image
-                src={userProfileData.avatar}
-                layerStyle={"primaryBox"}
-                mt="100px"
-                h="100px"
-                w="100px"
-              />
-              <Text mt="15px" fontSize="20px">
-                {userProfileData.name}
-              </Text>
-              <Box w="50%">
-                <Text
-                  mt="20px"
-                  fontWeight={400}
-                  color="gray.50"
-                  fontSize={"15px"}
-                  textAlign="center"
-                >
-                  {userProfileData.description}
+        {userProfileData === USER_PROFILE_STATES.NOT_PROFILE && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            style={(backgroundColor = "#0A0A0A")}
+          >
+            <Flex justify="center" align="center" bg="brand.200">
+              <Flex direction={"column"} justify={"center"}>
+                <Text textAlign={"center"} fontSize={"2rem"}>
+                  Bienvenido a codeparty!
                 </Text>
-              </Box>
-              <HStack mt="20px" spacing={"5px"}>
-                {userProfileData.tecnologies.map((item) => (
-                  <Skill key={item.name} text={item.name} color={item.color} />
-                ))}
-              </HStack>
+                <Text textAlign={"center"}>
+                  Crea tu perfil para que otros devs lo vean!
+                </Text>
+                <Button
+                  mt="20px"
+                  variant={"primary"}
+                  onClick={goToCreateProfile}
+                >
+                  Crear Perfil
+                </Button>
+              </Flex>
             </Flex>
-          </Box>
-          {/* Component: ProfileHeader */}
-          <Flex justify={"center"} mt="30px">
-            {/* 1 */}
-            <Toggle
-              setPublicationMode={setTimelineMode}
-              publicationMode={timelineMode}
-            />
-          </Flex>
-          {timelineMode ? (
-            <Flex p="45px 15px">
-              {/* 2 */}
-              <Grid templateColumns="repeat(2, 1fr)" gap={6}>
-                {userStories.map((item) => (
-                  <GridItem key={item.id} layerStyle={"primaryBox"}>
-                    <Image
-                      width="300px"
-                      height="300px"
-                      src={item.img}
-                      borderRadius="10px"
+          </motion.div>
+        )}
+
+        {userProfileData && (
+          <Box>
+            {/* Component: ProfileHeader */}
+            <Box>
+              <SectionBar text={"Perfil"} back />
+              <Flex direction="column" align="center">
+                <Image
+                  src={userProfileData.avatar}
+                  layerStyle={"primaryBox"}
+                  mt="100px"
+                  h="100px"
+                  w="100px"
+                />
+                <Text mt="15px" fontSize="20px">
+                  {userProfileData.name}
+                </Text>
+                <Box w="50%">
+                  <Text
+                    mt="20px"
+                    fontWeight={400}
+                    color="gray.50"
+                    fontSize={"15px"}
+                    textAlign="center"
+                  >
+                    {userProfileData.description}
+                  </Text>
+                </Box>
+                <HStack mt="20px" spacing={"5px"}>
+                  {userProfileData.tecnologies.map((item) => (
+                    <Skill
+                      key={item.name}
+                      text={item.name}
+                      color={item.color}
                     />
-                  </GridItem>
-                ))}
-              </Grid>
-            </Flex>
-          ) : (
-            <Box p="20px 15px">
-              {userProfileData &&
-                userPublications.map(
-                  ({
-                    id,
-                    userName,
-                    avatar,
-                    content,
-                    createdAt,
-                    img,
-                    saves,
-                    creatorId,
-                  }) => (
-                    <Publication
-                      userOnSession={user?.userId}
-                      creatorId={creatorId}
-                      avatar={avatar}
-                      id={id}
-                      key={id}
-                      content={content}
-                      userName={userName}
-                      img={img}
-                      createdAt={createdAt}
-                      saves={saves}
-                    />
-                  )
-                )}
+                  ))}
+                </HStack>
+              </Flex>
             </Box>
-          )}
-        </motion.div>
-      )}
+            {/* Component: ProfileHeader */}
+            <Flex justify={"center"} pt="30px" bg={"black.200"}>
+              {/* 1 */}
+              <Toggle
+                setPublicationMode={setTimelineMode}
+                publicationMode={timelineMode}
+              />
+            </Flex>
+            {timelineMode ? (
+              <Flex p="45px 15px">
+                {/* 2 */}
+                <Grid templateColumns="repeat(2, 1fr)" gap={6}>
+                  {userStories.map((item) => (
+                    <GridItem key={item.id} layerStyle={"primaryBox"}>
+                      <Image
+                        width="300px"
+                        height="300px"
+                        src={item.img}
+                        borderRadius="10px"
+                      />
+                    </GridItem>
+                  ))}
+                </Grid>
+              </Flex>
+            ) : (
+              <Box p="20px 15px" bg={"black.200"}>
+                {userProfileData &&
+                  userPublications.map(
+                    ({
+                      id,
+                      userName,
+                      avatar,
+                      content,
+                      createdAt,
+                      img,
+                      saves,
+                      creatorId,
+                    }) => (
+                      <Publication
+                        userOnSession={user?.userId}
+                        creatorId={creatorId}
+                        avatar={avatar}
+                        id={id}
+                        key={id}
+                        content={content}
+                        userName={userName}
+                        img={img}
+                        createdAt={createdAt}
+                        saves={saves}
+                      />
+                    )
+                  )}
+              </Box>
+            )}
+          </Box>
+        )}
+      </Box>
     </Layout>
   );
 }

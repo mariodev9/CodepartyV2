@@ -1,16 +1,9 @@
-import {
-  Box,
-  Flex,
-  Grid,
-  GridItem,
-  HStack,
-  Image,
-  Stack,
-  VStack,
-} from "@chakra-ui/react";
+import { Avatar, Box, Stack, VStack } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import React from "react";
 import { Logo } from "./Icons";
+import Image from "next/image";
+import hola from "../images/asd.png";
 
 const variants = {
   visible: (i) => ({
@@ -37,7 +30,7 @@ const logoBox = {
   }),
 };
 
-const CustomBox = ({ order, children }) => {
+const CustomBox = ({ order, img, children }) => {
   const MotionBox = motion(Box);
   return (
     <MotionBox
@@ -46,6 +39,7 @@ const CustomBox = ({ order, children }) => {
       animate="visible"
       custom={order}
       variants={variants}
+      bgImage={img}
     >
       {children}
     </MotionBox>
@@ -74,7 +68,14 @@ export default function StartedAnimation() {
         align="center"
       >
         <VStack spacing="14px">
-          <CustomBox order={3} />
+          <CustomBox order={3} img={hola}>
+            {/* <Image
+              src={hola}
+              width={"100px"}
+              height={"100px"}
+              alt="logo"
+            ></Image> */}
+          </CustomBox>
           <CustomBox order={5} />
           <CustomBox order={2} />
         </VStack>

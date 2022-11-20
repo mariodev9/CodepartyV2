@@ -17,8 +17,8 @@ export default function Timeline() {
   return (
     <>
       <Box p="10px 20px" mb="70px">
-        <Text m="20px 0 15px 0" textAlign="center">
-          Last Codes
+        <Text m="20px 0 15px 0" textAlign="" fontSize={"25px"}>
+          Ultimas publicaciones
         </Text>
         {timeline.length === 0 ? (
           <Flex h="70vh" p={5} justify="center" align={"center"}>

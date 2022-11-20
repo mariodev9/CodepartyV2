@@ -60,7 +60,7 @@ export default function Publication({
   return (
     <>
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-        <Accordion allowToggle borderColor="black.100">
+        <Accordion allowToggle borderColor="black.200">
           <AccordionItem>
             <Box
               layerStyle="primaryBox"
@@ -146,13 +146,17 @@ export default function Publication({
             </AccordionPanel>
           </AccordionItem>
         </Accordion>
+
+        {/* eliminar pub */}
         <AlertDialog
           isOpen={isOpen}
           leastDestructiveRef={cancelRef}
           onClose={onClose}
+          isCentered
+          motionPreset="slideInBottom"
         >
           <AlertDialogOverlay>
-            <AlertDialogContent>
+            <AlertDialogContent bg={"black.100"}>
               <AlertDialogHeader fontSize="lg" fontWeight="bold">
                 Eliminar publicacion
               </AlertDialogHeader>
