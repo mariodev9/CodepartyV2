@@ -12,7 +12,7 @@ export default function Layout({ children }) {
         <Box
           w={{ base: "100%", tablet: "65%", desktop: "50%" }}
           h={{ desktop: "" }}
-          bg={"black.200"}
+          bg={{ base: "black.100", tablet: "black.200" }}
         >
           {children}
           <MobileBottomNavbar />

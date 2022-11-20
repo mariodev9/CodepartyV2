@@ -65,7 +65,12 @@ export default function Profile() {
     <Layout>
       <Box bg={"brand.200"}>
         {userProfileData === USER_PROFILE_STATES.NOT_KNOWN && (
-          <Flex h="100vh" justify="center" align="center" bg={"black.200"}>
+          <Flex
+            h="100vh"
+            justify="center"
+            align="center"
+            bg={{ base: "black.100", tablet: "black.200" }}
+          >
             <Spinner color="brand.100" />
           </Flex>
         )}
@@ -135,7 +140,11 @@ export default function Profile() {
               </Flex>
             </Box>
             {/* Component: ProfileHeader */}
-            <Flex justify={"center"} pt="30px" bg={"black.200"}>
+            <Flex
+              justify={"center"}
+              pt="30px"
+              bg={{ base: "black.100", tablet: "black.200" }}
+            >
               {/* 1 */}
               <Toggle
                 setPublicationMode={setTimelineMode}
@@ -159,7 +168,10 @@ export default function Profile() {
                 </Grid>
               </Flex>
             ) : (
-              <Box p="20px 15px" bg={"black.200"}>
+              <Box
+                p="20px 15px"
+                bg={{ base: "black.100", tablet: "black.200" }}
+              >
                 {userProfileData &&
                   userPublications.map(
                     ({
