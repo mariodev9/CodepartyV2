@@ -525,3 +525,24 @@ export const Trash = (props) => {
     </svg>
   );
 };
+
+export const Edit = (props) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      {...props}
+    >
+      <path
+        d="M12.5 5.5L16.5 9.5M4.5 13.5L8.5 17.5M3 19.0001H7L17.5 8.50006C18.0304 7.96963 18.3284 7.2502 18.3284 6.50006C18.3284 5.74991 18.0304 5.03049 17.5 4.50006C16.9696 3.96962 16.2501 3.67163 15.5 3.67163C14.7499 3.67163 14.0304 3.96962 13.5 4.50006L3 15.0001V19.0001ZM21 15V19H13L17 15H21Z"
+        stroke="white"
+        strokeWidth="1"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};

@@ -60,16 +60,14 @@ export default function Publication({
   return (
     <>
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-        <Accordion
-          allowToggle
-          borderColor={{ base: "black.100", tablet: "black.200" }}
-        >
+        <Accordion allowToggle borderColor={{ base: "black.100" }}>
           <AccordionItem>
             <Box
               layerStyle="primaryBox"
               padding="15px"
               margin="25px 0px"
               cursor="pointer"
+              userSelect="none"
             >
               <Flex width="100%">
                 <LinkBox>

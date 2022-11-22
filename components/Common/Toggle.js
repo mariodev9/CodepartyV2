@@ -56,6 +56,7 @@ const containerStyle = {
   width: "300px",
   borderColor: "gray.500",
   boxShadow: "0 5px 5px rgba(0, 0, 0, 0.1)",
+  userSelect: "none",
 };
 
 const tabStyle = {
