@@ -259,7 +259,7 @@ export default function Profile() {
       {/* Modal Edit Profile */}
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent bg={"black.100"}>
           <ModalHeader>Editar Perfil</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
