@@ -14,6 +14,7 @@ import {
   HStack,
   VStack,
   DrawerFooter,
+  DrawerCloseButton,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { logOut } from "../../../firebase/services/User";
@@ -54,6 +55,8 @@ export default function TopNav() {
       <Drawer placement={"left"} onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
         <DrawerContent bg="black.50">
+          <DrawerCloseButton />
+
           <DrawerBody>
             <Box pt="25px">
               <Avatar
