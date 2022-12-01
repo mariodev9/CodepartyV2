@@ -104,7 +104,7 @@ export default function Publication({
                       }}
                     >
                       <LinkOverlay>
-                        <Box p="15px 0px">
+                        <Box p="15px 0px" width={"80%"}>
                           <Text pb="10px" fontWeight={"normal"} fontSize="16px">
                             {content}
                           </Text>
