@@ -17,6 +17,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { addCode } from "../../firebase/services/Publications";
 import { addStory, uploadImage } from "../../firebase/services/Stories";
+import useProfile from "../../hooks/useProfile";
 import useUser from "../../hooks/useUser";
 import { Toggle } from "../Common/Toggle";
 import { Back, Photo, Upload } from "../Icons";
@@ -37,6 +38,7 @@ export default function CreateForm() {
 
   const router = useRouter();
   const user = useUser();
+  const profile = useProfile();
 
   useEffect(() => {
     file && uploadImage(file, setImg);
@@ -68,7 +70,7 @@ export default function CreateForm() {
     setStatus(COMPOSE_STATES.LOADING);
 
     addCode({
-      avatar: user.avatar,
+      avatar: profile.avatar,
       content: message,
       creatorId: user.userId,
       userName: user.name,
@@ -108,7 +110,7 @@ export default function CreateForm() {
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                 <Flex>
                   <Box pr="10px">
-                    <Avatar src={user.avatar} size="md" />
+                    <Avatar src={profile?.avatar} size="md" />
                   </Box>
                   <FormControl>
                     <Box>

@@ -30,6 +30,8 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { settings } from "../styleSettings";
 import useUser from "../hooks/useUser";
+import useProfile from "../hooks/useProfile";
+
 import { Add, Cross, Upload } from "./Icons";
 import Story from "./Story";
 
@@ -46,12 +48,13 @@ export default function Stories() {
   const [file, setFile] = useState("");
 
   const user = useUser();
-
+  const profile = useProfile();
+  // user
   useEffect(() => {
-    if (user) {
-      listenLatestStories(setStories, setUserStories, user.userId);
+    if (profile) {
+      listenLatestStories(setStories, setUserStories, profile.userId);
     }
-  }, [user]);
+  }, [profile]);
 
   useEffect(() => {
     file && uploadImage(file, setImg);
@@ -61,13 +64,12 @@ export default function Stories() {
     setImg("");
     setFile("");
   };
-
   const handleUpload = (event) => {
     event.preventDefault();
     addStory({
       creatorId: user.userId,
-      avatar: user.avatar,
-      userName: user.name,
+      avatar: profile.avatar,
+      userName: profile.name,
       img: img,
     });
     handleDeleteImg();
@@ -105,7 +107,7 @@ export default function Stories() {
                     />
                     <FormLabel htmlFor="file-input" cursor="pointer">
                       <Avatar
-                        src={user?.avatar}
+                        src={profile?.avatar}
                         size="lg"
                         border="2px solid #4DB0FA"
                         onClick={onOpen}

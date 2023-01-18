@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Add } from "../../../components/Icons";
+import React, { useState, useEffect } from "react";
+import { Add, Upload } from "../../../components/Icons";
 import useUser from "../../../hooks/useUser";
 import { motion } from "framer-motion";
 import {
@@ -7,7 +7,6 @@ import {
   Flex,
   Text,
   HStack,
-  Image,
   Input,
   FormLabel,
   Textarea,
@@ -17,72 +16,41 @@ import {
   Divider,
   Button,
   Spinner,
+  FormControl,
+  Image,
+  Avatar,
 } from "@chakra-ui/react";
 import { Skill } from "../../../components/Common/Skill";
 import { createProfile } from "../../../firebase/services/User";
 import { useRouter } from "next/router";
 import { SkillsList } from "../../../components/Common/SkillsList";
-
-// const SkillsList = [
-//   {
-//     name: "Javascript",
-//     color: "#CFA22D",
-//   },
-//   {
-//     name: "Php",
-//     color: "#787cb4",
-//   },
-//   {
-//     name: "Java",
-//     color: "#0d8ac7",
-//   },
-//   {
-//     name: "Vue",
-//     color: "#00b77f",
-//   },
-//   {
-//     name: "React",
-//     color: "#5ed3f3",
-//   },
-//   {
-//     name: "Angular",
-//     color: "#fe140d",
-//   },
-//   {
-//     name: "HTML",
-//     color: "#e96228",
-//   },
-//   {
-//     name: "CSS",
-//     color: "#0068ba",
-//   },
-//   {
-//     name: "NodeJS",
-//     color: "#3c823b",
-//   },
-//   {
-//     name: "Python",
-//     color: "#ffe05e",
-//   },
-//   {
-//     name: "Ruby",
-//     color: "#930e03",
-//   },
-//   {
-//     name: "Go",
-//     color: "#00add8",
-//   },
-// ];
+import { useForm } from "react-hook-form";
+import { uploadImage } from "../../../firebase/services/Stories";
 
 export default function CreateProfilePage() {
   const user = useUser();
   const router = useRouter();
-  const [description, setDescription] = useState("");
   const [tecnologies, setTecnologies] = useState([]);
+  const [img, setImg] = useState("");
+  const [avatarFile, setAvatarFile] = useState("");
 
-  const handleChange = (e) => {
-    setDescription(e.target.value);
-  };
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    defaultValues: {
+      name: "",
+      description: "",
+    },
+  });
+
+  const descriptionText = watch("description");
+
+  useEffect(() => {
+    avatarFile && uploadImage(avatarFile, setImg);
+  }, [avatarFile]);
 
   const handleDeleteSkill = (tecnologieName) => {
     let arrayWithoutSkill = tecnologies.filter(
@@ -104,17 +72,19 @@ export default function CreateProfilePage() {
     }
   };
 
-  const handleCreateProfile = () => {
-    const { userId, avatar, name } = user;
-    const profileData = { tecnologies, description, userId, avatar, name };
+  const handleDeleteImg = () => {
+    setImg("");
+    setAvatarFile("");
+  };
+
+  const handleCreateProfileForm = (data) => {
+    // let avatar = "https://avatars.githubusercontent.com/u/56579502?v=4";
+    const { userId } = user;
+    const profileData = { ...data, img, tecnologies };
+    console.log(profileData);
     createProfile(userId, profileData);
     router.replace("/Profile");
   };
-
-  const isButtonDisabled = !description.length || !tecnologies.length;
-
-  // Eliminar saltos de linea
-  // var textarea = data.replace(/(\r\n|\n|\r)/gm, "")
 
   return (
     <>
@@ -123,114 +93,187 @@ export default function CreateProfilePage() {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <Flex
               direction={"column"}
-              align="center"
               pb="30px"
               width={{ base: "100%", tablet: "350px" }}
               p="20px"
             >
-              <Image
-                src={user?.avatar}
-                layerStyle={"primaryBox"}
-                mt="100px"
-                h="100px"
-                w="100px"
-              />
-              <Text mt="15px" fontSize="25px">
-                {user?.name}
-              </Text>
+              <form
+                onSubmit={handleSubmit((data) => {
+                  handleCreateProfileForm(data);
+                })}
+              >
+                <FormControl>
+                  <Flex>
+                    {img && (
+                      <Box>
+                        <Button
+                          borderRadius="full"
+                          onClick={handleDeleteImg}
+                          position="absolute"
+                          zIndex="2"
+                          bg="red.400"
+                          _hover={{
+                            bg: "gray",
+                          }}
+                        >
+                          X
+                        </Button>
+                        <Image
+                          src={img}
+                          w={"100px"}
+                          h="100px"
+                          layerStyle="primaryBox"
+                          borderRadius="10px"
+                        />
+                      </Box>
+                    )}
+                    <Box width={"50%"} h="40px" border="1px solid red">
+                      <FormLabel
+                        htmlFor="avatar"
+                        cursor="pointer"
+                        border="1px solid blue"
+                      >
+                        <Input
+                          type="file"
+                          id="avatar"
+                          // {...register("avatar")}
+                          onChange={(e) => {
+                            setAvatarFile(e.target.files[0]);
+                          }}
+                          display="none"
+                        />
+                        <Upload />
+                      </FormLabel>
+                    </Box>
+                  </Flex>
 
-              {/* Description Form */}
-              <Box w="100%" mt="50px">
-                <FormLabel>
+                  {/* Username Input */}
+                  <Box w="full">
+                    <FormLabel
+                      mt="15px"
+                      color="gray.50"
+                      fontSize={"16px"}
+                      htmlFor="name"
+                    >
+                      Nombre de usuario
+                    </FormLabel>
+                    <Input
+                      id="name"
+                      layerStyle={"primaryBox"}
+                      bg="black.50"
+                      border="none"
+                      fontSize={{ base: "20px", desktop: "18px" }}
+                      fontWeight={600}
+                      {...register("name", {
+                        required: "This is required",
+                      })}
+                    />
+                  </Box>
+
+                  {/* Description Input */}
+                  <Box w="100%" mt="50px">
+                    <Flex
+                      justify={"space-between"}
+                      align={"center"}
+                      p="5px 0px"
+                    >
+                      <FormLabel
+                        mt="15px"
+                        color="gray.50"
+                        fontSize={"16px"}
+                        htmlFor="name"
+                      >
+                        Descripcion
+                      </FormLabel>
+                      <CircularProgress
+                        value={descriptionText.length}
+                        max={100}
+                        size={"20px"}
+                        color={"brand.100"}
+                      />
+                    </Flex>
+                    <Textarea
+                      id="description"
+                      resize={"none"}
+                      layerStyle={"primaryBox"}
+                      bg="black.50"
+                      border="none"
+                      fontSize={{ base: "20px", desktop: "18px" }}
+                      fontWeight={600}
+                      h="130px"
+                      borderRadius={"10px"}
+                      _focus={{ borderColor: "white" }}
+                      maxLength={100}
+                      {...register("description", {
+                        required: "This is required",
+                      })}
+                    />
+                  </Box>
+                </FormControl>
+
+                {/* Tecnologies List */}
+                <Box w="100%" mt="30px">
                   <Flex justify={"space-between"}>
                     <Text color="gray.50" fontSize={"16px"}>
-                      Descripción
+                      Stack
                     </Text>
-                    <CircularProgress
-                      value={description.length}
-                      max={100}
-                      size={"20px"}
-                      color={"brand.100"}
-                    />
+                    <Text color="gray.50" fontSize={"16px"}>
+                      {tecnologies.length}/4
+                    </Text>
                   </Flex>
-                </FormLabel>
-                <Textarea
-                  resize={"none"}
-                  layerStyle={"primaryBox"}
-                  bg="black.50"
-                  border="none"
-                  fontSize={{ base: "20px", desktop: "18px" }}
-                  fontWeight={600}
-                  h="130px"
-                  borderRadius={"10px"}
-                  _focus={{ borderColor: "white" }}
-                  maxLength={100}
-                  onChange={handleChange}
-                />
-              </Box>
-
-              {/* Tecnolgies List */}
-              <Box w="100%" mt="30px">
-                <Flex justify={"space-between"}>
-                  <Text color="gray.50" fontSize={"16px"}>
-                    Stack
-                  </Text>
-                  <Text color="gray.50" fontSize={"16px"}>
-                    {tecnologies.length}/4
-                  </Text>
-                </Flex>
-                <Box mt="20px" p="10px">
-                  {tecnologies.length === 0 ? (
-                    <Box h="40px">
-                      <Text fontSize={"14px"} color="gray.50">
-                        Seleccione las tecnologías que mas te gusten!
-                      </Text>
-                    </Box>
-                  ) : (
-                    <Wrap w="100%" display="flex" justifyContent="start">
-                      {tecnologies.map((item) => (
-                        <WrapItem
-                          key={item.name}
-                          display="flex"
-                          justify="center"
-                          align="center"
-                        >
-                          <Skill
-                            text={item.name}
-                            color={item.color}
-                            handleClick={handleDeleteSkill}
-                          />
-                        </WrapItem>
-                      ))}
-                    </Wrap>
-                  )}
-                  <Divider mt="5px" />
+                  <Box mt="20px" p="10px">
+                    {tecnologies.length === 0 ? (
+                      <Box h="40px">
+                        <Text fontSize={"14px"} color="gray.50">
+                          Seleccione las tecnologías que mas te gusten!
+                        </Text>
+                      </Box>
+                    ) : (
+                      <Wrap w="100%" display="flex" justifyContent="start">
+                        {tecnologies.map((item) => (
+                          <WrapItem
+                            key={item.name}
+                            display="flex"
+                            justify="center"
+                            align="center"
+                          >
+                            <Skill
+                              text={item.name}
+                              color={item.color}
+                              handleClick={handleDeleteSkill}
+                            />
+                          </WrapItem>
+                        ))}
+                      </Wrap>
+                    )}
+                    <Divider mt="5px" />
+                  </Box>
+                  <Wrap
+                    p="30px 0px"
+                    display="flex"
+                    justify="center"
+                    align="center"
+                  >
+                    {SkillsList.map((item) => (
+                      <WrapItem key={item.name}>
+                        <Skill
+                          text={item.name}
+                          color={item.color}
+                          handleClick={handleAddSkill}
+                        />
+                      </WrapItem>
+                    ))}
+                  </Wrap>
                 </Box>
-                <Wrap
-                  p="30px 0px"
-                  display="flex"
-                  justify="center"
-                  align="center"
+                <Button
+                  mt="30px"
+                  variant="primary"
+                  isLoading={isSubmitting}
+                  type="submit"
                 >
-                  {SkillsList.map((item) => (
-                    <WrapItem key={item.name}>
-                      <Skill
-                        text={item.name}
-                        color={item.color}
-                        handleClick={handleAddSkill}
-                      />
-                    </WrapItem>
-                  ))}
-                </Wrap>
-              </Box>
-              <Button
-                mt="30px"
-                variant="primary"
-                disabled={isButtonDisabled}
-                onClick={handleCreateProfile}
-              >
-                Crear usuario
-              </Button>
+                  Crear usuario
+                </Button>
+              </form>
             </Flex>
           </motion.div>
         </Flex>

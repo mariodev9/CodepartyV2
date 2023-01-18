@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import React from "react";
 import { Logo } from "./Icons";
 import Image from "next/image";
-import hola from "../images/asd.png";
 
 const variants = {
   visible: (i) => ({
@@ -68,7 +67,7 @@ export default function StartedAnimation() {
         align="center"
       >
         <VStack spacing="14px">
-          <CustomBox order={3} img={hola}>
+          <CustomBox order={3}>
             {/* <Image
               src={hola}
               width={"100px"}

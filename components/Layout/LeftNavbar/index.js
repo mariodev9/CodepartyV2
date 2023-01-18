@@ -23,6 +23,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import useUser from "../../../hooks/useUser";
 import { logOut } from "../../../firebase/services/User";
+import useProfile from "../../../hooks/useProfile";
 
 const NavLink = [
   {
@@ -53,7 +54,6 @@ function BoxLink({ item }) {
     <Link href={`${item.link}`}>
       <Flex
         key={item.name}
-        pt="5px"
         align="center"
         p="10px 16px"
         borderRadius="14px"
@@ -66,7 +66,11 @@ function BoxLink({ item }) {
         w="auto"
       >
         <Box>{item.icon}</Box>
-        <Text ml="10px" fontSize="20px" fontWeight={400}>
+        <Text
+          ml="10px"
+          fontSize={{ base: "16px", desktop: "26px" }}
+          fontWeight={400}
+        >
           {item.name}
         </Text>
       </Flex>
@@ -77,7 +81,7 @@ function BoxLink({ item }) {
 export default function LeftNavbar() {
   const router = useRouter();
 
-  const user = useUser();
+  const profile = useProfile();
 
   const handleRoute = () => {
     router.push("/Create/Publication");
@@ -94,7 +98,7 @@ export default function LeftNavbar() {
           <Box mb="20px" p="0px 10px">
             <Logo />
           </Box>
-          <Box mt="80px">
+          <Box mt="60px">
             {NavLink.map((item) => (
               <BoxLink key={item.name} item={item} />
             ))}
@@ -136,7 +140,7 @@ export default function LeftNavbar() {
             <Menu>
               <MenuButton as={Flex} layerStyle="tabletButton" w="60%">
                 <Flex align="center" justify="space-between">
-                  <Avatar mr="10px" src={user?.avatar} size="xs" />
+                  <Avatar mr="10px" src={profile?.avatar} size="xs" />
                   <Options />
                 </Flex>
               </MenuButton>

@@ -6,11 +6,13 @@ import { Box, useDisclosure } from "@chakra-ui/react";
 import Stories from "../../components/Stories";
 import TopNav from "../../components/Layout/TopNavbar";
 import SectionBar from "../../components/SectionBar";
+import useProfile from "../../hooks/useProfile";
 
 export default function Home() {
   const [session, onSession] = useState(true);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const profile = useProfile();
   const router = useRouter();
 
   useEffect(() => {

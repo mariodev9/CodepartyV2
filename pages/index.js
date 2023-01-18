@@ -5,6 +5,10 @@ import {
   Button,
   Center,
   Flex,
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  Input,
   Spinner,
   Text,
   VStack,
@@ -15,11 +19,21 @@ import {
   sessionChange,
 } from "../firebase/services/User";
 import { useRouter } from "next/router";
-import { Github, Google } from "../components/Icons";
-import StartedAnimation from "../components/StartedAnimation";
+import { Github, Google, Logo } from "../components/Icons";
+// import StartedAnimation from "../components/StartedAnimation";
+import { useForm } from "react-hook-form";
+import { Login } from "../firebase/services/Auth";
 
 export default function Home() {
   const [dev, setDev] = useState(undefined);
+  const [error, setError] = useState("");
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
   const router = useRouter();
 
   useEffect(() => {
@@ -41,6 +55,11 @@ export default function Home() {
       console.log(error);
     });
   };
+
+  const GoToCreateAccountPage = () => {
+    router.push("/Create/Account");
+  };
+
   return (
     <>
       <Head>
@@ -51,83 +70,140 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Box display={{ base: "block", desktop: "none" }} h="10vh" bg="black">
+        <Flex
+          borderBottomLeftRadius="40px"
+          borderBottomRightRadius="40px"
+          bg={"black.100"}
+          h="100%"
+          justify={"center"}
+          align="center"
+        >
+          <Logo />
+          <Text p="0px 20px" fontSize={"20px"}>
+            Codeparty
+          </Text>
+        </Flex>
+      </Box>
+
       <Flex
         direction={{ base: "column", desktop: "row" }}
         justify="center"
         align="center"
         h="100vh"
+        bg={"black.200"}
       >
-        <StartedAnimation />
+        {/* Primera mitad */}
         <Flex
-          display="flex"
-          direction="column"
-          justify="center"
+          direction={"column"}
           align="center"
-          textAlign="center"
-          bg={{ base: "none", desktop: "black" }}
-          h={{ base: "50%", desktop: "100vh" }}
-          w="400px"
+          width={{ base: "100%", desktop: "40%" }}
+          p="0px 50px"
         >
-          <Box width="290px">
-            <Text
-              textAlign="center"
-              fontWeight={800}
-              fontSize={{ base: "25px", desktop: "30px" }}
-            >
-              {/* Agregar gradient a letras (probar efecto) */}
-              Find New Devs With
-              <span style={{ color: "brand.100", marginLeft: "6px" }}>
-                Codeparty
-              </span>
-            </Text>
-            <Text
-              textAlign="center"
-              fontWeight={400}
-              fontSize="15px"
-              mt="15px"
-              color="gray"
-            >
-              Talk and share with others developers around the world
-            </Text>
-          </Box>
+          <Text fontWeight={600} fontSize="3rem">
+            Bienvenido!
+          </Text>
+          <Text fontWeight={400} fontSize="15px" m="10px 0px">
+            Por favor, ingresa tus datos.
+          </Text>
           <VStack
-            p={{ base: 5, desktop: 12 }}
-            h={{ base: "140px", desktop: "200px" }}
-            width="350px"
+            // p={{ base: 5, desktop: 12 }}
+            // h={{ base: "140px", desktop: "200px" }}
+            spacing={"15px"}
+            mt="30px"
+            w="400px"
           >
-            {dev !== null && <Spinner color="brand.100" />}
-            {dev === null && (
+            {dev !== null ? (
+              <Spinner color="brand.100" />
+            ) : (
               <>
-                <Center>
+                {/* Login */}
+                <FormControl>
+                  <FormLabel>Email </FormLabel>
+                  <Input
+                    id="loginEmail"
+                    placeholder="Email"
+                    type={"email"}
+                    {...register("email")}
+                  />
+                  <FormLabel mt="10px">Contraseña </FormLabel>
+                  <Input
+                    id="loginPassword"
+                    type={"password"}
+                    placeholder="Contraseña"
+                    {...register("password")}
+                  />
+
+                  <Button
+                    onClick={handleSubmit((data) => {
+                      Login(data, setError);
+                    })}
+                    w="full"
+                    variant={"primary"}
+                    mt="10px"
+                  >
+                    Entrar
+                  </Button>
+                  <Box h="50px">
+                    {error && <Text color={"red.400"}>{error}</Text>}
+                  </Box>
+                </FormControl>
+
+                {/* Github / Google */}
+                {/* <Flex justify="space-between">
                   <Button
                     onClick={SignWithGithub}
-                    variant={"primary"}
+                    variant={"outline"}
                     leftIcon={<Github />}
-                    w="250px"
-                    color="#fff"
-                    mb="2"
-                  >
-                    <Center>
-                      <Text>Sign in with Github</Text>
-                    </Center>
-                  </Button>
-                </Center>
-                <Center display={dev ? "none" : "flex"}>
+                    w="full"
+                    mr="10px"
+                  />
                   <Button
                     onClick={SignWithGoogle}
                     variant={"outline"}
                     leftIcon={<Google />}
+                    w="120px"
+                  />
+                </Flex> */}
+
+                {/* CreateAccount */}
+                <Center display={dev ? "none" : "flex"}>
+                  <Button
+                    onClick={GoToCreateAccountPage}
                     w="250px"
+                    bg={"none"}
+                    _hover={{
+                      bg: "none",
+                    }}
                   >
-                    <Center>
-                      <Text>Sign in with Google</Text>
-                    </Center>
+                    <Text fontWeight={400} mt="60px">
+                      Todavia no tienes una cuenta?
+                      <span
+                        style={{
+                          fontWeight: "600",
+                          padding: "5px",
+                          color: "#159BFF",
+                        }}
+                      >
+                        Registrate
+                      </span>
+                    </Text>
                   </Button>
                 </Center>
               </>
             )}
           </VStack>
         </Flex>
+
+        {/* OTRA MITAD */}
+        <Box
+          display={{ base: "none", desktop: "block" }}
+          width={"60%"}
+          h="100vh"
+          bg={"black.100"}
+          borderTopLeftRadius="40px"
+          borderBottomLeftRadius="40px"
+        ></Box>
       </Flex>
     </>
   );
