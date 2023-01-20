@@ -47,7 +47,7 @@ export default function CreateAccountPage() {
           <FormControl id="email" isRequired>
             <FormLabel>Email </FormLabel>
             <Input
-              placeholder="Email@example.com"
+              placeholder="E-mail@ejemplo.com"
               _placeholder={{ color: "gray.500" }}
               type="email"
               {...register("email", { required: "Este campo es obligatorio" })}

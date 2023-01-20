@@ -63,7 +63,7 @@ export default function Profile() {
     USER_PROFILE_STATES.NOT_KNOWN
   );
   // Estados para el formulario
-  const [description, setDescription] = useState("");
+  const [descriptionInputValue, setDescription] = useState("");
   const [tecnologies, setTecnologies] = useState([]);
   const [username, setUsername] = useState("");
   // image
@@ -77,20 +77,6 @@ export default function Profile() {
   const user = useUser();
   const profile = useProfile();
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors, isSubmitting },
-  } = useForm({
-    defaultValues: {
-      name: "",
-      description: description,
-    },
-  });
-
-  const descriptionText = watch("description");
-
   useEffect(() => {
     avatarFile && uploadImage(avatarFile, setAvatarImage);
   }, [avatarFile]);
@@ -101,9 +87,10 @@ export default function Profile() {
 
   useEffect(() => {
     if (userProfileData) {
-      setDescription(userProfileData.description);
+      setValue("name", userProfileData.name);
+      setValue("description", userProfileData.description);
       setTecnologies(userProfileData.tecnologies);
-      setUsername(profile.username);
+      setAvatarImage(userProfileData.avatar);
     }
   }, [userProfileData]);
 
@@ -113,6 +100,20 @@ export default function Profile() {
       getUserStories(user.userId, setUserStories);
     }
   }, [userProfileData]);
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    defaultValues: {
+      name: "",
+    },
+  });
+
+  const descriptionText = watch("description");
 
   const goToCreateProfile = () => {
     router.replace("/Create/Profile");
@@ -303,8 +304,6 @@ export default function Profile() {
           <ModalHeader>Editar Perfil</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            {/* Descripcion */}
-
             <Flex justify={"center"} align={"center"} gap={"20px"}>
               {avatarImage && (
                 <Image
@@ -371,7 +370,7 @@ export default function Profile() {
                     Descripcion
                   </FormLabel>
                   <CircularProgress
-                    value={descriptionText.length}
+                    value={descriptionText?.length}
                     max={100}
                     size={"20px"}
                     color={"brand.100"}
@@ -403,7 +402,6 @@ export default function Profile() {
                   {errors.description && errors.description.message}
                 </FormErrorMessage>
               </FormControl>
-
               {/* Tecnologias */}
               <Box mt={"20px"}>
                 <Flex justify={"space-between"}>
@@ -459,7 +457,6 @@ export default function Profile() {
                   ))}
                 </Wrap>
               </Box>
-
               <Flex justify={"end"}>
                 <Button
                   mt={4}
