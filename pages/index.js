@@ -106,11 +106,7 @@ export default function Home() {
           <Text fontWeight={400} fontSize="15px" m="10px 0px">
             Por favor, ingresa tus datos.
           </Text>
-          <VStack
-            // p={{ base: 5, desktop: 12 }}
-            spacing={"15px"}
-            mt="30px"
-          >
+          <VStack spacing={"15px"} mt="15px">
             {dev !== null ? (
               <Spinner color="brand.100" />
             ) : (
