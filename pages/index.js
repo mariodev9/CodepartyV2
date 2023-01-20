@@ -152,7 +152,6 @@ export default function Home() {
                 {/* CreateAccount */}
                 <Center display={dev ? "none" : "flex"}>
                   <Text>Todavia no tienes una cuenta?</Text>
-
                   <Link href={"Create/Account"}>
                     <Text
                       fontWeight="600"

@@ -9,6 +9,7 @@ import {
   FormLabel,
   Flex,
   Heading,
+  VStack,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { Login, Register } from "../../../firebase/services/Auth";
@@ -44,37 +45,43 @@ export default function CreateAccountPage() {
             Register(data, setError);
           })}
         >
-          <FormControl id="email" isRequired>
-            <FormLabel>Email </FormLabel>
-            <Input
-              placeholder="E-mail@ejemplo.com"
-              _placeholder={{ color: "gray.500" }}
-              type="email"
-              {...register("email", { required: "Este campo es obligatorio" })}
-            />
-            <Box height="40px">
-              <Text color="red.600">{error}</Text>
-              <Text color="red.600">{errors.email?.message}</Text>
-            </Box>
-          </FormControl>
-          <FormLabel>Contraseña</FormLabel>
-          <Input
-            placeholder="Contraseña"
-            _placeholder={{ color: "gray.500" }}
-            type="password"
-            autoComplete="on"
-            {...register("password", {
-              required: "Este campo es obligatorio",
-              minLength: {
-                value: 6,
-                message: "Minimo debe tener 6 digitos",
-              },
-            })}
-          />
+          <VStack spacing={"15px"}>
+            <FormControl id="email" isRequired>
+              <FormLabel>Email </FormLabel>
+              <Input
+                placeholder="E-mail@ejemplo.com"
+                _placeholder={{ color: "gray.500" }}
+                type="email"
+                {...register("email", {
+                  required: "Este campo es obligatorio",
+                })}
+              />
+              <Box>
+                <Text color="red.600">{error}</Text>
+                <Text color="red.600">{errors.email?.message}</Text>
+              </Box>
+            </FormControl>
+            <FormControl>
+              <FormLabel>Contraseña</FormLabel>
+              <Input
+                placeholder="Contraseña"
+                _placeholder={{ color: "gray.500" }}
+                type="password"
+                autoComplete="on"
+                {...register("password", {
+                  required: "Este campo es obligatorio",
+                  minLength: {
+                    value: 6,
+                    message: "Minimo debe tener 6 digitos",
+                  },
+                })}
+              />
+            </FormControl>
 
-          <Box height="40px" marginBottom="1">
-            <Text color="red.600">{errors.password?.message}</Text>
-          </Box>
+            <Box height="40px" marginBottom="1">
+              <Text color="red.600">{errors.password?.message}</Text>
+            </Box>
+          </VStack>
           <Stack spacing={6} direction={["column", "row"]}>
             <Button
               bg={"none"}
