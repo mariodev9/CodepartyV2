@@ -92,7 +92,7 @@ export default function Home() {
         align="center"
         h="100vh"
         bg={"black.200"}
-        pt={"30px"}
+        pt={{ base: "30px", desktop: "0px" }}
       >
         {/* Primera mitad */}
         <Flex
@@ -107,7 +107,7 @@ export default function Home() {
           <Text fontWeight={400} fontSize="15px" m="10px 0px">
             Por favor, ingresa tus datos.
           </Text>
-          <VStack spacing={"15px"} mt="15px">
+          <VStack spacing={"15px"}>
             {dev !== null ? (
               <Spinner color="brand.100" />
             ) : (
