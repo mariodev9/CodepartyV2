@@ -108,10 +108,8 @@ export default function Home() {
           </Text>
           <VStack
             // p={{ base: 5, desktop: 12 }}
-            // h={{ base: "140px", desktop: "200px" }}
             spacing={"15px"}
             mt="30px"
-            w="400px"
           >
             {dev !== null ? (
               <Spinner color="brand.100" />
@@ -125,6 +123,7 @@ export default function Home() {
                     placeholder="Email"
                     type={"email"}
                     {...register("email")}
+                    w={"100%"}
                   />
                   <FormLabel mt="10px">Contraseña </FormLabel>
                   <Input
@@ -132,6 +131,7 @@ export default function Home() {
                     type={"password"}
                     placeholder="Contraseña"
                     {...register("password")}
+                    w={"100%"}
                   />
 
                   <Button
@@ -148,23 +148,6 @@ export default function Home() {
                     {error && <Text color={"red.400"}>{error}</Text>}
                   </Box>
                 </FormControl>
-
-                {/* Github / Google */}
-                {/* <Flex justify="space-between">
-                  <Button
-                    onClick={SignWithGithub}
-                    variant={"outline"}
-                    leftIcon={<Github />}
-                    w="full"
-                    mr="10px"
-                  />
-                  <Button
-                    onClick={SignWithGoogle}
-                    variant={"outline"}
-                    leftIcon={<Google />}
-                    w="120px"
-                  />
-                </Flex> */}
 
                 {/* CreateAccount */}
                 <Center display={dev ? "none" : "flex"}>
