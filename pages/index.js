@@ -88,10 +88,11 @@ export default function Home() {
 
       <Flex
         direction={{ base: "column", desktop: "row" }}
-        justify="center"
+        justify="start"
         align="center"
         h="100vh"
         bg={"black.200"}
+        pt={"30px"}
       >
         {/* Primera mitad */}
         <Flex
