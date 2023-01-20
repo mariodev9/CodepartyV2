@@ -9,6 +9,8 @@ import {
   FormErrorMessage,
   FormLabel,
   Input,
+  LinkBox,
+  LinkOverlay,
   Spinner,
   Text,
   VStack,
@@ -23,6 +25,7 @@ import { Github, Google, Logo } from "../components/Icons";
 // import StartedAnimation from "../components/StartedAnimation";
 import { useForm } from "react-hook-form";
 import { Login } from "../firebase/services/Auth";
+import Link from "next/link";
 
 export default function Home() {
   const [dev, setDev] = useState(undefined);
@@ -148,27 +151,18 @@ export default function Home() {
 
                 {/* CreateAccount */}
                 <Center display={dev ? "none" : "flex"}>
-                  <Button
-                    onClick={GoToCreateAccountPage}
-                    w="250px"
-                    bg={"none"}
-                    _hover={{
-                      bg: "none",
-                    }}
-                  >
-                    <Text fontWeight={400} mt="60px">
-                      Todavia no tienes una cuenta?
-                      <span
-                        style={{
-                          fontWeight: "600",
-                          padding: "5px",
-                          color: "#159BFF",
-                        }}
-                      >
-                        Registrate
-                      </span>
+                  <Text>Todavia no tienes una cuenta?</Text>
+
+                  <Link href={"Create/Account"}>
+                    <Text
+                      fontWeight="600"
+                      padding="5px"
+                      color="#159BFF"
+                      cursor={"pointer"}
+                    >
+                      Registrate
                     </Text>
-                  </Button>
+                  </Link>
                 </Center>
               </>
             )}
