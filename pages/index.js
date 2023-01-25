@@ -120,7 +120,6 @@ export default function Home() {
                   <FormLabel>Email </FormLabel>
                   <Input
                     id="loginEmail"
-                    placeholder="Email"
                     type={"email"}
                     {...register("email")}
                     w={"100%"}
@@ -129,7 +128,6 @@ export default function Home() {
                   <Input
                     id="loginPassword"
                     type={"password"}
-                    placeholder="Contraseña"
                     {...register("password")}
                     w={"100%"}
                   />
@@ -140,7 +138,7 @@ export default function Home() {
                     })}
                     w="full"
                     variant={"primary"}
-                    mt="10px"
+                    mt="25px"
                   >
                     Entrar
                   </Button>
@@ -150,7 +148,10 @@ export default function Home() {
                 </FormControl>
 
                 {/* CreateAccount */}
-                <Center display={dev ? "none" : "flex"}>
+                <Center
+                  display={dev ? "none" : "flex"}
+                  fontSize={{ base: "12px", desktop: "18px" }}
+                >
                   <Text>Todavia no tienes una cuenta?</Text>
                   <Link href={"Create/Account"}>
                     <Text

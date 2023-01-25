@@ -29,27 +29,38 @@ export const Login = (data, callback) => {
   }
 };
 
-export const Register = async (data, callback) => {
+// Admite solo un usestate
+// hacer que setRegisterState sea = {
+//  message: "de error o bien",
+// error: false o true
+// succesfull: false
+// }
+
+// if registerState.error es true mostrar
+// if suecces full true mostrar o no se
+export const Register = async (data, setError, succesfullCreated) => {
   const { email, password, username } = data;
-  const userData = await createUserWithEmailAndPassword(auth, email, password)
-    .then((user) => {
-      return user;
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      succesfullCreated();
     })
     .catch((error) => {
       if (error.code === "auth/email-already-in-use") {
-        callback("The email is already in use");
+        setError("Este email esta en uso");
       } else if (error.code === "auth/invalid-email") {
-        callback("The email address is not valid.");
+        setError("Este email no es valido");
       } else if (error.code === "auth/operation-not-allowed") {
         console.log("Operation not allowed.");
-        callback("Operation not allowed.");
+        setError("Operation not allowed.");
       } else {
-        console.log("error");
+        console.log("error", error);
       }
       setTimeout(() => {
-        callback("");
+        setError("");
       }, 3000);
     });
+
   // Register user in firestore
   //   if (userData) {
   //     const docuRef = doc(firestore, `users/${userData.user.uid}`);

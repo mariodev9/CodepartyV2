@@ -47,9 +47,12 @@ export default function CreateProfilePage() {
   });
 
   const descriptionText = watch("description");
+  // const avatarArchivo = watch("avatar");
 
   useEffect(() => {
     avatarFile && uploadImage(avatarFile, setImg);
+
+    // console.log(avatarArchivo?.files[0], "HOOK FORM");
   }, [avatarFile]);
 
   const handleDeleteSkill = (tecnologieName) => {

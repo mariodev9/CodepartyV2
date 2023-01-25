@@ -18,12 +18,12 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { logOut } from "../../../firebase/services/User";
-import useUser from "../../../hooks/useUser";
+import useProfile from "../../../hooks/useProfile";
 import { Chat, CommonSave, Cross, Logo, Options, User } from "../../Icons";
 
 export default function TopNav() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const user = useUser();
+  const profile = useProfile();
   const router = useRouter();
 
   const handlePush = (url) => {
@@ -44,7 +44,7 @@ export default function TopNav() {
       >
         <Avatar
           size="sm"
-          src={user?.avatar}
+          src={profile?.avatar}
           onClick={onOpen}
           cursor="pointer"
         />
@@ -61,11 +61,11 @@ export default function TopNav() {
             <Box pt="25px">
               <Avatar
                 size="md"
-                src={user?.avatar}
+                src={profile?.avatar}
                 onClick={onOpen}
                 cursor="pointer"
               />
-              <Text mt="3px">{user?.name}</Text>
+              <Text mt="3px">{profile?.name}</Text>
             </Box>
             <Divider m="20px 0px 30px 0px" />
             <VStack align={"start"} spacing="20px">
