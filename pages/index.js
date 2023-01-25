@@ -47,18 +47,6 @@ export default function Home() {
     dev && router.replace("/Home");
   }, [dev]);
 
-  const SignWithGithub = () => {
-    loginWithGitHub().catch((error) => {
-      console.log(error);
-    });
-  };
-
-  const SignWithGoogle = () => {
-    loginWithGoogle().catch((error) => {
-      console.log(error);
-    });
-  };
-
   const GoToCreateAccountPage = () => {
     router.push("/Create/Account");
   };

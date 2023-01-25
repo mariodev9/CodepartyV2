@@ -51,10 +51,9 @@ export const Register = async (data, setError, succesfullCreated) => {
       } else if (error.code === "auth/invalid-email") {
         setError("Este email no es valido");
       } else if (error.code === "auth/operation-not-allowed") {
-        console.log("Operation not allowed.");
         setError("Operation not allowed.");
       } else {
-        console.log("error", error);
+        setError(error.code);
       }
       setTimeout(() => {
         setError("");

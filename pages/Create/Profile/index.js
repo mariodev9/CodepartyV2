@@ -84,7 +84,6 @@ export default function CreateProfilePage() {
     // let avatar = "https://avatars.githubusercontent.com/u/56579502?v=4";
     const { userId } = user;
     const profileData = { ...data, img, tecnologies };
-    console.log(profileData);
     createProfile(userId, profileData);
     router.replace("/Profile");
   };

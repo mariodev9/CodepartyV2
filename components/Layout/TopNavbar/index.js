@@ -123,7 +123,7 @@ export default function TopNav() {
                 fontSize="20px"
                 fontWeight={"semibold"}
               >
-                Log Out
+                Cerrar sesion
               </Button>
             </Flex>
           </DrawerFooter>
