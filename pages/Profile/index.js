@@ -203,12 +203,7 @@ export default function Profile() {
                       <Edit />
                     </Button>
                   </Box>
-                  <Image
-                    src={userProfileData.avatar}
-                    layerStyle={"primaryBox"}
-                    h="100px"
-                    w="100px"
-                  />
+                  <Avatar size={"2xl"} src={userProfileData.avatar}></Avatar>
                 </Box>
                 <Text mt="15px" fontSize="20px">
                   {userProfileData.name}
@@ -305,15 +300,7 @@ export default function Profile() {
           <ModalCloseButton />
           <ModalBody>
             <Flex justify={"center"} align={"center"} gap={"20px"}>
-              {avatarImage && (
-                <Image
-                  src={avatarImage}
-                  w={"100px"}
-                  h="100px"
-                  layerStyle="primaryBox"
-                  borderRadius="10px"
-                />
-              )}
+              {avatarImage && <Avatar src={avatarImage} size={"xl"} />}
               <Box h="40px">
                 <FormLabel htmlFor="avatar" cursor="pointer">
                   <Input

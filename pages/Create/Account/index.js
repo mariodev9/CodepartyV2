@@ -15,28 +15,36 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { Login, Register } from "../../../firebase/services/Auth";
+import { Register } from "../../../firebase/services/Auth";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 export default function CreateAccountPage() {
   const router = useRouter();
   const [error, setError] = useState("");
 
-  const [isSuccesfull, setIsSuccesfull] = useState(false);
+  const [isSuccesfullRegister, setIsSuccesfullRegister] = useState(false);
 
   const toast = useToast();
+
+  const MotionFlex = motion(Flex);
 
   const succesfullCreated = () => {
     toast({
       title: "Cuenta creada!",
       description: "Ya tienes tu propia cuenta.",
       status: "success",
-      duration: 9000,
+      duration: 6000,
       isClosable: true,
       position: "top",
     });
+    router.replace("/Create/Profile");
   };
+
+  useEffect(() => {
+    isSuccesfullRegister && succesfullCreated();
+  }, [isSuccesfullRegister]);
 
   const {
     register,
@@ -46,7 +54,7 @@ export default function CreateAccountPage() {
   } = useForm();
 
   return (
-    <Flex minH={"100vh"} align={"center"} justify={"center"} bg="black.200">
+    <Flex minH={"101vh"} align={"center"} justify={"center"} bg="black.200">
       <Stack
         spacing={4}
         w={"full"}
@@ -66,11 +74,9 @@ export default function CreateAccountPage() {
         </Text>
         <form
           onSubmit={handleSubmit((data) => {
-            Register(data, setError, succesfullCreated);
+            Register(data, setError, setIsSuccesfullRegister);
           })}
         >
-          {/* {isSuccesfull && <Button onClick={succesfullCreated}>jeje</Button>} */}
-          {/* <Button onClick={() => registerSuccesfull()}>Show Toast</Button> */}
           <VStack spacing={"15px"}>
             <FormControl id="email" isRequired>
               <FormLabel>Email </FormLabel>
@@ -80,11 +86,9 @@ export default function CreateAccountPage() {
                   required: "Este campo es obligatorio",
                 })}
               />
-              <Box>
-                <Text color="red.600">{error}</Text>
-                <Text color="red.600">{errors.email?.message}</Text>
-              </Box>
             </FormControl>
+            <Text color="red.600">{error}</Text>
+            <Text color="red.600">{errors.email?.message}</Text>
             <FormControl>
               <FormLabel>Contraseña</FormLabel>
               <Input
@@ -99,6 +103,7 @@ export default function CreateAccountPage() {
                 })}
               />
             </FormControl>
+            <Text color="red.600">{errors.password?.message}</Text>
 
             <FormControl>
               <FormLabel>Confirmar Contraseña</FormLabel>
@@ -114,10 +119,7 @@ export default function CreateAccountPage() {
                 })}
               />
             </FormControl>
-            <Box marginBottom="1">
-              <Text color="red.600">{errors.password?.message}</Text>
-              <Text color="red.600">{errors.confirm_password?.message}</Text>
-            </Box>
+            <Text color="red.600">{errors.confirm_password?.message}</Text>
             <Button
               bg={"brand.100"}
               color={"white"}

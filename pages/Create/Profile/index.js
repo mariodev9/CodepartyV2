@@ -31,7 +31,7 @@ export default function CreateProfilePage() {
   const user = useUser();
   const router = useRouter();
   const [tecnologies, setTecnologies] = useState([]);
-  const [img, setImg] = useState("");
+  const [avatar, setAvatarImage] = useState("");
   const [avatarFile, setAvatarFile] = useState("");
 
   const {
@@ -50,7 +50,7 @@ export default function CreateProfilePage() {
   // const avatarArchivo = watch("avatar");
 
   useEffect(() => {
-    avatarFile && uploadImage(avatarFile, setImg);
+    avatarFile && uploadImage(avatarFile, setAvatarImage);
 
     // console.log(avatarArchivo?.files[0], "HOOK FORM");
   }, [avatarFile]);
@@ -76,14 +76,13 @@ export default function CreateProfilePage() {
   };
 
   const handleDeleteImg = () => {
-    setImg("");
+    setAvatarImage("");
     setAvatarFile("");
   };
 
   const handleCreateProfileForm = (data) => {
-    // let avatar = "https://avatars.githubusercontent.com/u/56579502?v=4";
     const { userId } = user;
-    const profileData = { ...data, img, tecnologies };
+    const profileData = { ...data, avatar, tecnologies };
     createProfile(userId, profileData);
     router.replace("/Profile");
   };
@@ -97,81 +96,66 @@ export default function CreateProfilePage() {
               direction={"column"}
               pb="30px"
               width={{ base: "100%", tablet: "350px" }}
-              p="20px"
+              p="60px 15px"
             >
               <form
                 onSubmit={handleSubmit((data) => {
                   handleCreateProfileForm(data);
                 })}
               >
-                <FormControl>
-                  <Flex>
-                    {img && (
-                      <Box>
-                        <Button
-                          borderRadius="full"
-                          onClick={handleDeleteImg}
-                          position="absolute"
-                          zIndex="2"
-                          bg="red.400"
-                          _hover={{
-                            bg: "gray",
-                          }}
-                        >
-                          X
-                        </Button>
-                        <Image
-                          src={img}
-                          w={"100px"}
-                          h="100px"
-                          layerStyle="primaryBox"
-                          borderRadius="10px"
-                        />
-                      </Box>
-                    )}
-                    <Box width={"50%"} h="40px" border="1px solid red">
-                      <FormLabel
-                        htmlFor="avatar"
-                        cursor="pointer"
-                        border="1px solid blue"
-                      >
-                        <Input
-                          type="file"
-                          id="avatar"
-                          // {...register("avatar")}
-                          onChange={(e) => {
-                            setAvatarFile(e.target.files[0]);
-                          }}
-                          display="none"
-                        />
-                        <Upload />
-                      </FormLabel>
-                    </Box>
-                  </Flex>
-
-                  {/* Username Input */}
-                  <Box w="full">
-                    <FormLabel
-                      mt="15px"
-                      color="gray.50"
-                      fontSize={"16px"}
-                      htmlFor="name"
-                    >
-                      Nombre de usuario
-                    </FormLabel>
-                    <Input
-                      id="name"
-                      layerStyle={"primaryBox"}
-                      bg="black.50"
-                      border="none"
-                      fontSize={{ base: "20px", desktop: "18px" }}
-                      fontWeight={600}
-                      {...register("name", {
-                        required: "This is required",
-                      })}
+                <Flex justify={"center"} align={"center"} gap={"20px"}>
+                  {avatar && (
+                    <Image
+                      src={avatar}
+                      w={"100px"}
+                      h="100px"
+                      layerStyle="primaryBox"
+                      borderRadius="10px"
                     />
-                  </Box>
+                  )}
+                  <Box h="40px">
+                    <FormLabel htmlFor="avatar" cursor="pointer">
+                      <Input
+                        type="file"
+                        id="avatar"
+                        onChange={(e) => {
+                          setAvatarFile(e.target.files[0]);
+                        }}
+                        display="none"
+                      />
+                      <Flex gap={"10px"}>
+                        <Text color={"gray.300"}>Foto de perfil</Text>
 
+                        <Upload strokeWidth={"2px"} />
+                      </Flex>
+                    </FormLabel>
+                  </Box>
+                </Flex>
+
+                <FormControl>
+                  {/* Username Input */}
+                  <FormLabel
+                    mt="15px"
+                    color="gray.50"
+                    fontSize={"16px"}
+                    htmlFor="name"
+                  >
+                    Nombre de usuario
+                  </FormLabel>
+                  <Input
+                    id="name"
+                    layerStyle={"primaryBox"}
+                    bg="black.50"
+                    border="none"
+                    fontSize={{ base: "20px", desktop: "18px" }}
+                    fontWeight={600}
+                    {...register("name", {
+                      required: "This is required",
+                    })}
+                  />
+                </FormControl>
+
+                <FormControl>
                   {/* Description Input */}
                   <Box w="100%" mt="50px">
                     <Flex
@@ -267,14 +251,16 @@ export default function CreateProfilePage() {
                     ))}
                   </Wrap>
                 </Box>
-                <Button
-                  mt="30px"
-                  variant="primary"
-                  isLoading={isSubmitting}
-                  type="submit"
-                >
-                  Crear usuario
-                </Button>
+                <Flex justify={"center"}>
+                  <Button
+                    w={"full"}
+                    variant="primary"
+                    isLoading={isSubmitting}
+                    type="submit"
+                  >
+                    Crear usuario
+                  </Button>
+                </Flex>
               </form>
             </Flex>
           </motion.div>
