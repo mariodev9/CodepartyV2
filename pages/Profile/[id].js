@@ -11,6 +11,7 @@ import {
   Text,
   GridItem,
   Grid,
+  Avatar,
 } from "@chakra-ui/react";
 import useUser from "../../hooks/useUser";
 import { motion } from "framer-motion";
@@ -65,13 +66,8 @@ export default function UserProfile() {
             <Box>
               <SectionBar text={"Perfil"} back />
               <Flex direction="column" align="center">
-                <Image
-                  src={profileData.avatar}
-                  layerStyle={"primaryBox"}
-                  mt="100px"
-                  h="100px"
-                  w="100px"
-                />
+                <Avatar size={"2xl"} src={profileData.avatar} mt={"60px"} />
+
                 <Text mt="15px" fontSize="20px">
                   {profileData.name}
                 </Text>

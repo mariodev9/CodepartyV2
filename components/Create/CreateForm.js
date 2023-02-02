@@ -73,7 +73,7 @@ export default function CreateForm() {
       avatar: profile.avatar,
       content: message,
       creatorId: user.userId,
-      userName: user.name,
+      userName: profile.name,
       img: img,
     });
 
