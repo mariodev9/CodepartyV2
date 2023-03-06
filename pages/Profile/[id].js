@@ -39,7 +39,7 @@ export default function UserProfile() {
 
   useEffect(() => {
     id && getProfile(id, setProfileData);
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     if (profileData) {
