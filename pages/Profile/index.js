@@ -27,6 +27,11 @@ import {
   Avatar,
   FormControl,
   FormErrorMessage,
+  Tabs,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel,
 } from "@chakra-ui/react";
 import Layout from "../../components/Layout";
 import useUser from "../../hooks/useUser";
@@ -197,9 +202,9 @@ export default function Profile() {
             <Box>
               <SectionBar text={"Perfil"} back />
               <Flex direction="column" align="center">
-                <Box mt="100px">
+                <Box>
                   <Box position={"relative"} left="80%" top="25px">
-                    <Button p="0px 0px" onClick={onOpen}>
+                    <Button onClick={onOpen}>
                       <Edit />
                     </Button>
                   </Box>
@@ -230,64 +235,61 @@ export default function Profile() {
               </Flex>
             </Box>
             {/* Component: ProfileHeader */}
-            <Flex justify={"center"} pt="30px" bg="black.100">
-              {/* 1 */}
-              <Toggle
-                setPublicationMode={setTimelineMode}
-                publicationMode={timelineMode}
-              />
-            </Flex>
-            {timelineMode ? (
-              <Flex p="60px 15px">
-                {/* 2 */}
-                <Grid templateColumns="repeat(2, 1fr)" gap={6}>
-                  {userStories.map((item) => (
-                    <GridItem
-                      key={item.id}
-                      layerStyle={"primaryBox"}
-                      display="flex"
-                      justifyContent={"center"}
-                      alignContent="center"
-                    >
-                      <Image
-                        height="200px"
-                        src={item.img}
-                        borderRadius="10px"
-                      />
-                    </GridItem>
-                  ))}
-                </Grid>
-              </Flex>
-            ) : (
-              <Box p="50px 15px" bg={{ base: "black.100" }}>
-                {userProfileData &&
-                  userPublications.map(
-                    ({
-                      id,
-                      userName,
-                      avatar,
-                      content,
-                      createdAt,
-                      img,
-                      saves,
-                      creatorId,
-                    }) => (
-                      <Publication
-                        userOnSession={user?.userId}
-                        creatorId={creatorId}
-                        avatar={avatar}
-                        id={id}
-                        key={id}
-                        content={content}
-                        userName={userName}
-                        img={img}
-                        createdAt={createdAt}
-                        saves={saves}
-                      />
-                    )
-                  )}
-              </Box>
-            )}
+
+            <Tabs>
+              <TabList>
+                <Tab>Publicaciones</Tab>
+                <Tab>Historias</Tab>
+              </TabList>
+              <TabPanels>
+                <TabPanel>
+                  <Box p="0px 10px 40px 10px">
+                    {userPublications.map(
+                      ({
+                        id,
+                        userName,
+                        avatar,
+                        content,
+                        createdAt,
+                        userId,
+                        img,
+                        saves,
+                      }) => (
+                        <Publication
+                          userOnSession={user?.userId}
+                          avatar={avatar}
+                          id={id}
+                          key={id}
+                          content={content}
+                          userName={userName}
+                          img={img}
+                          createdAt={createdAt}
+                          userId={userId}
+                          saves={saves}
+                        />
+                      )
+                    )}
+                  </Box>
+                </TabPanel>
+                <TabPanel>
+                  <Flex p="45px 15px">
+                    {/* 2 */}
+                    <Grid templateColumns="repeat(2, 1fr)" gap={6}>
+                      {userStories.map((item) => (
+                        <GridItem key={item.id} layerStyle={"primaryBox"}>
+                          <Image
+                            width="300px"
+                            height="300px"
+                            src={item.img}
+                            borderRadius="10px"
+                          />
+                        </GridItem>
+                      ))}
+                    </Grid>
+                  </Flex>
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
           </Box>
         )}
       </Box>

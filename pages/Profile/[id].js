@@ -12,6 +12,11 @@ import {
   GridItem,
   Grid,
   Avatar,
+  Tabs,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel,
 } from "@chakra-ui/react";
 import useUser from "../../hooks/useUser";
 import { motion } from "framer-motion";
@@ -95,60 +100,61 @@ export default function UserProfile() {
             </Box>
             {/* PROFILE HEADER */}
 
-            <Flex justify={"center"} mt="40px">
-              {/* 1 */}
-              <Toggle
-                setPublicationMode={setTimelineMode}
-                publicationMode={timelineMode}
-              />
-            </Flex>
-
-            {timelineMode ? (
-              <Flex p="45px 15px">
-                {/* 2 */}
-                <Grid templateColumns="repeat(2, 1fr)" gap={6}>
-                  {userStories.map((item) => (
-                    <GridItem key={item.id} layerStyle={"primaryBox"}>
-                      <Image
-                        width="300px"
-                        height="300px"
-                        src={item.img}
-                        borderRadius="10px"
-                      />
-                    </GridItem>
-                  ))}
-                </Grid>
-              </Flex>
-            ) : (
-              <Box p="0px 10px 40px 10px">
-                {profileData &&
-                  userPublications.map(
-                    ({
-                      id,
-                      userName,
-                      avatar,
-                      content,
-                      createdAt,
-                      userId,
-                      img,
-                      saves,
-                    }) => (
-                      <Publication
-                        userOnSession={user?.userId}
-                        avatar={avatar}
-                        id={id}
-                        key={id}
-                        content={content}
-                        userName={userName}
-                        img={img}
-                        createdAt={createdAt}
-                        userId={userId}
-                        saves={saves}
-                      />
-                    )
-                  )}
-              </Box>
-            )}
+            <Tabs>
+              <TabList>
+                <Tab>Publicaciones</Tab>
+                <Tab>Historias</Tab>
+              </TabList>
+              <TabPanels>
+                <TabPanel>
+                  <Box p="0px 10px 40px 10px">
+                    {profileData &&
+                      userPublications.map(
+                        ({
+                          id,
+                          userName,
+                          avatar,
+                          content,
+                          createdAt,
+                          userId,
+                          img,
+                          saves,
+                        }) => (
+                          <Publication
+                            userOnSession={user?.userId}
+                            avatar={avatar}
+                            id={id}
+                            key={id}
+                            content={content}
+                            userName={userName}
+                            img={img}
+                            createdAt={createdAt}
+                            userId={userId}
+                            saves={saves}
+                          />
+                        )
+                      )}
+                  </Box>
+                </TabPanel>
+                <TabPanel>
+                  <Flex p="45px 15px">
+                    {/* 2 */}
+                    <Grid templateColumns="repeat(2, 1fr)" gap={6}>
+                      {userStories.map((item) => (
+                        <GridItem key={item.id} layerStyle={"primaryBox"}>
+                          <Image
+                            width="300px"
+                            height="300px"
+                            src={item.img}
+                            borderRadius="10px"
+                          />
+                        </GridItem>
+                      ))}
+                    </Grid>
+                  </Flex>
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
           </motion.div>
         )}
       </Layout>
