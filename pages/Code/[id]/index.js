@@ -32,13 +32,12 @@ export default function CodePage({ data, userOnSession, message }) {
 
   useEffect(() => {
     listenLatestComments(setComments, id);
-  }, []);
+  }, [id]);
 
   useEffect(() => {
-    // Cambiar: Ahora la publicacion tiene un array con el id del user --> array.some
-
+    // refactor: Ahora la publicacion tiene un array con el id del user --> array.some
     setIfPublicationIsLiked(id, userOnSession, setIsLiked, setLikesCount);
-  }, []);
+  }, [id, userOnSession]);
 
   return (
     <Layout>
@@ -58,7 +57,9 @@ export default function CodePage({ data, userOnSession, message }) {
             <Text pb="10px" fontWeight={"normal"} fontSize="20px">
               {content}
             </Text>
-            {img && <Image src={img} borderRadius="10px" />}
+            {img && (
+              <Image src={img} alt={"publication image"} borderRadius="10px" />
+            )}
           </Box>
           <Flex p="15px 5px" justify="space-evenly" align={"center"}>
             <Flex>

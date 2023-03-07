@@ -48,6 +48,7 @@ import { Edit, Upload } from "../../components/Icons";
 import { SkillsList } from "../../components/Common/SkillsList";
 import useProfile from "../../hooks/useProfile";
 import { useForm } from "react-hook-form";
+import ProfileHeader from "../../components/Profile/ProfileHeader";
 
 const LOADING_STATES = {
   NOT_LOGGED: null,
@@ -198,82 +199,53 @@ export default function Profile() {
 
         {userProfileData && (
           <Box>
-            {/* Component: ProfileHeader */}
-            <Box>
-              <SectionBar text={"Perfil"} back />
-              <Flex direction="column" align="center">
-                <Box>
-                  <Box position={"relative"} left="80%" top="25px">
-                    <Button onClick={onOpen}>
-                      <Edit />
-                    </Button>
-                  </Box>
-                  <Avatar size={"2xl"} src={userProfileData.avatar}></Avatar>
-                </Box>
-                <Text mt="15px" fontSize="20px">
-                  {userProfileData.name}
-                </Text>
-                <Box w="50%">
-                  <Text
-                    mt="20px"
-                    fontWeight={400}
-                    fontSize={"15px"}
-                    textAlign="center"
-                  >
-                    {userProfileData.description}
-                  </Text>
-                </Box>
-                <HStack mt="20px" spacing={"5px"}>
-                  {userProfileData.tecnologies.map((item) => (
-                    <SkillProfile
-                      key={item.name}
-                      text={item.name}
-                      color={item.color}
-                    />
-                  ))}
-                </HStack>
-              </Flex>
-            </Box>
-            {/* Component: ProfileHeader */}
+            <ProfileHeader {...userProfileData}>
+              <Box position={"relative"} left="80%" top="25px">
+                <Button onClick={onOpen}>
+                  <Edit />
+                </Button>
+              </Box>
+            </ProfileHeader>
 
-            <Tabs>
-              <TabList>
-                <Tab>Publicaciones</Tab>
-                <Tab>Historias</Tab>
+            <Tabs variant="soft-rounded" isFitted mt={"30px"}>
+              <TabList align="center" px={4}>
+                <Tab _selected={{ color: "white", bg: "brand.100" }}>
+                  Publicaciones
+                </Tab>
+                <Tab _selected={{ color: "white", bg: "brand.100" }}>
+                  Historias
+                </Tab>
               </TabList>
               <TabPanels>
-                <TabPanel>
-                  <Box p="0px 10px 40px 10px">
-                    {userPublications.map(
-                      ({
-                        id,
-                        userName,
-                        avatar,
-                        content,
-                        createdAt,
-                        userId,
-                        img,
-                        saves,
-                      }) => (
-                        <Publication
-                          userOnSession={user?.userId}
-                          avatar={avatar}
-                          id={id}
-                          key={id}
-                          content={content}
-                          userName={userName}
-                          img={img}
-                          createdAt={createdAt}
-                          userId={userId}
-                          saves={saves}
-                        />
-                      )
-                    )}
-                  </Box>
+                <TabPanel pb={"40px"}>
+                  {userPublications.map(
+                    ({
+                      id,
+                      userName,
+                      avatar,
+                      content,
+                      createdAt,
+                      userId,
+                      img,
+                      saves,
+                    }) => (
+                      <Publication
+                        userOnSession={user?.userId}
+                        avatar={avatar}
+                        id={id}
+                        key={id}
+                        content={content}
+                        userName={userName}
+                        img={img}
+                        createdAt={createdAt}
+                        userId={userId}
+                        saves={saves}
+                      />
+                    )
+                  )}
                 </TabPanel>
                 <TabPanel>
                   <Flex p="45px 15px">
-                    {/* 2 */}
                     <Grid templateColumns="repeat(2, 1fr)" gap={6}>
                       {userStories.map((item) => (
                         <GridItem key={item.id} layerStyle={"primaryBox"}>

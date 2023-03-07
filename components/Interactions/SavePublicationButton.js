@@ -20,7 +20,7 @@ export default function SavePublicationButton({
     // Se busca el idUsuario dentro del array "saves"
     // true = se encontro el id por lo tanto el usuario guardo la publicacion
     saves && setIsSave(saves.some(publicationIsSave));
-  }, []);
+  });
 
   const handleSavePublication = () => {
     if (isSave) {

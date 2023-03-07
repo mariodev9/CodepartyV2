@@ -25,6 +25,7 @@ import SectionBar from "../../components/SectionBar";
 import { getUserStories } from "../../firebase/services/Stories";
 import { getUserPublications } from "../../firebase/services/Publications";
 import Publication from "../../components/Publication";
+import ProfileHeader from "../../components/Profile/ProfileHeader";
 
 export default function UserProfile() {
   const [profileData, setProfileData] = useState(undefined);
@@ -66,36 +67,9 @@ export default function UserProfile() {
         {profileData && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
             {/* PROFILE HEADER */}
-            <Box>
-              <SectionBar text={"Perfil"} back />
-              <Flex direction="column" align="center">
-                <Avatar size={"2xl"} src={profileData.avatar} mt={"60px"} />
 
-                <Text mt="15px" fontSize="20px">
-                  {profileData.name}
-                </Text>
-                <Box w="50%">
-                  <Text
-                    mt="20px"
-                    fontWeight={400}
-                    color="gray.50"
-                    fontSize={"15px"}
-                    textAlign="center"
-                  >
-                    {profileData.description}
-                  </Text>
-                </Box>
-                <HStack mt="20px" spacing={"5px"}>
-                  {profileData.tecnologies.map((item) => (
-                    <Skill
-                      key={item.name}
-                      text={item.name}
-                      color={item.color}
-                    />
-                  ))}
-                </HStack>
-              </Flex>
-            </Box>
+            <ProfileHeader {...profileData} />
+
             {/* PROFILE HEADER */}
 
             <Tabs variant="soft-rounded" isFitted mt={"30px"}>

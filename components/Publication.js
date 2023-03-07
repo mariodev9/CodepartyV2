@@ -111,15 +111,15 @@ export default function Publication({
                         </Box>
                       </LinkOverlay>
                     </Link>
-                    <Box width="100%" mt={5} w="100%" borderRadius="10px">
+                    <Box width="100%" w="100%">
                       {img && (
-                        <Image src={img} width="100%" borderRadius="10px" />
+                        <Image src={img} width="100%" borderRadius="14px" />
                       )}
                     </Box>
                   </Box>
                 </LinkBox>
               </Flex>
-              <Flex mt={4} justify={"space-around"} align="center">
+              <Flex justify={"space-around"} align="center">
                 <AccordionButton w={"35px"} _hover={{ bg: "none" }}>
                   <CommentButton commentsCount={comments?.length} />
                 </AccordionButton>

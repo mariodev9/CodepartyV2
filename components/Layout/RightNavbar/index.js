@@ -1,13 +1,4 @@
-import {
-  Avatar,
-  Box,
-  Button,
-  Flex,
-  HStack,
-  Link,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, Flex, Link, Text, VStack } from "@chakra-ui/react";
 import React from "react";
 import {
   ShirtStoreIcon,
@@ -55,8 +46,8 @@ export default function RightNavbar() {
               <Flex align={"center"} mt={"10px"}>
                 <WorldIcon />
                 <Text p="0px 10px" fontWeight={400}>
-                  <Link href="https://mariodev.netlify.app/" target={"_blank"}>
-                    mariodev
+                  <Link href="https://mariodev2.vercel.app/" target={"_blank"}>
+                    Portfolio
                   </Link>
                 </Text>
               </Flex>
@@ -76,7 +67,7 @@ export default function RightNavbar() {
               <ShirtStoreIcon />
             </FutureProyect>
 
-            <FutureProyect name={"Portfolio"} status={"En desarrollo"}>
+            <FutureProyect name={"E-commerce"} status={"En desarrollo"}>
               <PortfolioIcon />
             </FutureProyect>
             <FutureProyect name={"Inmobiliaria"} status={"Proximamente"}>

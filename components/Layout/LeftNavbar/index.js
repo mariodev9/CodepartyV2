@@ -29,23 +29,23 @@ const NavLink = [
   {
     name: "Inicio",
     link: "/Home",
-    icon: <Home fill={"none"} />,
+    icon: <Home fill={"none"} height={"26px"} />,
   },
   {
     name: "Guardados",
     link: "/Saves",
 
-    icon: <CommonSave />,
+    icon: <CommonSave height={26} strokeWidth={2} />,
   },
   {
     name: "Perfil",
     link: "/Profile",
-    icon: <User fill={"none"} />,
+    icon: <User fill={"none"} height={26} strokeWidth={2} />,
   },
   {
     name: "Mensajes",
     link: "/Mensajes",
-    icon: <Chat fill={"none"} />,
+    icon: <Chat fill={"none"} height={26} strokeWidth={2} />,
   },
 ];
 
@@ -106,7 +106,7 @@ export default function LeftNavbar() {
           <Flex justify="center">
             <Button
               variant="primary"
-              borderRadius="15px"
+              borderRadius="20px"
               w="100%"
               mt="10px"
               onClick={handleRoute}

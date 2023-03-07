@@ -107,6 +107,7 @@ export default function CreateProfilePage() {
                   {avatar && (
                     <Image
                       src={avatar}
+                      alt={"avatar profile"}
                       w={"100px"}
                       h="100px"
                       layerStyle="primaryBox"
