@@ -7,6 +7,7 @@ export const theme = extendTheme({
       body: {
         bg: "black.100",
         color: "white",
+        fontFamily: "Poppins, sans-serif",
       },
       a: {
         textDecoration: "none",

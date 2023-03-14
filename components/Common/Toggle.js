@@ -64,7 +64,6 @@ const tabStyle = {
   position: "relative",
   padding: "5px 15px",
   margin: 0,
-  fontFamily: "sans-serif",
   fontSize: 20,
   fontWeight: 700,
   color: "#222",

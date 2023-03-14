@@ -6,23 +6,15 @@ import {
   Center,
   Flex,
   FormControl,
-  FormErrorMessage,
   FormLabel,
   Input,
-  LinkBox,
-  LinkOverlay,
   Spinner,
   Text,
   VStack,
 } from "@chakra-ui/react";
-import {
-  loginWithGitHub,
-  loginWithGoogle,
-  sessionChange,
-} from "../firebase/services/User";
+import { sessionChange } from "../firebase/services/User";
 import { useRouter } from "next/router";
-import { Github, Google, Logo } from "../components/Icons";
-// import StartedAnimation from "../components/StartedAnimation";
+import { Logo } from "../components/Icons";
 import { useForm } from "react-hook-form";
 import { Login } from "../firebase/services/Auth";
 import Link from "next/link";
@@ -102,43 +94,45 @@ export default function Home() {
             ) : (
               <>
                 {/* Login */}
-                <FormControl>
-                  <FormLabel>Email </FormLabel>
-                  <Input
-                    id="loginEmail"
-                    type={"email"}
-                    {...register("email")}
-                    w={"100%"}
-                  />
-                  <FormLabel mt="10px">Contraseña </FormLabel>
-                  <Input
-                    id="loginPassword"
-                    type={"password"}
-                    {...register("password")}
-                    w={"100%"}
-                  />
+                <form>
+                  <FormControl>
+                    <FormLabel>Email </FormLabel>
+                    <Input
+                      id="loginEmail"
+                      type={"email"}
+                      {...register("email")}
+                      w={"100%"}
+                    />
+                    <FormLabel mt="10px">Contraseña </FormLabel>
+                    <Input
+                      id="loginPassword"
+                      type={"password"}
+                      {...register("password")}
+                      w={"100%"}
+                    />
 
-                  <Button
-                    onClick={handleSubmit((data) => {
-                      Login(data, setError);
-                    })}
-                    w="full"
-                    variant={"primary"}
-                    mt="25px"
-                  >
-                    Entrar
-                  </Button>
-                  <Box h="50px">
-                    {error && <Text color={"red.400"}>{error}</Text>}
-                  </Box>
-                </FormControl>
+                    <Button
+                      onClick={handleSubmit((data) => {
+                        Login(data, setError);
+                      })}
+                      w="full"
+                      variant={"primary"}
+                      mt="25px"
+                    >
+                      Entrar
+                    </Button>
+                    <Box h="50px">
+                      {error && <Text color={"red.400"}>{error}</Text>}
+                    </Box>
+                  </FormControl>
+                </form>
 
                 {/* CreateAccount */}
                 <Center
                   display={dev ? "none" : "flex"}
                   fontSize={{ base: "12px", desktop: "18px" }}
                 >
-                  <Text>Todavia no tienes una cuenta?</Text>
+                  <Text fontWeight="400">Todavia no tienes una cuenta?</Text>
                   <Link href={"Create/Account"}>
                     <Text
                       fontWeight="600"
@@ -156,14 +150,30 @@ export default function Home() {
         </Flex>
 
         {/* 2do Div */}
-        <Box
-          display={{ base: "none", desktop: "block" }}
+        <Flex
+          display={{ base: "none", desktop: "flex" }}
           width={"60%"}
           h="100vh"
           bg={"black.100"}
           borderTopLeftRadius="40px"
           borderBottomLeftRadius="40px"
-        ></Box>
+          align={"center"}
+          justify={"center"}
+        >
+          <VStack spacing={5}>
+            <Logo height={"100px"} />
+            <Text fontSize={"35px"}>Codeparty</Text>
+            <Text
+              fontSize={"18px"}
+              fontWeight={400}
+              w={"80%"}
+              textAlign={"center"}
+            >
+              Compartí e interactua con otros desarrolladores alrededor del
+              mundo
+            </Text>
+          </VStack>
+        </Flex>
       </MotionFlex>
     </>
   );
