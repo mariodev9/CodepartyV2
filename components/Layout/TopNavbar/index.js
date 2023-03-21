@@ -49,7 +49,7 @@ export default function TopNav() {
           cursor="pointer"
         />
         <Logo />
-        <Switch colorScheme="blue" />
+        <Box></Box>
       </Flex>
 
       <Drawer placement={"left"} onClose={onClose} isOpen={isOpen}>

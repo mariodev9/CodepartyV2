@@ -70,7 +70,7 @@ export default function Home() {
         justify="start"
         align="center"
         h="100vh"
-        bg={"black.200"}
+        bg={"#000"}
         pt={{ base: "30px", desktop: "0px" }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

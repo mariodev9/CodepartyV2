@@ -86,7 +86,9 @@ export default function Publication({
                 <LinkBox w="100%">
                   <Box>
                     <Flex align={"center"}>
-                      <Text fontWeight={"semibold"}>{userName}</Text>
+                      <Text fontWeight={"semibold"} fontSize={"14px"}>
+                        {userName}
+                      </Text>
                       <Text
                         fontWeight={"normal"}
                         fontSize="12px"
@@ -104,8 +106,8 @@ export default function Publication({
                       }}
                     >
                       <LinkOverlay>
-                        <Box p="15px 0px" width={"80%"}>
-                          <Text pb="10px" fontWeight={"normal"} fontSize="16px">
+                        <Box p="15px 0px" width={"100%"}>
+                          <Text pb="10px" fontWeight={"normal"} fontSize="14px">
                             {content}
                           </Text>
                         </Box>
