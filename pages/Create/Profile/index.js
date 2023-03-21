@@ -96,7 +96,7 @@ export default function CreateProfilePage() {
               direction={"column"}
               pb="30px"
               width={{ base: "100%", tablet: "350px" }}
-              p="60px 15px"
+              p="100px 15px 50px"
             >
               <form
                 onSubmit={handleSubmit((data) => {
@@ -114,7 +114,7 @@ export default function CreateProfilePage() {
                       borderRadius="10px"
                     />
                   )}
-                  <Box h="40px">
+                  <Box h="60px">
                     <FormLabel htmlFor="avatar" cursor="pointer">
                       <Input
                         type="file"
@@ -125,7 +125,9 @@ export default function CreateProfilePage() {
                         display="none"
                       />
                       <Flex gap={"10px"}>
-                        <Text color={"gray.300"}>Foto de perfil</Text>
+                        <Text color={"gray.300"} fontSize={"20px"}>
+                          Subir foto de perfil
+                        </Text>
 
                         <Upload strokeWidth={"2px"} />
                       </Flex>
@@ -137,7 +139,7 @@ export default function CreateProfilePage() {
                   {/* Username Input */}
                   <FormLabel
                     mt="15px"
-                    color="gray.50"
+                    color="gray.300"
                     fontSize={"16px"}
                     htmlFor="name"
                   >
@@ -166,7 +168,7 @@ export default function CreateProfilePage() {
                     >
                       <FormLabel
                         mt="15px"
-                        color="gray.50"
+                        color="gray.300"
                         fontSize={"16px"}
                         htmlFor="name"
                       >
@@ -183,7 +185,7 @@ export default function CreateProfilePage() {
                       id="description"
                       resize={"none"}
                       layerStyle={"primaryBox"}
-                      bg="black.50"
+                      bg="black.300"
                       border="none"
                       fontSize={{ base: "20px", desktop: "18px" }}
                       fontWeight={600}
@@ -201,10 +203,10 @@ export default function CreateProfilePage() {
                 {/* Tecnologies List */}
                 <Box w="100%" mt="30px">
                   <Flex justify={"space-between"}>
-                    <Text color="gray.50" fontSize={"16px"}>
+                    <Text color="gray.300" fontSize={"16px"}>
                       Stack
                     </Text>
-                    <Text color="gray.50" fontSize={"16px"}>
+                    <Text color="gray.300" fontSize={"16px"}>
                       {tecnologies.length}/4
                     </Text>
                   </Flex>

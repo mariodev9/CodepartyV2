@@ -59,7 +59,7 @@ export default function UserProfile() {
         {profileData === false && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <Flex h="100vh" justify="center" align="center">
-              este dev no tiene perfil!
+              <Text>Este desarrollador no se creo un perfil!</Text>
             </Flex>
           </motion.div>
         )}
