@@ -1,7 +1,6 @@
 import { Avatar, Button, Input, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { addComment } from "../../firebase/services/Comments";
-import useUser from "../../hooks/useUser";
 import useProfile from "../../hooks/useProfile";
 
 const COMPOSE_STATES = {
@@ -14,7 +13,7 @@ const COMPOSE_STATES = {
 export default function CommentForm({ codeId, fontSize, avatarSize }) {
   const [comment, setComment] = useState("");
   const [status, setStatus] = useState(COMPOSE_STATES.USER_NOT_KNOWN);
-  const user = useUser();
+
   const profile = useProfile();
 
   const handleChange = (event) => {
@@ -25,13 +24,18 @@ export default function CommentForm({ codeId, fontSize, avatarSize }) {
   const handleClick = () => {
     setStatus(COMPOSE_STATES.LOADING);
 
-    addComment({
-      codeId,
-      avatar: profile?.avatar,
-      content: comment,
-      userId: user?.userId,
-      userName: user?.name,
-    });
+    console.log(profile, "data del usuario");
+    if (profile) {
+      addComment({
+        codeId,
+        avatar: profile.avatar,
+        content: comment,
+        name: profile.name,
+      });
+    } else {
+      console.log("no existe el profile");
+    }
+
     setComment("");
     setStatus(COMPOSE_STATES.SUCCES);
   };

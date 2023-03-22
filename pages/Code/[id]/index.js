@@ -28,6 +28,7 @@ export default function CodePage({ data, userOnSession, message }) {
   const { id, avatar, userName, img, content, createdAt, creatorId, saves } =
     data;
 
+  console.log(comments, "que trae esto?");
   const user = useUser();
 
   useEffect(() => {
@@ -105,7 +106,7 @@ export default function CodePage({ data, userOnSession, message }) {
                   key={comment.id}
                   avatar={comment.avatar}
                   content={comment.content}
-                  userName={comment.userName}
+                  userName={comment.name}
                   createdAt={comment.createdAt}
                 />
               ))

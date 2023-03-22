@@ -9,15 +9,14 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 
-export const addComment = ({ codeId, avatar, content, userId, userName }) => {
+export const addComment = ({ codeId, avatar, content, name }) => {
   try {
     const docRef = addDoc(
       collection(firestore, "codes", `${codeId}`, "comments"),
       {
         avatar,
         content,
-        userId,
-        userName,
+        name,
         createdAt: Timestamp.fromDate(new Date()),
       }
     );
