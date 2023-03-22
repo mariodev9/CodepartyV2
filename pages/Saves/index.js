@@ -6,6 +6,7 @@ import { GetAllUserSaves } from "../../firebase/services/Saves";
 import useUser from "../../hooks/useUser";
 import PublicationSaved from "../../components/Saves/publicationSaved";
 import { motion } from "framer-motion";
+import Publication from "../../components/Publication";
 
 export default function Saves() {
   const [saves, setSaves] = useState(undefined);
@@ -36,22 +37,10 @@ export default function Saves() {
               </motion.div>
             </Flex>
           ) : (
-            // <motion.div
-            //   initial={{ opacity: 0, scale: 0.8 }}
-            //   animate={{ opacity: 1, scale: 1 }}
-            // >
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-              <Grid templateColumns="repeat(2, 1fr)" gap={3} padding={"10px"}>
-                {saves.map((item, key) => (
-                  <GridItem key={item.id} layerStyle={"primaryBox"} h="150px">
-                    <PublicationSaved
-                      content={item.content}
-                      avatar={item.avatar}
-                      userName={item.userName}
-                      createdAt={item.createdAt}
-                      saves={item.saves}
-                    />
-                  </GridItem>
+              <Grid templateColumns="repeat(1, 1fr)" gap={3} padding={"10px"}>
+                {saves.map((item) => (
+                  <Publication key={item.id} {...item} userId={userId} />
                 ))}
               </Grid>
             </motion.div>
