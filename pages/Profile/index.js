@@ -3,17 +3,12 @@ import {
   Box,
   Button,
   Flex,
-  Grid,
-  GridItem,
-  HStack,
-  Image,
   Spinner,
   Text,
   Modal,
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
   useDisclosure,
@@ -27,28 +22,22 @@ import {
   Avatar,
   FormControl,
   FormErrorMessage,
-  Tabs,
-  TabList,
-  Tab,
-  TabPanels,
-  TabPanel,
 } from "@chakra-ui/react";
 import Layout from "../../components/Layout";
 import useUser from "../../hooks/useUser";
-import SectionBar from "../../components/SectionBar";
 import { motion } from "framer-motion";
-import { getProfile, updateProfile } from "../../firebase/services/User";
+import { updateProfile } from "../../firebase/services/User";
 import { useRouter } from "next/router";
-import { Skill, SkillProfile } from "../../components/Common/Skill";
+import { Skill } from "../../components/Common/Skill";
 import { getUserPublications } from "../../firebase/services/Publications";
-import Publication from "../../components/Publication";
-import { Toggle } from "../../components/Common/Toggle";
+
 import { getUserStories, uploadImage } from "../../firebase/services/Stories";
 import { Edit, Upload } from "../../components/Icons";
 import { SkillsList } from "../../components/Common/SkillsList";
 import useProfile from "../../hooks/useProfile";
 import { useForm } from "react-hook-form";
 import ProfileHeader from "../../components/Profile/ProfileHeader";
+import ProfileContent from "../../components/Profile/ProfileContent";
 
 const LOADING_STATES = {
   NOT_LOGGED: null,
@@ -62,16 +51,11 @@ const USER_PROFILE_STATES = {
 };
 
 export default function Profile() {
-  const [timelineMode, setTimelineMode] = useState(false);
   const [userPublications, setUserPublications] = useState([]);
   const [userStories, setUserStories] = useState([]);
-  const [userProfileData, setUserProfileData] = useState(
-    USER_PROFILE_STATES.NOT_KNOWN
-  );
+
   // Estados para el formulario
-  const [descriptionInputValue, setDescription] = useState("");
   const [tecnologies, setTecnologies] = useState([]);
-  const [username, setUsername] = useState("");
   // image
   const [avatarImage, setAvatarImage] = useState("");
   const [avatarFile, setAvatarFile] = useState("");
@@ -203,39 +187,10 @@ export default function Profile() {
               </Box>
             </ProfileHeader>
 
-            <Tabs variant="soft-rounded" isFitted mt={"30px"}>
-              <TabList align="center" px={4}>
-                <Tab _selected={{ color: "white", bg: "brand.100" }}>
-                  Publicaciones
-                </Tab>
-                <Tab _selected={{ color: "white", bg: "brand.100" }}>
-                  Historias
-                </Tab>
-              </TabList>
-              <TabPanels>
-                <TabPanel pb={"40px"}>
-                  {userPublications.map((item) => (
-                    <Publication userId={userId} {...item} />
-                  ))}
-                </TabPanel>
-                <TabPanel>
-                  <Flex p="45px 15px">
-                    <Grid templateColumns="repeat(2, 1fr)" gap={6}>
-                      {userStories.map((item) => (
-                        <GridItem key={item.id} layerStyle={"primaryBox"}>
-                          <Image
-                            width="300px"
-                            height="300px"
-                            src={item.img}
-                            borderRadius="10px"
-                          />
-                        </GridItem>
-                      ))}
-                    </Grid>
-                  </Flex>
-                </TabPanel>
-              </TabPanels>
-            </Tabs>
+            <ProfileContent
+              userPublications={userPublications}
+              userStories={userStories}
+            />
           </Box>
         )}
       </Box>
