@@ -98,6 +98,7 @@ export default function Stories() {
                   <>
                     <Input
                       type="file"
+                      accept="image/png, .jpeg, .jpg"
                       name="Add photo"
                       id="file-input"
                       onChange={(e) => {

@@ -118,6 +118,7 @@ export default function CreateProfilePage() {
                     <FormLabel htmlFor="avatar" cursor="pointer">
                       <Input
                         type="file"
+                        accept="image/png, .jpeg, .jpg"
                         id="avatar"
                         onChange={(e) => {
                           setAvatarFile(e.target.files[0]);

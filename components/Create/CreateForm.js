@@ -189,6 +189,7 @@ export default function CreateForm() {
                     </Box>
                     <Input
                       type="file"
+                      accept="image/png, .jpeg, .jpg"
                       name="Add photo"
                       id="file-input"
                       onChange={(e) => {
@@ -246,6 +247,7 @@ export default function CreateForm() {
                   </Flex>
                   <Input
                     type="file"
+                    accept="image/png, .jpeg, .jpg"
                     name="Add photo"
                     id="file-input"
                     onChange={(e) => {
