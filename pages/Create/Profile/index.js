@@ -185,7 +185,7 @@ export default function CreateProfilePage() {
                       id="description"
                       resize={"none"}
                       layerStyle={"primaryBox"}
-                      bg="black.300"
+                      bg="black.50"
                       border="none"
                       fontSize={{ base: "20px", desktop: "18px" }}
                       fontWeight={600}
