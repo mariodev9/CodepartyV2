@@ -25,10 +25,10 @@ export const getProfile = async (userId, setUserProfileData) => {
 };
 
 export const sessionChange = (saveUserData) => {
+  // ESTO TRAE SOLO EL USERID
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      const normalizedUser = mapUserFromFirebaseAuthToUser(user);
-      saveUserData(normalizedUser);
+      saveUserData(user.uid);
     } else {
       saveUserData(null);
     }
@@ -36,24 +36,11 @@ export const sessionChange = (saveUserData) => {
 };
 
 const mapUserFromFirebaseAuthToUser = (user) => {
+  // displayname y photourl no sirve
   const { displayName, photoURL, uid } = user;
   return {
-    name: displayName,
-    avatar: photoURL,
     userId: uid,
   };
-};
-
-export const loginWithGitHub = async () => {
-  const githubProvider = new GithubAuthProvider();
-  githubProvider.setCustomParameters(firebaseConfig);
-  return signInWithPopup(auth, githubProvider);
-};
-
-export const loginWithGoogle = async () => {
-  const googleProvider = new GoogleAuthProvider();
-  googleProvider.setCustomParameters(firebaseConfig);
-  return signInWithPopup(auth, googleProvider);
 };
 
 export const logOut = () => {

@@ -28,9 +28,6 @@ export default function CodePage({ data, userOnSession, message }) {
   const { id, avatar, userName, img, content, createdAt, creatorId, saves } =
     data;
 
-  console.log(comments, "que trae esto?");
-  const user = useUser();
-
   useEffect(() => {
     listenLatestComments(setComments, id);
   }, [id]);

@@ -28,7 +28,7 @@ import { useForm } from "react-hook-form";
 import { uploadImage } from "../../../firebase/services/Stories";
 
 export default function CreateProfilePage() {
-  const user = useUser();
+  const userId = useUser();
   const router = useRouter();
   const [tecnologies, setTecnologies] = useState([]);
   const [avatar, setAvatarImage] = useState("");
@@ -81,7 +81,6 @@ export default function CreateProfilePage() {
   };
 
   const handleCreateProfileForm = (data) => {
-    const { userId } = user;
     const profileData = { ...data, avatar, tecnologies };
     createProfile(userId, profileData);
     router.replace("/Profile");
@@ -89,7 +88,7 @@ export default function CreateProfilePage() {
 
   return (
     <>
-      {user ? (
+      {userId ? (
         <Flex justify={"center"}>
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <Flex

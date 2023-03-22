@@ -11,15 +11,15 @@ export const USER_STATES = {
 // Hook que chequea si existe sesion, si no existe devuelve al usuario al inicio
 export default function useProfile() {
   const [profile, setProfile] = useState(USER_STATES.NOT_KNOWN);
-  const user = useUser();
+  const userId = useUser();
 
   const router = useRouter();
 
   useEffect(() => {
-    if (user) {
-      getProfile(user.userId, setProfile);
+    if (userId) {
+      getProfile(userId, setProfile);
     }
-  }, [user]);
+  }, [userId]);
 
   useEffect(() => {
     if (profile === USER_STATES.NOT_PROFILE) {

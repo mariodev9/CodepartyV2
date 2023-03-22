@@ -21,7 +21,6 @@ import {
 } from "../../Icons";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import useUser from "../../../hooks/useUser";
 import { logOut } from "../../../firebase/services/User";
 import useProfile from "../../../hooks/useProfile";
 

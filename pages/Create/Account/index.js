@@ -33,7 +33,7 @@ export default function CreateAccountPage() {
   const succesfullCreated = () => {
     toast({
       title: "Cuenta creada!",
-      description: "Ya tienes tu propia cuenta.",
+      description: "Ahora haz un perfil",
       status: "success",
       duration: 6000,
       isClosable: true,

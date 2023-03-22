@@ -24,7 +24,6 @@ export default function CommentForm({ codeId, fontSize, avatarSize }) {
   const handleClick = () => {
     setStatus(COMPOSE_STATES.LOADING);
 
-    console.log(profile, "data del usuario");
     if (profile) {
       addComment({
         codeId,

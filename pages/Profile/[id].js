@@ -36,16 +36,19 @@ export default function UserProfile() {
   const user = useUser();
   const { id } = router.query;
 
+  // Obtengo el perfil del usuario con el ID de la url
   useEffect(() => {
     id && getProfile(id, setProfileData);
   }, [id]);
 
+  // Una vez que tengo el perfil del usuario, traigo las publicaciones e historias
+  // Refactor usar el id de la url
   useEffect(() => {
-    if (profileData) {
-      getUserPublications(profileData.userId, setUserPublications);
-      getUserStories(profileData.userId, setUserStories);
+    if (id) {
+      getUserPublications(id, setUserPublications);
+      getUserStories(id, setUserStories);
     }
-  }, [profileData]);
+  }, []);
 
   return (
     <>
@@ -66,11 +69,7 @@ export default function UserProfile() {
 
         {profileData && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-            {/* PROFILE HEADER */}
-
             <ProfileHeader {...profileData} />
-
-            {/* PROFILE HEADER */}
 
             <Tabs variant="soft-rounded" isFitted mt={"30px"}>
               <TabList align="center" px={4}>
@@ -83,31 +82,9 @@ export default function UserProfile() {
               </TabList>
               <TabPanels>
                 <TabPanel pb={"40px"}>
-                  {userPublications.map(
-                    ({
-                      id,
-                      userName,
-                      avatar,
-                      content,
-                      createdAt,
-                      userId,
-                      img,
-                      saves,
-                    }) => (
-                      <Publication
-                        userOnSession={user?.userId}
-                        avatar={avatar}
-                        id={id}
-                        key={id}
-                        content={content}
-                        userName={userName}
-                        img={img}
-                        createdAt={createdAt}
-                        userId={userId}
-                        saves={saves}
-                      />
-                    )
-                  )}
+                  {userPublications.map((item) => (
+                    <Publication {...item} userId={user} />
+                  ))}
                 </TabPanel>
                 <TabPanel>
                   <Flex p="45px 15px">

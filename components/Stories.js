@@ -47,7 +47,7 @@ export default function Stories() {
   const [img, setImg] = useState("");
   const [file, setFile] = useState("");
 
-  const user = useUser();
+  const userId = useUser();
   const profile = useProfile();
   // user
   useEffect(() => {
@@ -67,7 +67,7 @@ export default function Stories() {
   const handleUpload = (event) => {
     event.preventDefault();
     addStory({
-      creatorId: user.userId,
+      creatorId: userId,
       avatar: profile.avatar,
       userName: profile.name,
       img: img,

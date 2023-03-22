@@ -80,7 +80,7 @@ export default function Profile() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const router = useRouter();
-  const user = useUser();
+  const userId = useUser();
   const profile = useProfile();
 
   useEffect(() => {
@@ -88,24 +88,20 @@ export default function Profile() {
   }, [avatarFile]);
 
   useEffect(() => {
-    user && getProfile(user.userId, setUserProfileData);
-  }, [user]);
+    if (profile) {
+      setValue("name", profile.name);
+      setValue("description", profile.description);
+      setTecnologies(profile.tecnologies);
+      setAvatarImage(profile.avatar);
+    }
+  }, [profile]);
 
   useEffect(() => {
-    if (userProfileData) {
-      setValue("name", userProfileData.name);
-      setValue("description", userProfileData.description);
-      setTecnologies(userProfileData.tecnologies);
-      setAvatarImage(userProfileData.avatar);
+    if (userId) {
+      getUserPublications(userId, setUserPublications);
+      getUserStories(userId, setUserStories);
     }
-  }, [userProfileData]);
-
-  useEffect(() => {
-    if (user && userProfileData) {
-      getUserPublications(user.userId, setUserPublications);
-      getUserStories(user.userId, setUserStories);
-    }
-  }, [userProfileData]);
+  }, [profile]);
 
   const {
     register,
@@ -154,7 +150,7 @@ export default function Profile() {
     };
     return new Promise((resolve) => {
       setTimeout(() => {
-        updateProfile(user.userId, DataProfileForUpdate);
+        updateProfile(userId, DataProfileForUpdate);
         onClose();
         resolve();
       }, 500);
@@ -164,7 +160,7 @@ export default function Profile() {
   return (
     <Layout>
       <Box bg={"brand.200"}>
-        {userProfileData === USER_PROFILE_STATES.NOT_KNOWN && (
+        {profile === USER_PROFILE_STATES.NOT_KNOWN && (
           <Flex
             h="100vh"
             justify="center"
@@ -175,7 +171,7 @@ export default function Profile() {
           </Flex>
         )}
 
-        {userProfileData === USER_PROFILE_STATES.NOT_PROFILE && (
+        {profile === USER_PROFILE_STATES.NOT_PROFILE && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <Flex justify="center" align="center" h="100vh">
               <Flex direction={"column"} justify={"center"}>
@@ -197,9 +193,9 @@ export default function Profile() {
           </motion.div>
         )}
 
-        {userProfileData && (
+        {profile && (
           <Box>
-            <ProfileHeader {...userProfileData}>
+            <ProfileHeader {...profile}>
               <Box position={"relative"} left="80%" top="25px">
                 <Button onClick={onOpen}>
                   <Edit />
@@ -218,31 +214,9 @@ export default function Profile() {
               </TabList>
               <TabPanels>
                 <TabPanel pb={"40px"}>
-                  {userPublications.map(
-                    ({
-                      id,
-                      userName,
-                      avatar,
-                      content,
-                      createdAt,
-                      userId,
-                      img,
-                      saves,
-                    }) => (
-                      <Publication
-                        userOnSession={user?.userId}
-                        avatar={avatar}
-                        id={id}
-                        key={id}
-                        content={content}
-                        userName={userName}
-                        img={img}
-                        createdAt={createdAt}
-                        userId={userId}
-                        saves={saves}
-                      />
-                    )
-                  )}
+                  {userPublications.map((item) => (
+                    <Publication userId={userId} {...item} />
+                  ))}
                 </TabPanel>
                 <TabPanel>
                   <Flex p="45px 15px">

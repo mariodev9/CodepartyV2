@@ -37,7 +37,7 @@ export default function CreateForm() {
   const [publicationMode, setPublicationMode] = useState(false);
 
   const router = useRouter();
-  const user = useUser();
+  const userId = useUser();
   const profile = useProfile();
 
   useEffect(() => {
@@ -57,9 +57,9 @@ export default function CreateForm() {
   const handleAddStory = (event) => {
     event.preventDefault();
     addStory({
-      creatorId: user.userId,
-      avatar: user.avatar,
-      userName: user.name,
+      creatorId: userId,
+      avatar: profile.avatar,
+      userName: profile.name,
       img: img,
     });
     handleDeleteImg();
@@ -72,7 +72,7 @@ export default function CreateForm() {
     addCode({
       avatar: profile.avatar,
       content: message,
-      creatorId: user.userId,
+      creatorId: userId,
       userName: profile.name,
       img: img,
     });
@@ -96,7 +96,7 @@ export default function CreateForm() {
       </Box>
       {/* Back nav */}
 
-      {user ? (
+      {profile ? (
         <>
           <Box p="10px">
             <Flex justify={"center"} p="30px 0px">

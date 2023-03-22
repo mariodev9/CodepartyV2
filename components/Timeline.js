@@ -6,13 +6,13 @@ import { listenLatestCodes } from "../firebase/services/Publications";
 
 export default function Timeline() {
   const [timeline, setTimeline] = useState([]);
-  const user = useUser();
+  const userId = useUser();
 
   useEffect(() => {
-    if (user) {
+    if (userId) {
       listenLatestCodes(setTimeline);
     }
-  }, [user]);
+  }, [userId]);
 
   return (
     <>
@@ -25,33 +25,7 @@ export default function Timeline() {
             <Spinner color="brand.100" />
           </Flex>
         ) : (
-          timeline.map(
-            ({
-              id,
-              userName,
-              avatar,
-              content,
-              createdAt,
-              userId,
-              img,
-              saves,
-              creatorId,
-            }) => (
-              <Publication
-                userOnSession={user?.userId}
-                avatar={avatar}
-                id={id}
-                key={id}
-                content={content}
-                userName={userName}
-                img={img}
-                createdAt={createdAt}
-                userId={userId}
-                saves={saves}
-                creatorId={creatorId}
-              />
-            )
-          )
+          timeline.map((item) => <Publication {...item} userId={userId} />)
         )}
       </Box>
     </>

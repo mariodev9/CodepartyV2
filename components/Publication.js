@@ -40,7 +40,7 @@ export default function Publication({
   content,
   createdAt,
   creatorId,
-  userOnSession,
+  userId,
   saves,
 }) {
   const timeago = useTimeAgo(createdAt);
@@ -73,9 +73,7 @@ export default function Publication({
                 <LinkBox>
                   <Link
                     href={
-                      creatorId == userOnSession
-                        ? `/Profile`
-                        : `/Profile/${creatorId}`
+                      creatorId == userId ? `/Profile` : `/Profile/${creatorId}`
                     }
                   >
                     <LinkOverlay>
@@ -102,7 +100,7 @@ export default function Publication({
                     <Link
                       href={{
                         pathname: `/Code/${id}`,
-                        query: { userOnSession: userOnSession },
+                        query: { userOnSession: userId },
                       }}
                     >
                       <LinkOverlay>
@@ -127,15 +125,15 @@ export default function Publication({
                 </AccordionButton>
 
                 <LikePublicationButton
-                  userOnSession={userOnSession}
+                  userOnSession={userId}
                   publicationId={id}
                 />
                 <SavePublicationButton
-                  userOnSession={userOnSession}
+                  userOnSession={userId}
                   publicationId={id}
                   saves={saves}
                 />
-                {creatorId == userOnSession && (
+                {creatorId == userId && (
                   <Box onClick={onOpen}>
                     <Trash />
                   </Box>
