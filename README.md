@@ -1,8 +1,7 @@
 
 ## Codeparty
 
-Es una red social para desarrolladores. Se puede interactuar con las publicaciones, subir imagenes, historias, comentar y crear tu propio perfil.
-
+Este proyecto es una red social para desarrolladores. Crea tu perfil y empieza a interactuar con otros desarrolladores. Puedas subir imagenes a las historias que duran un maximo de 24hs. Tras subir una publicacion puedes interactuar con estas, ya sea likeandolas, guardandolas o comentandolas. Proximamente se podra chatear con otros desarrolladores y muchas funcionalidades mas.
 
 ## Tecnologias usadas
 
