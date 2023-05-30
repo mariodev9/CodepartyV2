@@ -76,7 +76,7 @@ export default function CodePage({ data, userOnSession, message }) {
               <LikePublicationButton
                 userOnSession={userOnSession}
                 publicationId={id}
-                withoutNumber
+                withoutNumber={true}
               />
             </Flex>
             <Flex>

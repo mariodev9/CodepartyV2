@@ -299,8 +299,8 @@ export default function Profile() {
                   <Text fontSize={"16px"}>Stack</Text>
                   <Text fontSize={"16px"}>{tecnologies.length}/4</Text>
                 </Flex>
-                <Wrap w="100%" display="flex" h={"50px"} justifyContent="start">
-                  <Box mt="20px" p="10px">
+                <Wrap w="100%" display="flex" justifyContent="start">
+                  <Box mt="20px" p="10px" borderColor={"black.100"}>
                     {tecnologies.length === 0 ? (
                       <Box h="40px">
                         <Text fontSize={"14px"} color="gray.50">

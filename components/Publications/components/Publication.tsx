@@ -22,17 +22,18 @@ import {
   AlertDialogOverlay,
 } from "@chakra-ui/react";
 import Link from "next/link";
-import useTimeAgo from "../hooks/useTimeago";
-import SavePublicationButton from "./Interactions/SavePublicationButton";
-import LikePublicationButton from "./Interactions/LikePublicationButton";
-import CommentButton from "./Interactions/CommentButton";
-import CommentForm from "./Comments/CommentForm";
-import { listenLatestComments } from "../firebase/services/Comments";
-import { Trash } from "./Icons";
-import { deleteCode } from "../firebase/services/Publications";
+import useTimeAgo from "../../../hooks/useTimeago";
+import SavePublicationButton from "../../Interactions/SavePublicationButton";
+import LikePublicationButton from "../../Interactions/LikePublicationButton";
+import CommentButton from "../../Interactions/CommentButton";
+import CommentForm from "../../Comments/CommentForm";
+import { listenLatestComments } from "../../../firebase/services/Comments";
+import { Trash } from "../../Icons";
+import { deleteCode } from "../../../firebase/services/Publications";
 import { motion } from "framer-motion";
+import { Publication } from "../models";
 
-export default function Publication({
+const Publication:React.FC<Publication> = ({
   id,
   avatar,
   userName,
@@ -42,7 +43,7 @@ export default function Publication({
   creatorId,
   userId,
   saves,
-}) {
+}) => {
   const timeago = useTimeAgo(createdAt);
   const [comments, setComments] = useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -77,7 +78,7 @@ export default function Publication({
                     }
                   >
                     <LinkOverlay>
-                      <Avatar size="sm" alt={userName} src={avatar} mr={3} />
+                      <Avatar size="sm" src={avatar} mr={3} />
                     </LinkOverlay>
                   </Link>
                 </LinkBox>
@@ -127,6 +128,7 @@ export default function Publication({
                 <LikePublicationButton
                   userOnSession={userId}
                   publicationId={id}
+                  withoutNumber={false}
                 />
                 <SavePublicationButton
                   userOnSession={userId}
@@ -186,3 +188,4 @@ export default function Publication({
     </>
   );
 }
+export default Publication

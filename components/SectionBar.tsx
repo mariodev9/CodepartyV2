@@ -3,7 +3,12 @@ import { useRouter } from "next/router";
 import React from "react";
 import { Back } from "./Icons";
 
-export default function SectionBar({ text, back }) {
+interface SectionBarProps {
+  text: string
+  back: boolean
+}
+
+const SectionBar:React.FC<SectionBarProps> = ({ text, back }) => {
   const router = useRouter();
 
   const handleBack = () => {
@@ -37,3 +42,5 @@ export default function SectionBar({ text, back }) {
     </Box>
   );
 }
+
+export default SectionBar

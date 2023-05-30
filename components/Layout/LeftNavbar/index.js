@@ -105,8 +105,7 @@ export default function LeftNavbar() {
           <Flex justify="center">
             <Button
               variant="primary"
-              borderRadius="20px"
-              w="100%"
+              w={"full"}
               mt="10px"
               onClick={handleRoute}
             >

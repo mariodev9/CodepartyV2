@@ -19,6 +19,8 @@ import {
   FormControl,
   Image,
   Avatar,
+  VStack,
+  Select,
 } from "@chakra-ui/react";
 import { Skill } from "../../../components/Common/Skill";
 import { createProfile } from "../../../firebase/services/User";
@@ -26,6 +28,18 @@ import { useRouter } from "next/router";
 import { SkillsList } from "../../../components/Common/SkillsList";
 import { useForm } from "react-hook-form";
 import { uploadImage } from "../../../firebase/services/Stories";
+
+const positionList = [
+  "Desarrollador Frontend",
+  "Desarrollador Backend",
+  "Desarrollador Fullstack",
+  "Desarrollador Mobile",
+  "Data Scientist",
+  "Machine Learning",
+  "Diseñador UX/UI",
+  "Desarrollador DevOps",
+  "Desarrollador de Videojuegos",
+];
 
 export default function CreateProfilePage() {
   const userId = useUser();
@@ -102,168 +116,198 @@ export default function CreateProfilePage() {
                   handleCreateProfileForm(data);
                 })}
               >
-                <Flex justify={"center"} align={"center"} gap={"20px"}>
-                  {avatar && (
-                    <Image
-                      src={avatar}
-                      alt={"avatar profile"}
-                      w={"100px"}
-                      h="100px"
-                      layerStyle="primaryBox"
-                      borderRadius="10px"
-                    />
-                  )}
-                  <Box h="60px">
-                    <FormLabel htmlFor="avatar" cursor="pointer">
-                      <Input
-                        type="file"
-                        accept="image/png, .jpeg, .jpg"
-                        id="avatar"
-                        onChange={(e) => {
-                          setAvatarFile(e.target.files[0]);
-                        }}
-                        display="none"
+                <VStack spacing={10}>
+                  <Flex justify={"center"} align={"center"} gap={"20px"}>
+                    {avatar && (
+                      <Image
+                        src={avatar}
+                        alt={"avatar profile"}
+                        w={"100px"}
+                        h="100px"
+                        layerStyle="primaryBox"
+                        borderRadius="10px"
                       />
-                      <Flex gap={"10px"}>
-                        <Text color={"gray.300"} fontSize={"20px"}>
-                          Subir foto de perfil
-                        </Text>
+                    )}
+                    <Box h="60px">
+                      <FormLabel htmlFor="avatar" cursor="pointer">
+                        <Input
+                          type="file"
+                          accept="image/png, .jpeg, .jpg"
+                          id="avatar"
+                          onChange={(e) => {
+                            setAvatarFile(e.target.files[0]);
+                          }}
+                          display="none"
+                        />
+                        <Flex gap={"10px"}>
+                          <Text color={"#fff"} fontSize={"20px"}>
+                            Subir foto de perfil
+                          </Text>
 
-                        <Upload strokeWidth={"2px"} />
-                      </Flex>
-                    </FormLabel>
-                  </Box>
-                </Flex>
-
-                <FormControl>
-                  {/* Username Input */}
-                  <FormLabel
-                    mt="15px"
-                    color="gray.300"
-                    fontSize={"16px"}
-                    htmlFor="name"
-                  >
-                    Nombre de usuario
-                  </FormLabel>
-                  <Input
-                    id="name"
-                    layerStyle={"primaryBox"}
-                    bg="black.50"
-                    border="none"
-                    fontSize={{ base: "20px", desktop: "18px" }}
-                    fontWeight={600}
-                    {...register("name", {
-                      required: "This is required",
-                    })}
-                  />
-                </FormControl>
-
-                <FormControl>
-                  {/* Description Input */}
-                  <Box w="100%" mt="50px">
-                    <Flex
-                      justify={"space-between"}
-                      align={"center"}
-                      p="5px 0px"
-                    >
-                      <FormLabel
-                        mt="15px"
-                        color="gray.300"
-                        fontSize={"16px"}
-                        htmlFor="name"
-                      >
-                        Descripcion
+                          <Upload strokeWidth={"2px"} />
+                        </Flex>
                       </FormLabel>
-                      <CircularProgress
-                        value={descriptionText.length}
-                        max={100}
-                        size={"20px"}
-                        color={"brand.100"}
-                      />
-                    </Flex>
-                    <Textarea
-                      id="description"
-                      resize={"none"}
+                    </Box>
+                  </Flex>
+                  <Text>
+                    Data Scientist videojuegos Mobile Machine Learning diseñador
+                    UX/UI
+                  </Text>
+
+                  <FormControl>
+                    <FormLabel
+                      color="gray.300"
+                      fontSize={"16px"}
+                      htmlFor="name"
+                    >
+                      Selecciona un posicion
+                    </FormLabel>
+                    <Select
+                      bg="black.50"
+                      border="none"
+                      {...register("position", {
+                        required: "This is required",
+                      })}
+                    >
+                      {positionList.map((item) => (
+                        <option
+                          key={item}
+                          style={{ backgroundColor: "#111" }}
+                          value={item}
+                        >
+                          {item}
+                        </option>
+                      ))}
+                    </Select>
+                  </FormControl>
+                  <FormControl>
+                    {/* Username Input */}
+                    <FormLabel
+                      color="gray.300"
+                      fontSize={"16px"}
+                      htmlFor="name"
+                    >
+                      Nombre de usuario
+                    </FormLabel>
+                    <Input
+                      type="text"
+                      id="name"
                       layerStyle={"primaryBox"}
                       bg="black.50"
                       border="none"
                       fontSize={{ base: "20px", desktop: "18px" }}
                       fontWeight={600}
-                      h="130px"
-                      borderRadius={"10px"}
-                      _focus={{ borderColor: "white" }}
-                      maxLength={100}
-                      {...register("description", {
+                      {...register("name", {
                         required: "This is required",
                       })}
                     />
-                  </Box>
-                </FormControl>
-
-                {/* Tecnologies List */}
-                <Box w="100%" mt="30px">
-                  <Flex justify={"space-between"}>
-                    <Text color="gray.300" fontSize={"16px"}>
-                      Stack
-                    </Text>
-                    <Text color="gray.300" fontSize={"16px"}>
-                      {tecnologies.length}/4
-                    </Text>
-                  </Flex>
-                  <Box mt="20px" p="10px">
-                    {tecnologies.length === 0 ? (
-                      <Box h="40px">
-                        <Text fontSize={"14px"} color="gray.50">
-                          Seleccione las tecnologías que mas te gusten!
-                        </Text>
-                      </Box>
-                    ) : (
-                      <Wrap w="100%" display="flex" justifyContent="start">
-                        {tecnologies.map((item) => (
-                          <WrapItem
-                            key={item.name}
-                            display="flex"
-                            justify="center"
-                            align="center"
-                          >
-                            <Skill
-                              text={item.name}
-                              color={item.color}
-                              handleClick={handleDeleteSkill}
-                            />
-                          </WrapItem>
-                        ))}
-                      </Wrap>
-                    )}
-                    <Divider mt="5px" />
-                  </Box>
-                  <Wrap
-                    p="30px 0px"
-                    display="flex"
-                    justify="center"
-                    align="center"
-                  >
-                    {SkillsList.map((item) => (
-                      <WrapItem key={item.name}>
-                        <Skill
-                          text={item.name}
-                          color={item.color}
-                          handleClick={handleAddSkill}
+                  </FormControl>
+                  <FormControl>
+                    {/* Description Input */}
+                    <Box w="100%">
+                      <Flex
+                        justify={"space-between"}
+                        align={"center"}
+                        p="5px 0px"
+                      >
+                        <FormLabel
+                          mt="15px"
+                          color="gray.300"
+                          fontSize={"16px"}
+                          htmlFor="name"
+                        >
+                          Descripcion
+                        </FormLabel>
+                        <CircularProgress
+                          value={descriptionText.length}
+                          max={100}
+                          size={"20px"}
+                          color={"brand.100"}
                         />
-                      </WrapItem>
-                    ))}
-                  </Wrap>
-                </Box>
-                <Flex justify={"center"}>
-                  <Button
-                    w={"full"}
-                    variant="primary"
-                    isLoading={isSubmitting}
-                    type="submit"
-                  >
-                    Crear usuario
-                  </Button>
-                </Flex>
+                      </Flex>
+                      <Textarea
+                        id="description"
+                        resize={"none"}
+                        layerStyle={"primaryBox"}
+                        bg="black.50"
+                        border="none"
+                        fontSize={{ base: "20px", desktop: "18px" }}
+                        fontWeight={600}
+                        h="130px"
+                        borderRadius={"10px"}
+                        _focus={{ borderColor: "white" }}
+                        maxLength={100}
+                        {...register("description", {
+                          required: "This is required",
+                        })}
+                      />
+                    </Box>
+                  </FormControl>
+                  {/* Tecnologies List */}
+                  <Box w="100%">
+                    <Flex justify={"space-between"}>
+                      <Text color="gray.300" fontSize={"16px"}>
+                        Stack
+                      </Text>
+                      <Text color="gray.300" fontSize={"16px"}>
+                        {tecnologies.length}/4
+                      </Text>
+                    </Flex>
+                    <Box p="10px 0px">
+                      {tecnologies.length === 0 ? (
+                        <Box h="40px">
+                          <Text fontSize={"14px"} color="gray.50">
+                            Seleccione las tecnologías que mas te gusten!
+                          </Text>
+                        </Box>
+                      ) : (
+                        <Wrap w="100%" display="flex" justifyContent="start">
+                          {tecnologies.map((item) => (
+                            <WrapItem
+                              key={item.name}
+                              display="flex"
+                              justify="center"
+                              align="center"
+                            >
+                              <Skill
+                                text={item.name}
+                                color={item.color}
+                                handleClick={handleDeleteSkill}
+                              />
+                            </WrapItem>
+                          ))}
+                        </Wrap>
+                      )}
+                      <Divider mt="5px" />
+                    </Box>
+                    <Wrap
+                      p="30px 0px"
+                      display="flex"
+                      justify="center"
+                      align="center"
+                    >
+                      {SkillsList.map((item) => (
+                        <WrapItem key={item.name}>
+                          <Skill
+                            text={item.name}
+                            color={item.color}
+                            handleClick={handleAddSkill}
+                          />
+                        </WrapItem>
+                      ))}
+                    </Wrap>
+                  </Box>
+                  <Flex justify={"center"}>
+                    <Button
+                      w={"full"}
+                      variant="primary"
+                      isLoading={isSubmitting}
+                      type="submit"
+                    >
+                      Crear usuario
+                    </Button>
+                  </Flex>
+                </VStack>
               </form>
             </Flex>
           </motion.div>

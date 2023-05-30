@@ -7,11 +7,17 @@ import {
 } from "../../firebase/services/Interactions";
 import { Like } from "../Icons";
 
-export default function LikePublicationButton({
+interface Props {
+  userOnSession: string
+  publicationId: string
+  withoutNumber: boolean
+}
+
+const LikePublicationButton:React.FC<Props> = ({
   userOnSession,
   publicationId,
   withoutNumber,
-}) {
+})  => {
   const [isLiked, setIsLiked] = useState(false);
   const [likesCount, setLikesCount] = useState(undefined);
 
@@ -48,3 +54,6 @@ export default function LikePublicationButton({
     </Flex>
   );
 }
+
+
+export default LikePublicationButton

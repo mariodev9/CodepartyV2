@@ -8,11 +8,12 @@ import { getUserStories } from "../../firebase/services/Stories";
 import { getUserPublications } from "../../firebase/services/Publications";
 import ProfileHeader from "../../components/Profile/ProfileHeader";
 import ProfileContent from "../../components/Profile/ProfileContent";
+import { StoryData } from "../../components/Stories/models";
 
 export default function UserProfile() {
   const [profileData, setProfileData] = useState(undefined);
-  const [userPublications, setUserPublications] = useState([]);
-  const [userStories, setUserStories] = useState([]);
+  const [myUserPublications, setMyUserPublications] = useState([]);
+  const [myUserStories, setMyUserStories] = useState();
 
   const router = useRouter();
   const { id } = router.query;
@@ -25,8 +26,8 @@ export default function UserProfile() {
   // Una vez que tengo el perfil del usuario, traigo las publicaciones e historias
   useEffect(() => {
     if (id) {
-      getUserPublications(id, setUserPublications);
-      getUserStories(id, setUserStories);
+      getUserPublications(id, setMyUserPublications);
+      getUserStories(id, setMyUserStories);
     }
   }, []);
 
@@ -52,8 +53,8 @@ export default function UserProfile() {
             <ProfileHeader {...profileData} />
 
             <ProfileContent
-              userPublications={userPublications}
-              userStories={userStories}
+              userPublications={myUserPublications}
+              userStories={myUserStories}
             />
           </motion.div>
         )}

@@ -1,15 +1,6 @@
-import { useState } from "react";
-import { useRouter } from "next/router";
-
-import { auth, firebaseConfig, firestore } from "../../Client";
-import {
-  GithubAuthProvider,
-  signInWithPopup,
-  onAuthStateChanged,
-  signOut,
-  GoogleAuthProvider,
-} from "firebase/auth";
-import { doc, getDoc, onSnapshot, setDoc, updateDoc } from "firebase/firestore";
+import { auth, firestore } from "../../Client";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { doc, onSnapshot, setDoc, updateDoc } from "firebase/firestore";
 
 // Busca un Perfil de usuario, si existe guarda la data en un callback, si no existe devuelve false
 export const getProfile = async (userId, setUserProfileData) => {
@@ -33,14 +24,6 @@ export const sessionChange = (saveUserData) => {
       saveUserData(null);
     }
   });
-};
-
-const mapUserFromFirebaseAuthToUser = (user) => {
-  // displayname y photourl no sirve
-  const { displayName, photoURL, uid } = user;
-  return {
-    userId: uid,
-  };
 };
 
 export const logOut = () => {

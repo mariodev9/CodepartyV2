@@ -1,7 +1,7 @@
 import { doc, getDoc } from "firebase/firestore";
 import { firestore } from "../../../firebase/Client";
 
-export default async (request, response) => {
+export default async function handler(request, response) {
   const { query } = request;
   const { id } = query;
 
@@ -20,4 +20,4 @@ export default async (request, response) => {
     // doc.data() will be undefined in this case
     response.status(404).json({ message: `No existe` });
   }
-};
+}

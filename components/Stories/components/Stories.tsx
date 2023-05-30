@@ -3,8 +3,7 @@ import {
   addStory,
   listenLatestStories,
   uploadImage,
-} from "../firebase/services/Stories";
-
+} from "../../../firebase/services/Stories";
 import {
   Avatar,
   Box,
@@ -28,31 +27,32 @@ import {
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import { settings } from "../styleSettings";
-import useUser from "../hooks/useUser";
-import useProfile from "../hooks/useProfile";
-
-import { Add, Cross, Upload } from "./Icons";
+import { settings } from "../../../styleSettings";
+import useUser from "../../../hooks/useUser";
+import useProfile from "../../../hooks/useProfile";
+import { Add, Cross, Upload } from "../../Icons";
 import Story from "./Story";
+import { Stories } from "../models";
 
 const STORIES_STATE = {
   NOT_KNOWN: undefined,
 };
 
-export default function Stories() {
+const Stories:React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const [stories, setStories] = useState(STORIES_STATE.NOT_KNOWN);
-  const [userStories, setUserStories] = useState(STORIES_STATE.NOT_KNOWN);
+  const [otherUserStories, setOtherUserStories] = useState<Array<Stories>>(STORIES_STATE.NOT_KNOWN);
+  const [myStories, setMyStories] = useState(STORIES_STATE.NOT_KNOWN);
   const [img, setImg] = useState("");
-  const [file, setFile] = useState("");
+  const [file, setFile] = useState(undefined);
+
 
   const userId = useUser();
   const profile = useProfile();
   // user
   useEffect(() => {
     if (profile) {
-      listenLatestStories(setStories, setUserStories, profile.userId);
+      listenLatestStories(setOtherUserStories, setMyStories, profile.userId);
     }
   }, [profile]);
 
@@ -79,7 +79,7 @@ export default function Stories() {
   return (
     <>
       <Box p="15px 0px">
-        {stories === STORIES_STATE.NOT_KNOWN ? (
+        {otherUserStories === STORIES_STATE.NOT_KNOWN ? (
           <Flex h="100px" p={5} justify="center" align={"center"}>
             <Spinner color="brand.100" size="xs" />
           </Flex>
@@ -87,11 +87,11 @@ export default function Stories() {
           <>
             <Slider {...settings}>
               <Flex p={5}>
-                {userStories.length !== 0 ? (
+                {myStories.length !== 0 ? (
                   <>
                     <Story
-                      avatar={userStories[0].avatar}
-                      stories={userStories[0].stories}
+                      avatar={myStories[0].avatar}
+                      stories={myStories[0].stories}
                     />
                   </>
                 ) : (
@@ -129,7 +129,7 @@ export default function Stories() {
                 )}
               </Flex>
 
-              {stories.map((item, key) => (
+              {otherUserStories.map((item, key) => (
                 <Flex p={5} key={key} h="100px">
                   <Story avatar={item.avatar} stories={item.stories} />
                 </Flex>
@@ -199,3 +199,5 @@ export default function Stories() {
     </>
   );
 }
+
+export default Stories

@@ -20,7 +20,12 @@ export default function RightNavbar() {
         w="27%"
       >
         <Box position="fixed" w="27%" h="100vh" p="25px">
-          <VStack align="start" spacing={"25px"}>
+          <VStack
+            align="start"
+            spacing={"25px"}
+            layerStyle="primaryBox"
+            p="10px 20px"
+          >
             <Text fontSize={"20px"}>Personas a seguir</Text>
             <FollowProfile />
             <Box mt="25px">
@@ -58,7 +63,7 @@ export default function RightNavbar() {
           <VStack
             align="start"
             mt="25px"
-            p="10px"
+            p="10px 20px"
             spacing={"10px"}
             layerStyle="primaryBox"
           >

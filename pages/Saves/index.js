@@ -4,9 +4,8 @@ import Layout from "../../components/Layout";
 import SectionBar from "../../components/SectionBar";
 import { GetAllUserSaves } from "../../firebase/services/Saves";
 import useUser from "../../hooks/useUser";
-import PublicationSaved from "../../components/Saves/publicationSaved";
 import { motion } from "framer-motion";
-import Publication from "../../components/Publication";
+import Publication from "../../components/Publications/components/Publication";
 
 export default function Saves() {
   const [saves, setSaves] = useState(undefined);
@@ -27,22 +26,29 @@ export default function Saves() {
         </Flex>
       )}
       {saves && (
-        <Box h={"100vh"} bg={"brand.200"}>
+        <Box p={"0px 10px 30px"}>
           {saves.length === 0 ? (
-            <Flex h="80vh" justify="center" align="center">
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                <Text fontSize={"25px"} color="gray.50" textAlign={"center"}>
-                  No tienes publicaciones guardadas
-                </Text>
-              </motion.div>
-            </Flex>
+            <motion.div
+              style={{
+                height: "80vh",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+            >
+              <Text fontSize={"25px"} color="gray.50" textAlign={"center"}>
+                No tienes publicaciones guardadas
+              </Text>
+            </motion.div>
           ) : (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-              <Grid templateColumns="repeat(1, 1fr)" gap={3} padding={"10px"}>
+              <Box>
                 {saves.map((item) => (
                   <Publication key={item.id} {...item} userId={userId} />
                 ))}
-              </Grid>
+              </Box>
             </motion.div>
           )}
         </Box>

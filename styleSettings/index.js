@@ -100,10 +100,6 @@ export const theme = extendTheme({
         fontWeight: "bold",
       },
       variants: {
-        // solid: () => ({
-        //   bg: props.colorMode === "dark" ? "red.300" : "red.500",
-        // }),
-        // 5. We can add responsive variants
         sm: {
           bg: "teal.500",
           fontSize: "md",
@@ -112,6 +108,7 @@ export const theme = extendTheme({
           bg: "brand.100",
           fontSize: "md",
           padding: "16px 24px",
+          borderRadius: "10px",
           _hover: {
             bg: "#3ba0f9",
           },

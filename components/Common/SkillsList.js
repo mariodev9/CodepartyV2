@@ -47,4 +47,41 @@ export const SkillsList = [
     name: "Go",
     color: "#00add8",
   },
+  {
+    name: "Kotlin",
+    color: "#7952cb",
+  },
+  {
+    name: ".NET",
+    color: "#4e2acd",
+  },
+  {
+    name: "Swift",
+    color: "#e84e36",
+  },
+  {
+    name: "Typescript",
+    color: "#2f74c0",
+  },
+  {
+    name: "SQL",
+    color: "#f7ac00",
+  },
+
+  {
+    name: "Docker",
+    color: "#2496ed",
+  },
+  {
+    name: "Jenjins",
+    color: "#cc3631",
+  },
+  {
+    name: "C++",
+    color: "#659bd3",
+  },
+  {
+    name: "C#",
+    color: "#803788",
+  },
 ];

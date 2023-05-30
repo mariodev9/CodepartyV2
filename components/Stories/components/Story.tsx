@@ -10,11 +10,19 @@ import {
   useDisclosure,
   Image,
   Box,
+  UseDisclosureProps,
 } from "@chakra-ui/react";
 import React from "react";
 import Slider from "react-slick";
+import { StoryData } from "../models";
 
-export default function Story({ avatar, stories }) {
+
+interface Props {
+  avatar:string
+  stories: Array<StoryData>
+}
+
+const Story:React.FC<Props> = ({ avatar, stories })  => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -37,8 +45,8 @@ export default function Story({ avatar, stories }) {
           <ModalHeader>
             <ModalCloseButton />
           </ModalHeader>
-          <ModalBody justify="center" align="center">
-            <Flex justify="center" align="center" h="80vh">
+          <ModalBody  >
+            <Flex border={"1px solid red"} justify="center" align="center" h="80vh">
               <Box w="100%">
                 <Slider>
                   {stories.map((item, key) => (
@@ -59,3 +67,5 @@ export default function Story({ avatar, stories }) {
     </>
   );
 }
+
+export default Story

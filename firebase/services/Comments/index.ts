@@ -9,7 +9,14 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 
-export const addComment = ({ codeId, avatar, content, name }) => {
+interface AddCommentProps {
+  codeId: string
+  avatar: string
+  content: string
+  name:string
+}
+
+export const addComment = ({ codeId, avatar, content, name }:AddCommentProps) => {
   try {
     const docRef = addDoc(
       collection(firestore, "codes", `${codeId}`, "comments"),
@@ -25,7 +32,7 @@ export const addComment = ({ codeId, avatar, content, name }) => {
   }
 };
 
-export const listenLatestComments = async (callback, codeId) => {
+export const listenLatestComments = async (callback:any, codeId:string) => {
   const q = query(
     collection(firestore, "codes", `${codeId}`, "comments"),
     orderBy("createdAt", "desc")
