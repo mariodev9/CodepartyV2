@@ -149,10 +149,6 @@ export default function CreateProfilePage() {
                       </FormLabel>
                     </Box>
                   </Flex>
-                  <Text>
-                    Data Scientist videojuegos Mobile Machine Learning diseñador
-                    UX/UI
-                  </Text>
 
                   <FormControl>
                     <FormLabel
