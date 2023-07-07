@@ -26,20 +26,21 @@ const ProfileContent:React.FC<ProfileContent> = ({ userPublications, userStories
       </TabList>
       <TabPanels>
         <TabPanel pb={"40px"}>
-          {userPublications.map((item) => (
+          {userPublications?.map((item) => (
             <Publication key={item.id} {...item} userId={userId} />
           ))}
         </TabPanel>
         <TabPanel>
           <Flex p="45px 15px">
             <Grid templateColumns="repeat(2, 1fr)" gap={6}>
-              {userStories.map((item) => (
+              {userStories?.map((item) => (
                 <GridItem key={item.id} >
                   <Image
                     src={item.img}
                     alt={`${item.userName} story`}
                     width="300px"
                     height="300px"
+                    objectFit="cover"
                     style={{borderRadius: "10px"}}
                   />
                 </GridItem>
