@@ -122,6 +122,7 @@ export default function ChatLayoutPage({ children }) {
                 {searchTerm &&
                   filteredUsers?.map((user) => (
                     <Flex
+                      key={user.id}
                       p={"5px"}
                       my={"5px"}
                       gap={3}
