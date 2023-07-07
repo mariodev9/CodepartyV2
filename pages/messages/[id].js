@@ -121,8 +121,9 @@ export default function ChatSinglePage() {
           </Box>
 
           {/* Footer Chat  */}
-          {/* <MobileBottomNavbar /> */}
-          <Flex
+          <MobileBottomNavbar />
+
+          {/* <Flex
             pos={{ base: "fixed", tablet: "inherit" }}
             bottom={"0px"}
             h={{ base: bottomNavHeight, base: "auto" }}
@@ -152,7 +153,7 @@ export default function ChatSinglePage() {
                 />
               </Flex>
             </form>
-          </Flex>
+          </Flex> */}
         </Flex>
       )}
     </ChatLayoutPage>
