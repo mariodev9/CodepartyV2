@@ -108,7 +108,7 @@ export default function ChatSinglePage() {
               },
             }}
             ref={messageContainerRef}
-            mb={{ base: bottomNavHeight, tablet: "0px" }}
+            mb={{ base: "40px", tablet: "5px" }}
           >
             {messages &&
               messages.map((message, index) => (
@@ -121,17 +121,16 @@ export default function ChatSinglePage() {
           </Box>
 
           {/* Footer Chat  */}
-          {/* <MobileBottomNavbar /> */}
+
           <Flex
             pos={{ base: "fixed", tablet: "inherit" }}
             bottom={"0px"}
-            h={{ base: bottomNavHeight, base: "auto" }}
             w={"full"}
-            px={"15px"}
-            bg={"red"}
+            p={"5px 15px"}
+            bg={"blue"}
           >
             <form
-              style={{ width: "100%" }}
+              style={{ width: "100%", height: "100%" }}
               onSubmit={() => SendNewMessage(event)}
             >
               <Flex gap={4}>
