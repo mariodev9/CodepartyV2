@@ -13,6 +13,7 @@ import Link from "next/link";
 import { getAllProfiles } from "../../../firebase/services/User";
 import useProfile from "../../../hooks/useProfile";
 import { Back } from "../../Icons";
+import MobileBottomNavbar from "../../Layout/MobileBottomNav";
 
 export default function ChatLayoutPage({ children }) {
   const [chats, setChats] = useState();
@@ -79,11 +80,12 @@ export default function ChatLayoutPage({ children }) {
 
   return (
     <Layout hideRightNavbar hideBottomNavbar={true}>
-      <Flex px={{ base: "5px", tablet: "30px" }} h={"100vh"}>
-        {/* Search Chats */}
+      <Flex px={{ base: "0px", tablet: "30px" }} h={"100vh"}>
+        {/* Buscador */}
         <Box
           w={{ base: "100%", tablet: "30%" }}
           h={{ base: "auto", tablet: "100vh" }}
+          // En Mobile no se muestra el buscador para ver solo el chat
           display={{
             base: id != "home" ? "none" : "block",
             tablet: "inline-block",
@@ -91,11 +93,16 @@ export default function ChatLayoutPage({ children }) {
           borderLeft={{ base: "none", tablet: "2px solid #2b2a2d" }}
         >
           <>
-            <Flex gap={3} h={"10%"} align={"center"} mb={"10px"}>
+            <Flex px="10px" h="50px" align="center">
+              <Text fontWeight="700" fontSize="20px" letterSpacing="1px">
+                Mensajes
+              </Text>
+            </Flex>
+            <Flex gap={3} px="5px" h={"10%"} align={"center"} mb={"10px"}>
               {showResults && (
                 <Box
                   cursor={"pointer"}
-                  ml={4}
+                  ml={2}
                   onClick={() => setShowResults(false)}
                 >
                   <Back />
@@ -159,7 +166,12 @@ export default function ChatLayoutPage({ children }) {
               </Box>
             )}
           </>
+          <Box>
+            <MobileBottomNavbar />
+          </Box>
         </Box>
+
+        {/* Chat */}
         <Box
           display={{
             base: id == "home" ? "none" : "flex",
