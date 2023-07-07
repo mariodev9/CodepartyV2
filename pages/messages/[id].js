@@ -116,7 +116,7 @@ export default function ChatSinglePage() {
           </Box>
 
           {/* Footer Chat  */}
-          <Flex h={"auto"} align={"end"} py={"10px"}>
+          <Flex h={"auto"} align={"end"} py={"10px"} mb={"60px"}>
             <form
               style={{ width: "100%" }}
               onSubmit={() => SendNewMessage(event)}
