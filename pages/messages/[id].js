@@ -11,6 +11,8 @@ import Message from "../../components/Chats/Message";
 import useProfile from "../../hooks/useProfile";
 import ChatHeader from "../../components/Chats/BodyChat/ChatHeader";
 import { Timestamp } from "firebase/firestore";
+import { getProfile } from "../../firebase/services/User";
+import MessagesContainer from "../../components/Chats/BodyChat/MessagesContainer";
 
 export default function ChatSinglePage() {
   // Get Chat Id
@@ -19,8 +21,7 @@ export default function ChatSinglePage() {
 
   const profile = useProfile();
   const messageContainerRef = useRef(null);
-  const [chatData, setChatData] = useState();
-
+  const [receptorProfile, setReceptorProfile] = useState();
   const [messages, setMessages] = useState();
   const [message, setMessage] = useState();
 
@@ -32,11 +33,17 @@ export default function ChatSinglePage() {
   };
 
   useEffect(() => {
-    if (id) {
+    if (id && profile) {
+      // Obtengo del chatID el userId del usuario receptor
+      const chatIds = id.split("-");
+      const receptorId = chatIds.find((id) => id !== profile.id);
+
+      // Obtengo el profile del usuario receptor
+      getProfile(receptorId, setReceptorProfile);
+      // Obtengo los mensajes del chat
       getMessagesFromChat(id, setMessages);
-      getChat(id, setChatData);
     }
-  }, [id]);
+  }, [id, profile]);
 
   function handleChange(event) {
     setMessage(event.target.value);
@@ -75,52 +82,15 @@ export default function ChatSinglePage() {
       ) : (
         <Flex w={"100%"} h={"100vh"} direction={"column"}>
           <ChatHeader
-            // TODO: 1) CHANGE IDS TO <myid>-<otheruserid>
-            // 2) getData id, filter "otheruserid".then(getUserData)
-            name={
-              chatData?.members?.filter(
-                (member) => member.name != profile?.name
-              )[0].name
-            }
-            avatar={
-              chatData?.avatars?.filter(
-                (avatar) => avatar != profile?.avatar
-              )[0]
-            }
+            name={receptorProfile?.name}
+            avatar={receptorProfile?.avatar}
           />
+
           {/* Chat Messages */}
 
-          <Box
-            ref={messageContainerRef}
-            flex={1}
-            overflowY={"scroll"}
-            px={"10px"}
-            css={{
-              "&::-webkit-scrollbar": {
-                width: "5px",
-              },
-              "&::-webkit-scrollbar-track": {
-                width: "7px",
-              },
-              "&::-webkit-scrollbar-thumb": {
-                background: "#159BFF",
-                borderRadius: "24px",
-              },
-            }}
-            mb={{ base: "55px", tablet: "5px" }}
-          >
-            {messages &&
-              messages.map((message, index) => (
-                <Message
-                  key={index}
-                  {...message}
-                  isMyMessage={message.creatorId === profile.id}
-                />
-              ))}
-          </Box>
+          <MessagesContainer messages={messages} myUserId={profile?.id} />
 
           {/* Footer Chat  */}
-
           <Flex
             pos={{ base: "fixed", tablet: "inherit" }}
             bottom={"0px"}

@@ -15,8 +15,13 @@ import { firestore } from "../../Client";
 // Crea un chat y retorna su ID
 export const createChat = async (data) => {
   try {
-    const docRef = await addDoc(collection(firestore, "chats"), data);
-    return docRef.id;
+    const chatRef = doc(
+      firestore,
+      "chats",
+      `${data.members[0].id}-${data.members[1].id}`
+    );
+    await setDoc(chatRef, data);
+    return chatRef.id;
   } catch (error) {
     console.error("Error adding document: ", error);
   }
