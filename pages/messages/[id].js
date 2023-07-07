@@ -75,13 +75,17 @@ export default function ChatSinglePage() {
       ) : (
         <Flex w={"100%"} h={"100vh"} direction={"column"}>
           <ChatHeader
+            // TODO: 1) CHANGE IDS TO <myid>-<otheruserid>
+            // 2) getData id, filter "otheruserid".then(getUserData)
             name={
-              chatData?.members.filter(
-                (member) => member.name != profile.name
+              chatData?.members?.filter(
+                (member) => member.name != profile?.name
               )[0].name
             }
             avatar={
-              chatData?.avatars.filter((avatar) => avatar != profile.avatar)[0]
+              chatData?.avatars?.filter(
+                (avatar) => avatar != profile?.avatar
+              )[0]
             }
           />
           {/* Chat Messages */}
