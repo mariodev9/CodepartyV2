@@ -43,7 +43,7 @@ const NavLink = [
   },
   {
     name: "Mensajes",
-    link: "/Mensajes",
+    link: "/messages/home",
     icon: <Chat fill={"none"} height={26} strokeWidth={2} />,
   },
 ];

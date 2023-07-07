@@ -98,7 +98,7 @@ export default function TopNav() {
                 align={"center"}
                 spacing={"10px"}
                 layerStyle="tabletButton"
-                onClick={() => handlePush("/Mensajes")}
+                onClick={() => handlePush("/messages/home")}
               >
                 <Chat width="30px" height="30px" />
                 <Text fontSize={"24px"}>Mensajes</Text>

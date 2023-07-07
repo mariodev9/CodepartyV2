@@ -100,23 +100,20 @@ export const Add = () => {
 export const Back = (props) => {
   return (
     <svg
-      height="21"
-      viewBox="0 0 21 21"
-      width="21"
       xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
       {...props}
     >
-      <g
-        fill="none"
-        fillRule="evenodd"
-        stroke="currentColor"
+      <path
+        d="M5 12H19M5 12L11 18M5 12L11 6"
+        stroke="white"
+        strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
-        transform="translate(4.5 6.5)"
-      >
-        <path d="m11 8v-2c0-1.65685425-1.34314575-3-3-3h-8" />
-        <path d="m3 6-3.001-3 3.001-3" />
-      </g>
+      />
     </svg>
   );
 };
