@@ -19,7 +19,6 @@ export default function Layout({
             tablet: "65%",
             desktop: hideRightNavbar ? "80%" : "50%",
           }}
-          h={{ desktop: "" }}
           bg={{ base: "black.100" }}
         >
           {children}

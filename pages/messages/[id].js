@@ -10,6 +10,7 @@ import Message from "../../components/Chats/Message";
 import useProfile from "../../hooks/useProfile";
 import ChatHeader from "../../components/Chats/BodyChat/ChatHeader";
 import { Timestamp } from "firebase/firestore";
+import MobileBottomNavbar from "../../components/Layout/MobileBottomNav";
 
 export default function ChatSinglePage() {
   // Get Chat Id
@@ -71,7 +72,7 @@ export default function ChatSinglePage() {
           </Text>
         </Flex>
       ) : (
-        <Flex w={"100%"} h={"100vh"} direction={"column"} px={"10px"}>
+        <Flex w={"100%"} h={"100vh"} direction={"column"}>
           <ChatHeader
             name={
               "Chat "
@@ -117,7 +118,8 @@ export default function ChatSinglePage() {
           </Box>
 
           {/* Footer Chat  */}
-          <Flex h={"auto"} align={"end"} py={"10px"} mb={"60px"}>
+          {/* <MobileBottomNavbar /> */}
+          <Flex h={"auto"} py={"10px"} border={"2px solid red"}>
             <form
               style={{ width: "100%" }}
               onSubmit={() => SendNewMessage(event)}
