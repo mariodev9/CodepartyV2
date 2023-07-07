@@ -17,6 +17,8 @@ export default function ChatSinglePage() {
   const router = useRouter();
   const { id } = router.query;
 
+  const bottomNavHeight = "50px";
+
   const profile = useProfile();
   const messageContainerRef = useRef(null);
   const [messages, setMessages] = useState();
@@ -92,7 +94,7 @@ export default function ChatSinglePage() {
           <Box
             flex={1}
             overflowY={"scroll"}
-            pr={"10px"}
+            px={"10px"}
             css={{
               "&::-webkit-scrollbar": {
                 width: "5px",
@@ -106,6 +108,7 @@ export default function ChatSinglePage() {
               },
             }}
             ref={messageContainerRef}
+            mb={{ base: bottomNavHeight, tablet: "0px" }}
           >
             {messages &&
               messages.map((message, index) => (
@@ -119,7 +122,14 @@ export default function ChatSinglePage() {
 
           {/* Footer Chat  */}
           {/* <MobileBottomNavbar /> */}
-          <Flex h={"auto"} py={"10px"} border={"2px solid red"}>
+          <Flex
+            pos={{ base: "fixed", tablet: "inherit" }}
+            bottom={"0px"}
+            h={{ base: bottomNavHeight, base: "auto" }}
+            w={"full"}
+            px={"15px"}
+            bg={"red"}
+          >
             <form
               style={{ width: "100%" }}
               onSubmit={() => SendNewMessage(event)}
