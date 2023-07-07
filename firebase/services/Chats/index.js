@@ -51,7 +51,7 @@ export const getAllChats = async (callback, userName, userId) => {
 // Busca un chat y retorna su ID en caso de que existe
 // parametros: 2 userId
 // TODO BUSCAR COMO OBJETOS COMO EN GET ALL CHATS
-export const searchChat = async (profile, user) => {
+export const searchChat = async (myUser, otherUser) => {
   try {
     const chatRef = collection(firestore, "chats");
 
@@ -59,15 +59,15 @@ export const searchChat = async (profile, user) => {
     const query1 = query(
       chatRef,
       where("members", "array-contains", {
-        name: profile.name,
-        id: profile.id,
+        name: myUser.name,
+        id: myUser.id,
       })
     );
     const query2 = query(
       chatRef,
       where("members", "array-contains", {
-        name: user.name,
-        id: user.id,
+        name: otherUser.name,
+        id: otherUser.id,
       })
     );
 
@@ -127,4 +127,22 @@ export const sendMessage = async (messageData, chatId) => {
   } catch (error) {
     console.error("Error adding document: ", error);
   }
+};
+
+export const getChat = async (chatId, setChatData) => {
+  const userProfileRef = doc(firestore, "chats", `${chatId}`);
+
+  onSnapshot(userProfileRef, (docSnap) => {
+    if (docSnap.exists()) {
+      const id = docSnap.id;
+      const chatData = docSnap.data();
+      const chatDataWithId = {
+        ...chatData,
+        id,
+      };
+      setChatData(chatDataWithId);
+    } else {
+      setChatData(false);
+    }
+  });
 };

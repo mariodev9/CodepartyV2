@@ -2,32 +2,25 @@ import React, { useState, useEffect, useRef } from "react";
 import ChatLayoutPage from "../../components/Chats/ChatLayoutPage";
 import { useRouter } from "next/router";
 import {
+  getChat,
   getMessagesFromChat,
   sendMessage,
 } from "../../firebase/services/Chats";
-import {
-  Flex,
-  Input,
-  Box,
-  useMediaQuery,
-  Text,
-  Button,
-} from "@chakra-ui/react";
+import { Flex, Input, Box, Text, Button } from "@chakra-ui/react";
 import Message from "../../components/Chats/Message";
 import useProfile from "../../hooks/useProfile";
 import ChatHeader from "../../components/Chats/BodyChat/ChatHeader";
 import { Timestamp } from "firebase/firestore";
-import MobileBottomNavbar from "../../components/Layout/MobileBottomNav";
 
 export default function ChatSinglePage() {
   // Get Chat Id
   const router = useRouter();
   const { id } = router.query;
 
-  const bottomNavHeight = "50px";
-
   const profile = useProfile();
   const messageContainerRef = useRef(null);
+  const [chatData, setChatData] = useState();
+
   const [messages, setMessages] = useState();
   const [message, setMessage] = useState();
 
@@ -38,12 +31,11 @@ export default function ChatSinglePage() {
     }
   };
 
-  // useEffect(() => {
-  //   scrollToBottom();
-  // }, []);
-
   useEffect(() => {
-    id && getMessagesFromChat(id, setMessages);
+    if (id) {
+      getMessagesFromChat(id, setMessages);
+      getChat(id, setChatData);
+    }
   }, [id]);
 
   function handleChange(event) {
@@ -84,21 +76,18 @@ export default function ChatSinglePage() {
         <Flex w={"100%"} h={"100vh"} direction={"column"}>
           <ChatHeader
             name={
-              "Chat "
-              //   activeChat?.members[1] === profile?.name
-              //     ? activeChat?.members[0]
-              //     : activeChat?.members[1]
+              chatData?.members.filter(
+                (member) => member.name != profile.name
+              )[0].name
             }
             avatar={
-              profile?.avatar
-              //   activeChat?.avatars[0] === profile?.avatar
-              //     ? activeChat?.avatars[1]
-              //     : activeChat?.avatars[0]
+              chatData?.avatars.filter((avatar) => avatar != profile.avatar)[0]
             }
           />
           {/* Chat Messages */}
 
           <Box
+            ref={messageContainerRef}
             flex={1}
             overflowY={"scroll"}
             px={"10px"}
@@ -114,7 +103,6 @@ export default function ChatSinglePage() {
                 borderRadius: "24px",
               },
             }}
-            ref={messageContainerRef}
             mb={{ base: "55px", tablet: "5px" }}
           >
             {messages &&

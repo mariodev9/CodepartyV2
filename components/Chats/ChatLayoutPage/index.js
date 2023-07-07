@@ -166,9 +166,7 @@ export default function ChatLayoutPage({ children }) {
               </Box>
             )}
           </>
-          <Box>
-            <MobileBottomNavbar />
-          </Box>
+          <MobileBottomNavbar />
         </Box>
 
         {/* Chat */}
