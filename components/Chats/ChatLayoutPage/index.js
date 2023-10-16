@@ -43,12 +43,16 @@ export default function ChatLayoutPage({ children }) {
   }
 
   async function initChat(user) {
-    const valor = await searchChat(profile, user);
+    // Busco el chat con el usuario
+    const chatExists = await searchChat(profile, user);
 
-    if (valor) {
-      router.push(valor);
+    // Si existe, se redirecciona al chat
+    if (chatExists) {
+      router.push(chatExists);
+
+      // Si no, se procede a crear un chat con esa persona y posteriormente se redirecciona
     } else {
-      const newChatId = await createChat({
+      const chatData = {
         members: [
           {
             id: profile.id,
@@ -60,7 +64,8 @@ export default function ChatLayoutPage({ children }) {
           },
         ],
         avatars: [profile.avatar, user.avatar],
-      });
+      };
+      const newChatId = await createChat(chatData);
       newChatId && router.push(`/messages/${newChatId}`);
       setShowResults(false);
       setSearchTerm("");
@@ -74,8 +79,12 @@ export default function ChatLayoutPage({ children }) {
     }
   }, [profile]);
 
-  const filteredUsers = users?.filter((user) =>
-    user.name.toLowerCase().includes(searchTerm.toLowerCase())
+  // Filtro los usuarios con el buscador
+  const filteredUsers = users?.filter(
+    (user) =>
+      user.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+      // Quito mi usuario de los usuarios buscados
+      user.id != profile.id
   );
 
   return (
@@ -119,6 +128,7 @@ export default function ChatLayoutPage({ children }) {
               />
             </Flex>
 
+            {/* Resultados de busqueda */}
             {showResults && (
               <Box px={"5px"}>
                 {!searchTerm && (
@@ -144,6 +154,8 @@ export default function ChatLayoutPage({ children }) {
                   ))}
               </Box>
             )}
+
+            {/* Lista de Chats */}
             {!showResults && (
               <Box>
                 {chats ? (

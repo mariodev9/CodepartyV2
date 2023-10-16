@@ -10,6 +10,7 @@ import {
   where,
   deleteDoc,
   doc,
+  getDoc,
 } from "firebase/firestore";
 
 export const addCode = ({ avatar, content, creatorId, userName, img }) => {
@@ -68,4 +69,23 @@ export const getUserPublications = async (userId, callback) => {
     const publications = docs.map(mapFromFirebaseToCodeObject);
     callback(publications);
   });
+};
+
+export const getPublication = async (publicationId, callback) => {
+  const docRef = doc(firestore, "codes", `${publicationId}`);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    const data = docSnap.data();
+    const id = docSnap.id;
+
+    const publicationData = {
+      ...data,
+      id,
+    };
+
+    callback(publicationData);
+  } else {
+    callback(null);
+  }
 };

@@ -1,4 +1,4 @@
-import { Box, Flex, Link, Text, VStack } from "@chakra-ui/react";
+import { Box, Flex, Input, Link, Text, VStack } from "@chakra-ui/react";
 import React from "react";
 import {
   ShirtStoreIcon,
@@ -11,6 +11,12 @@ import {
 import { FollowProfile } from "../Common/FollowProfile";
 import FutureProyect from "../Common/FutureProyect";
 
+const SearchBar = () => (
+  <Box mb={"24px"}>
+    <Input borderRadius="20px" placeholder="Buscar" />
+  </Box>
+);
+
 export default function RightNavbar() {
   return (
     <>
@@ -19,7 +25,8 @@ export default function RightNavbar() {
         display={{ base: "none", desktop: "flex" }}
         w="27%"
       >
-        <Box position="fixed" w="27%" h="100vh" p="25px">
+        <Box position="fixed" w="27%" h="100vh" pt="10px" px="25px">
+          <SearchBar />
           <VStack
             align="start"
             spacing={"25px"}

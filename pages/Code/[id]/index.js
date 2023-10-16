@@ -19,46 +19,67 @@ import { listenLatestComments } from "../../../firebase/services/Comments";
 import SavePublicationButton from "../../../components/Interactions/SavePublicationButton";
 import useUser from "../../../hooks/useUser";
 import LikePublicationButton from "../../../components/Interactions/LikePublicationButton";
+import { getPublication } from "../../../firebase/services/Publications";
+import { useRouter } from "next/router";
 
-export default function CodePage({ data, userOnSession, message }) {
+export default function CodePage() {
+  const router = useRouter();
+  const publicationId = router.query.id;
+  const userOnSession = router.query.userOnSession;
+
   const [comments, setComments] = useState(null);
   const [isLiked, setIsLiked] = useState(false);
   const [likesCount, setLikesCount] = useState(undefined);
+  const [publicationData, setPublicationData] = useState(null);
 
-  const { id, avatar, userName, img, content, createdAt, creatorId, saves } =
-    data;
-
+  // TODO: Obtener data de la pub con la funcion creada
   useEffect(() => {
-    listenLatestComments(setComments, id);
-  }, [id]);
+    getPublication(publicationId, setPublicationData);
+  }, []);
 
+  // TODO: Obtener Comentarios de la pub
   useEffect(() => {
-    // refactor: Ahora la publicacion tiene un array con el id del user --> array.some
-    setIfPublicationIsLiked(id, userOnSession, setIsLiked, setLikesCount);
-  }, [id, userOnSession]);
+    listenLatestComments(setComments, publicationId);
+  }, [publicationId]);
+
+  // TODO: Verificar quye la publicacion esta likeada o no
+  //   // refactor: Ahora la publicacion tiene un array con el id del user --> array.some
+  useEffect(() => {
+    setIfPublicationIsLiked(
+      publicationId,
+      userOnSession,
+      setIsLiked,
+      setLikesCount
+    );
+  }, [publicationId, userOnSession]);
 
   return (
     <Layout>
       <SectionBar text={"Code"} back />
-      {message && <Text>{message}</Text>}
-      {!data ? (
+      {publicationData === null ? (
         <Flex justify="center" align="center" h="50vh">
           <Spinner color="brand.100" />
         </Flex>
       ) : (
         <Box p="15px" mb="70px">
           <Flex align="center">
-            <Avatar src={avatar} />
-            <Text ml="10px">{userName}</Text>
+            <Avatar src={publicationData.avatar} />
+            <Text ml="10px">{publicationData.userName}</Text>
           </Flex>
           <Box p="15px 0px">
             <Text pb="10px" fontWeight={"normal"} fontSize="20px">
-              {content}
+              {publicationData.content}
             </Text>
-            {img && (
-              <Image src={img} alt={"publication image"} borderRadius="10px" />
+            {publicationData.img && (
+              <Image
+                src={publicationData.img}
+                alt={"publication image"}
+                borderRadius="10px"
+              />
             )}
           </Box>
+
+          {/* Me gusta */}
           <Flex p="15px 5px" justify="space-evenly" align={"center"}>
             <Flex>
               <Text color="white">{likesCount} </Text>
@@ -75,23 +96,28 @@ export default function CodePage({ data, userOnSession, message }) {
             <Flex>
               <LikePublicationButton
                 userOnSession={userOnSession}
-                publicationId={id}
+                publicationId={publicationId}
                 withoutNumber={true}
               />
             </Flex>
             <Flex>
               <SavePublicationButton
                 userOnSession={userOnSession}
-                saves={saves}
-                publicationId={id}
+                saves={publicationData.saves}
+                publicationId={publicationId}
               />
             </Flex>
           </Flex>
 
           <Divider />
           <HStack p="15px 5px">
-            <CommentForm codeId={id} fontSize="20px" avatarSize="md" />
+            <CommentForm
+              codeId={publicationData.id}
+              fontSize="20px"
+              avatarSize="md"
+            />
           </HStack>
+          {/* Comentarios */}
           <Box>
             {!comments ? (
               <Flex justify="center" align="center" h="50vh">
@@ -115,21 +141,24 @@ export default function CodePage({ data, userOnSession, message }) {
   );
 }
 
-export async function getServerSideProps(context) {
-  const { query } = context;
-  const { id, userOnSession } = query;
+// export async function getServerSideProps(context) {
+//   const { query } = context;
+//   const { id, userOnSession } = query;
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_URL_API}${id}`);
-  const data = await res.json();
-  if (!data) {
-    return {
-      redirect: {
-        destination: "/Home",
-        permanent: false,
-      },
-    };
-  }
-  return {
-    props: { data: data, userOnSession: userOnSession },
-  };
-}
+//   const res = await fetch(`${process.env.NEXT_PUBLIC_URL_API}${id}`);
+//   console.log(`${process.env.NEXT_PUBLIC_URL_API}${id}`, "url");
+//   const data = await res.json();
+
+//   console.log(data, "que trae");
+//   if (!data) {
+//     return {
+//       redirect: {
+//         destination: "/Home",
+//         permanent: false,
+//       },
+//     };
+//   }
+//   return {
+//     props: { data: data, userOnSession: userOnSession },
+//   };
+// }
