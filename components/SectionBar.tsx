@@ -21,7 +21,6 @@ const SectionBar:React.FC<SectionBarProps> = ({ text, back }) => {
         zIndex="3"
         w={{ base: "100%", tablet: "70%", desktop: "50%" }}
         h="50px"
-        bg="#22212475"
         backdropFilter="blur(20px)"
         p="10px"
       >

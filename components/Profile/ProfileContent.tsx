@@ -19,10 +19,10 @@ const ProfileContent:React.FC<ProfileContent> = ({ userPublications, userStories
   const userId:string = useUser();
 
   return (
-    <Tabs variant="soft-rounded" isFitted mt={"30px"}>
+    <Tabs variant="" isFitted mt={"30px"}>
       <TabList  px={4}>
-        <Tab _selected={{ color: "white", bg: "brand.100" }}>Publicaciones</Tab>
-        <Tab _selected={{ color: "white", bg: "brand.100" }}>Historias</Tab>
+        <Tab _selected={{ color: "white", borderBottom: "2px", borderColor: "brand.100" }}>Publicaciones</Tab>
+        <Tab _selected={{ color: "white", borderBottom: "2px", borderColor: "brand.100" }}>Historias</Tab>
       </TabList>
       <TabPanels>
         <TabPanel pb={"40px"}>
@@ -32,7 +32,7 @@ const ProfileContent:React.FC<ProfileContent> = ({ userPublications, userStories
         </TabPanel>
         <TabPanel>
           <Flex p="45px 15px">
-            <Grid templateColumns="repeat(2, 1fr)" gap={6}>
+            <Grid templateColumns="qrepeat(2, 1fr)" gap={6}>
               {userStories?.map((item) => (
                 <GridItem key={item.id} >
                   <Image

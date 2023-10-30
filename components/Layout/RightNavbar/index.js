@@ -10,14 +10,9 @@ import {
 } from "../../Icons";
 import { FollowProfile } from "../Common/FollowProfile";
 import FutureProyect from "../Common/FutureProyect";
+import { SearchBar } from "../Common/SearchBar";
 
-const SearchBar = () => (
-  <Box mb={"24px"}>
-    <Input borderRadius="20px" placeholder="Buscar" />
-  </Box>
-);
-
-export default function RightNavbar() {
+export default function RightNavbar({ showSearchBar }) {
   return (
     <>
       <Flex
@@ -26,7 +21,7 @@ export default function RightNavbar() {
         w="27%"
       >
         <Box position="fixed" w="27%" h="100vh" pt="10px" px="25px">
-          <SearchBar />
+          {!showSearchBar && <SearchBar />}
           <VStack
             align="start"
             spacing={"25px"}

@@ -8,6 +8,7 @@ export default function Layout({
   children,
   hideRightNavbar,
   hideBottomNavbar,
+  showSearchBar,
 }) {
   return (
     <>
@@ -24,7 +25,7 @@ export default function Layout({
           {children}
           {hideBottomNavbar ? null : <MobileBottomNavbar />}
         </Box>
-        {!hideRightNavbar && <RightNavbar />}
+        {!hideRightNavbar && <RightNavbar showSearchBar={showSearchBar} />}
       </Flex>
     </>
   );

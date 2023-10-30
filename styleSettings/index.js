@@ -109,7 +109,7 @@ export const theme = extendTheme({
           bg: "brand.100",
           fontSize: "md",
           padding: "16px 24px",
-          borderRadius: "10px",
+          borderRadius: "60px",
           _hover: {
             bg: "#3ba0f9",
           },
