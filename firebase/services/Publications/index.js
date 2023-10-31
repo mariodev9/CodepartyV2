@@ -89,3 +89,36 @@ export const getPublication = async (publicationId, callback) => {
     callback(null);
   }
 };
+
+export const getPublicationsWithParams = async (searchParam) => {
+  try {
+    const q = query(
+      collection(firestore, "codes"),
+      where("content", ">=", searchParam.toLowerCase()),
+      where("content", "<=", searchParam.toLowerCase() + "\uf8ff")
+    );
+
+    const querySnapshot = await getDocs(q);
+
+    const results = [];
+
+    querySnapshot.forEach((doc) => {
+      const publicationData = doc.data();
+      const { createdAt } = publicationData;
+
+      const id = doc.id;
+
+      const data = {
+        ...publicationData,
+        id,
+        createdAt: +createdAt.toDate(),
+      };
+
+      results.push(data);
+    });
+
+    return results;
+  } catch (error) {
+    console.error("Error al buscar publicaciones dado un parametro:", error);
+  }
+};

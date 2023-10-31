@@ -81,7 +81,9 @@ export const getProfiles = async (userName) => {
   try {
     const q = query(
       collection(firestore, "users"),
-      where("name", "==", `${userName}`)
+      // where("name", "==", `${userName}`)
+      where("name", ">=", userName.toLowerCase()),
+      where("name", "<=", userName.toLowerCase() + "\uf8ff")
     );
 
     const querySnapshot = await getDocs(q);

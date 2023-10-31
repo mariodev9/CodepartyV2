@@ -22,8 +22,9 @@ const Results = ({ results }) => {
     return (
       <LinkBox
         cursor={"pointer"}
-        _hover={{ bg: "gray.100", transitionDuration: "0.3s" }}
-        p={"5px 10px"}
+        bg={"black.100"}
+        _hover={{ bg: "black.50", transitionDuration: "0.3s" }}
+        p={"4px 8px"}
       >
         <LinkOverlay as={NextLink} href={`/Profile/${id}`}>
           <Flex gap={3} align={"center"}>
@@ -43,17 +44,10 @@ const Results = ({ results }) => {
   };
 
   return (
-    <Box
-      bg={"black.50"}
-      layerStyle={"primaryBox"}
-      mt={"10px"}
-      overflow={"hidden"}
-    >
+    <Box borderRadius={"0px"} mt={"10px"} overflow={"hidden"}>
       <Flex direction={"column"} gap={3}>
         {results.map((profile) => (
-          <>
-            <ProfileResult {...profile} />
-          </>
+          <ProfileResult {...profile} />
         ))}
       </Flex>
     </Box>
@@ -62,7 +56,6 @@ const Results = ({ results }) => {
 
 export const SearchBar = () => {
   const router = useRouter();
-
   const [results, setResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [isSearching, setIsSearching] = useState(false);
@@ -72,12 +65,17 @@ export const SearchBar = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    setSearchTerm(formData.get("search"));
+    // const formData = new FormData(e.target);
+    // setSearchTerm(formData.get("search"));
   };
 
   const handleChange = (e) => {
     setSearchTerm(e.target.value);
+  };
+
+  const handleNavigation = (e) => {
+    router.push(`/search?q=${searchTerm}`);
+    setIsFocused(false);
   };
 
   useEffect(() => {
@@ -85,12 +83,17 @@ export const SearchBar = () => {
       setIsSearching(true);
       if (debouncedSearchTerm) {
         const data = await getProfiles(debouncedSearchTerm);
+        console.log(data, "que trajo");
         setResults(data);
       }
       setIsSearching(false);
     };
 
     searchProfiles();
+
+    if (debouncedSearchTerm.length == 0) {
+      setResults([]);
+    }
   }, [debouncedSearchTerm]);
 
   return (
@@ -98,7 +101,7 @@ export const SearchBar = () => {
       <form
         onSubmit={handleSubmit}
         onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
+        // onBlur={() => setIsFocused(false)}
         tabIndex={0}
       >
         <Box
@@ -118,7 +121,7 @@ export const SearchBar = () => {
               </Box>
             )}
           </Flex>
-          <Box>
+          <Box w={"full"}>
             <Input
               name="search"
               placeholder="Buscar"
@@ -136,28 +139,49 @@ export const SearchBar = () => {
         </Box>
       </form>
       {/* ---- Resultados ----- */}
-      {/* {isFocused && ( */}
-      <Box position={"relative"}>
-        {results.length != 0 && (
-          <Box
-            position={"absolute"}
-            w={"100%"}
-            borderRadius={"2xl"}
-            bg={"black.100"}
-            p={"0px 5px 10px"}
-            boxShadow={"lg"}
-            zIndex={99}
-            border={"2px"}
-            borderColor={"black.50"}
-          >
-            <Results results={results} />
-            <Box mt={"10px"} fontSize={"15px"} _hover={{ color: "brand.100" }}>
-              <NextLink href={`/search?q=${searchTerm}`}>Ver mas</NextLink>
+      {isFocused && (
+        <Box position={"relative"}>
+          {results.length === 0 &&
+            debouncedSearchTerm.length != 0 &&
+            !isSearching && (
+              <Box
+                position={"absolute"}
+                w={"100%"}
+                borderRadius={"2xl"}
+                bg={"black.100"}
+                boxShadow={"lg"}
+                zIndex={99}
+                border={"2px"}
+                borderColor={"black.50"}
+              >
+                <Text p={"5px 10px"}>No hay resultados</Text>
+              </Box>
+            )}
+
+          {results.length != 0 && (
+            <Box
+              position={"absolute"}
+              w={"100%"}
+              borderRadius={"2xl"}
+              bg={"black.100"}
+              boxShadow={"lg"}
+              zIndex={99}
+              border={"2px"}
+              borderColor={"black.50"}
+            >
+              <Results results={results} />
+              <Box
+                p={"5px 10px"}
+                fontSize={"15px"}
+                _hover={{ color: "brand.100" }}
+                onClick={handleNavigation}
+              >
+                Buscar "{debouncedSearchTerm}"
+              </Box>
             </Box>
-          </Box>
-        )}
-      </Box>
-      {/* )} */}
+          )}
+        </Box>
+      )}
     </Box>
   );
 };
