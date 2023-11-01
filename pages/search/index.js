@@ -25,8 +25,6 @@ export default function SearchPage() {
   const [publications, setPublications] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const isNoResults = !publications && !results && !loading;
-
   useEffect(() => {
     if (searchParam) {
       const searchProfiles = async () => {
@@ -40,6 +38,8 @@ export default function SearchPage() {
       };
 
       searchProfiles();
+    } else {
+      setLoading(false);
     }
   }, [searchParam]);
 
@@ -47,7 +47,7 @@ export default function SearchPage() {
     <Layout showSearchBar={true}>
       <Box pt="10px">
         <SearchBar />
-
+        {searchParam === undefined && <Text>Realiza una busqueda</Text>}
         {loading ? (
           <Flex w={"full"} justify={"center"}>
             <Spinner color="brand.100" />
@@ -88,7 +88,8 @@ export default function SearchPage() {
 
             {publications?.length === 0 &&
               results?.length === 0 &&
-              !loading && (
+              !loading &&
+              searchParam && (
                 <Text color={"white"}>
                   No hay resultados para {searchParam}
                 </Text>

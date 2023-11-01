@@ -18,6 +18,7 @@ import {
   Options,
   CommonSave,
   Chat,
+  SearchIcon,
 } from "../../Icons";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -45,6 +46,11 @@ const NavLink = [
     name: "Mensajes",
     link: "/messages/home",
     icon: <Chat fill={"none"} height={26} strokeWidth={2} />,
+  },
+  {
+    name: "Explorar",
+    link: "/search",
+    icon: <SearchIcon fill={"none"} height={26} strokeColor={"white"} />,
   },
 ];
 
@@ -93,7 +99,14 @@ export default function LeftNavbar() {
         display={{ base: "none", tablet: "flex" }}
         w="23%"
       >
-        <Box position="fixed" w="23%" p="20px" zIndex={2} h="100vh">
+        <Box
+          position="fixed"
+          w="23%"
+          p="20px"
+          zIndex={2}
+          h={"100vh"}
+          overflowY={"scroll"}
+        >
           <Box mb="20px" p="0px 10px">
             <Logo />
           </Box>

@@ -66,7 +66,7 @@ const Publication:React.FC<Publication> = ({
             <Box
               layerStyle="primaryBox"
               padding="15px"
-              margin="25px 0px"
+              margin="15px 0px"
               cursor="pointer"
               userSelect="none"
             >
