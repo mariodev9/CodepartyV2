@@ -28,18 +28,20 @@ export default function SearchPage() {
   const isNoResults = !publications && !results && !loading;
 
   useEffect(() => {
-    const searchProfiles = async () => {
-      setLoading(true);
+    if (searchParam) {
+      const searchProfiles = async () => {
+        setLoading(true);
 
-      const profilesData = await getProfiles(searchParam);
-      const publicationsData = await getPublicationsWithParams(searchParam);
-      console.log(publicationsData, "publicaiones");
-      setResults(profilesData);
-      setPublications(publicationsData);
-      setLoading(false);
-    };
+        const profilesData = await getProfiles(searchParam);
+        const publicationsData = await getPublicationsWithParams(searchParam);
+        console.log(publicationsData, "publicaiones");
+        setResults(profilesData);
+        setPublications(publicationsData);
+        setLoading(false);
+      };
 
-    searchProfiles();
+      searchProfiles();
+    }
   }, [searchParam]);
 
   return (
@@ -85,9 +87,13 @@ export default function SearchPage() {
               <Publication key={publication.id} {...publication} />
             ))}
 
-            {publications.length === 0 && results.length === 0 && !loading && (
-              <Text color={"white"}>No hay resultados para {searchParam}</Text>
-            )}
+            {publications?.length === 0 &&
+              results?.length === 0 &&
+              !loading && (
+                <Text color={"white"}>
+                  No hay resultados para {searchParam}
+                </Text>
+              )}
           </>
         )}
       </Box>
