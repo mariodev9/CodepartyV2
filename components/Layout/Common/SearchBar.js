@@ -50,7 +50,7 @@ const Results = ({ results }) => {
     <Box borderRadius={"0px"} mt={"10px"} overflow={"hidden"}>
       <Flex direction={"column"} gap={3}>
         {results.map((profile) => (
-          <ProfileResult {...profile} />
+          <ProfileResult key={profile.id} {...profile} />
         ))}
       </Flex>
     </Box>

@@ -55,6 +55,7 @@ export default function SearchPage() {
           <>
             {results?.map((profile) => (
               <LinkBox
+                key={profile.id}
                 cursor={"pointer"}
                 bg={"black.100"}
                 _hover={{ bg: "black.50", transitionDuration: "0.3s" }}
@@ -81,12 +82,12 @@ export default function SearchPage() {
             <Box mt={5} h={"1px"} borderRadius={"full"} bg={"black.50"}></Box>
 
             {publications?.map((publication) => (
-              <Publication {...publication} />
+              <Publication key={publication.id} {...publication} />
             ))}
 
             {publications.length === 0 && results.length === 0 && !loading && (
               <Text color={"white"}>
-                No hay resultados para "{searchParam}"
+                No hay resultados para '{searchParam}'
               </Text>
             )}
           </>
