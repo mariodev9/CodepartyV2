@@ -34,7 +34,6 @@ export default function SearchPage() {
 
         const profilesData = await getProfiles(searchParam);
         const publicationsData = await getPublicationsWithParams(searchParam);
-        console.log(publicationsData, "publicaiones");
         setResults(profilesData);
         setPublications(publicationsData);
         setLoading(false);
