@@ -23,8 +23,9 @@ export default function SearchPage() {
 
   const [results, setResults] = useState([]);
   const [publications, setPublications] = useState([]);
-
   const [loading, setLoading] = useState(true);
+
+  const isNoResults = !publications && !results && !loading;
 
   useEffect(() => {
     const searchProfiles = async () => {
@@ -82,6 +83,12 @@ export default function SearchPage() {
             {publications?.map((publication) => (
               <Publication {...publication} />
             ))}
+
+            {publications.length === 0 && results.length === 0 && !loading && (
+              <Text color={"white"}>
+                No hay resultados para "{searchParam}"
+              </Text>
+            )}
           </>
         )}
       </Box>

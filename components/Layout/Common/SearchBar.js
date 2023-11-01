@@ -9,6 +9,8 @@ import {
   LinkOverlay,
   Spinner,
   Text,
+  chakra,
+  shouldForwardProp,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { getProfiles } from "../../../firebase/services/User/index";
@@ -16,6 +18,7 @@ import NextLink from "next/link";
 import { useRouter } from "next/router";
 import { useDebounce } from "@uidotdev/usehooks";
 import { SearchIcon } from "../../Icons";
+import { motion, isValidMotionProp } from "framer-motion";
 
 const Results = ({ results }) => {
   const ProfileResult = ({ name, id, avatar, position }) => {
@@ -96,6 +99,14 @@ export const SearchBar = () => {
     }
   }, [debouncedSearchTerm]);
 
+  const ChakraBox = chakra(motion.div, {
+    /**
+     * Allow motion props and non-Chakra props to be forwarded.
+     */
+    shouldForwardProp: (prop) =>
+      isValidMotionProp(prop) || shouldForwardProp(prop),
+  });
+
   return (
     <Box mb={"24px"}>
       <form
@@ -145,6 +156,9 @@ export const SearchBar = () => {
             debouncedSearchTerm.length != 0 &&
             !isSearching && (
               <Box
+                // initial={{ opacity: 0 }}
+                // animate={{ opacity: 1 }}
+                // exit={{ opacity: 0 }}
                 position={"absolute"}
                 w={"100%"}
                 borderRadius={"2xl"}
@@ -153,8 +167,12 @@ export const SearchBar = () => {
                 zIndex={99}
                 border={"2px"}
                 borderColor={"black.50"}
+                cursor={"pointer"}
+                onClick={handleNavigation}
               >
-                <Text p={"5px 10px"}>No hay resultados</Text>
+                <NextLink href={`/search?q=${debouncedSearchTerm}`}>
+                  <Text p={"5px 10px"}>Buscar "{debouncedSearchTerm}"</Text>
+                </NextLink>
               </Box>
             )}
 
@@ -176,7 +194,7 @@ export const SearchBar = () => {
                 _hover={{ color: "brand.100" }}
                 onClick={handleNavigation}
               >
-                Buscar "{debouncedSearchTerm}"
+                Ver todo
               </Box>
             </Box>
           )}
