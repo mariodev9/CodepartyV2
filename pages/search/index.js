@@ -86,9 +86,7 @@ export default function SearchPage() {
             ))}
 
             {publications.length === 0 && results.length === 0 && !loading && (
-              <Text color={"white"}>
-                No hay resultados para '{searchParam}'
-              </Text>
+              <Text color={"white"}>No hay resultados para {searchParam}</Text>
             )}
           </>
         )}

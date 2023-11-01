@@ -171,7 +171,7 @@ export const SearchBar = () => {
                 onClick={handleNavigation}
               >
                 <NextLink href={`/search?q=${debouncedSearchTerm}`}>
-                  <Text p={"5px 10px"}>Buscar "{debouncedSearchTerm}"</Text>
+                  <Text p={"5px 10px"}>Buscar {debouncedSearchTerm}</Text>
                 </NextLink>
               </Box>
             )}
