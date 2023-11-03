@@ -119,6 +119,7 @@ export default function TopNav() {
                 align={"center"}
                 spacing={"10px"}
                 layerStyle="tabletButton"
+                onClick={() => handlePush("/search")}
               >
                 <SearchIcon strokeWidth="1" width="30px" height="30px" />
                 <Text fontSize={"24px"}>Explorar</Text>
