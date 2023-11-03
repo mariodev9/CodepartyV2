@@ -53,7 +53,7 @@ export default function RightNavbar({ showSearchBar }) {
               <Flex align={"center"} mt={"10px"}>
                 <WorldIcon />
                 <Text p="0px 10px" fontWeight={400}>
-                  <Link href="https://mariodev2.vercel.app/" target={"_blank"}>
+                  <Link href="https://mariodev3.vercel.app/" target={"_blank"}>
                     Portfolio
                   </Link>
                 </Text>

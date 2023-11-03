@@ -86,7 +86,6 @@ export const SearchBar = () => {
       setIsSearching(true);
       if (debouncedSearchTerm) {
         const data = await getProfiles(debouncedSearchTerm);
-        console.log(data, "que trajo");
         setResults(data);
       }
       setIsSearching(false);
@@ -99,13 +98,10 @@ export const SearchBar = () => {
     }
   }, [debouncedSearchTerm]);
 
-  const ChakraBox = chakra(motion.div, {
-    /**
-     * Allow motion props and non-Chakra props to be forwarded.
-     */
-    shouldForwardProp: (prop) =>
-      isValidMotionProp(prop) || shouldForwardProp(prop),
-  });
+  // const ChakraBox = chakra(motion.div, {
+  //   shouldForwardProp: (prop) =>
+  //     isValidMotionProp(prop) || shouldForwardProp(prop),
+  // });
 
   return (
     <Box mb={"24px"}>
@@ -128,7 +124,7 @@ export const SearchBar = () => {
               <Spinner color="brand.100" size={"xs"} />
             ) : (
               <Box p={"0px"}>
-                <SearchIcon strokeColor={isFocused ? "brand.100" : "gray.50"} />
+                <SearchIcon stroke={isFocused ? "brand.100" : "gray.50"} />
               </Box>
             )}
           </Flex>

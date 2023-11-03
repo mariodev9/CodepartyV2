@@ -2,8 +2,28 @@ import { Box, Flex, Text } from "@chakra-ui/react";
 import Link from "next/link";
 import React from "react";
 import { Add, Home, User, SearchIcon, Message } from "../../Icons";
+import { useRouter } from "next/router";
 
 export default function MobileBottomNavbar() {
+  const router = useRouter();
+
+  const linkList = [
+    {
+      url: "/Home",
+      icon: <Home fill={router.pathname === "/Home" ? "#fff" : ""} />,
+    },
+    {
+      url: "/search",
+      icon: (
+        <SearchIcon
+          width="21"
+          height="21"
+          fill={router.pathname === "/search" ? "#fff" : "red"}
+        />
+      ),
+    },
+  ];
+
   return (
     <>
       <Box>
@@ -14,12 +34,16 @@ export default function MobileBottomNavbar() {
         >
           <Link href="/Home">
             <Box cursor="pointer">
-              <Home fill={"#fff"} />
+              <Home fill={router.pathname === "/Home" ? "#fff" : "#16181c"} />
             </Box>
           </Link>
           <Link href="/search">
             <Box cursor="pointer">
-              <SearchIcon width="21" height="21" fill={"#fff"} />
+              <SearchIcon
+                width="21"
+                height="21"
+                fill={router.pathname === "/search" ? "#fff" : "#16181c"}
+              />
             </Box>
           </Link>
           <Link href="/Create/Publication">
@@ -38,12 +62,16 @@ export default function MobileBottomNavbar() {
           </Link>
           <Link href="/Profile">
             <Box cursor="pointer">
-              <User fill={"#fff"} />
+              <User
+                fill={router.pathname === "/Profile" ? "#fff" : "#16181c"}
+              />
             </Box>
           </Link>
           <Link href="/messages/home">
             <Box cursor="pointer">
-              <Message fill={"#fff"} />
+              <Message
+                fill={router.pathname === "/messages/[id]" ? "#fff" : "#16181c"}
+              />
             </Box>
           </Link>
         </Flex>

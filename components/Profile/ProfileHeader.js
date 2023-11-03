@@ -30,11 +30,17 @@ export default function ProfileHeader({
             {description}
           </Text>
         </Box>
-        <HStack mt="20px" spacing={"5px"}>
+        <Flex
+          mt="20px"
+          justify={"center"}
+          gap={1}
+          spacing={"5px"}
+          wrap={"wrap"}
+        >
           {tecnologies.map((item) => (
             <SkillProfile key={item.name} text={item.name} color={item.color} />
           ))}
-        </HStack>
+        </Flex>
       </Flex>
     </Box>
   );

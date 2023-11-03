@@ -105,7 +105,7 @@ const Publication:React.FC<Publication> = ({
                       }}
                     >
                       <LinkOverlay>
-                        <Box p="15px 0px" width={"100%"}>
+                        <Box py="5px" width={"100%"}>
                           <Text pb="10px" fontWeight={"normal"} fontSize="14px">
                             {content}
                           </Text>
