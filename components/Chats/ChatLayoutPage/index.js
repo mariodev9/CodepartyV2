@@ -50,7 +50,7 @@ export default function ChatLayoutPage({ children }) {
     if (chatExists) {
       router.push(chatExists);
 
-      // Si no, se procede a crear un chat con esa persona y posteriormente se redirecciona
+      // Se procede a crear un chat con esa persona y posteriormente se redirecciona
     } else {
       const chatData = {
         members: [
@@ -89,7 +89,7 @@ export default function ChatLayoutPage({ children }) {
 
   return (
     <Layout hideRightNavbar hideBottomNavbar={true}>
-      <Flex px={{ base: "0px", tablet: "30px" }} h={"100vh"}>
+      <Flex px={{ base: "0px", tablet: "10px" }} h={"100vh"}>
         {/* Buscador */}
         <Box
           w={{ base: "100%", tablet: "30%" }}

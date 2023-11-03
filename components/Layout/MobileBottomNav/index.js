@@ -1,7 +1,7 @@
 import { Box, Flex } from "@chakra-ui/react";
 import Link from "next/link";
 import React from "react";
-import { Add, Home, User } from "../../Icons";
+import { Add, Home, User, SearchIcon, Message } from "../../Icons";
 
 export default function MobileBottomNavbar() {
   return (
@@ -14,6 +14,11 @@ export default function MobileBottomNavbar() {
         <Link href="/Home">
           <Box cursor="pointer">
             <Home fill={"#fff"} />
+          </Box>
+        </Link>
+        <Link href="/search">
+          <Box cursor="pointer">
+            <SearchIcon width="21" height="21" fill={"#fff"} />
           </Box>
         </Link>
         <Link href="/Create/Publication">
@@ -33,6 +38,11 @@ export default function MobileBottomNavbar() {
         <Link href="/Profile">
           <Box cursor="pointer">
             <User fill={"#fff"} />
+          </Box>
+        </Link>
+        <Link href="/messages/home">
+          <Box cursor="pointer">
+            <Message fill={"#fff"} />
           </Box>
         </Link>
       </Flex>

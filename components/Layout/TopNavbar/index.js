@@ -9,17 +9,26 @@ import {
   Flex,
   Avatar,
   Box,
-  Switch,
   Divider,
   HStack,
   VStack,
   DrawerFooter,
   DrawerCloseButton,
+  Grid,
+  GridItem,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { logOut } from "../../../firebase/services/User";
 import useProfile from "../../../hooks/useProfile";
-import { Chat, CommonSave, Cross, Logo, Options, User } from "../../Icons";
+import {
+  Chat,
+  CommonSave,
+  Cross,
+  Logo,
+  Options,
+  SearchIcon,
+  User,
+} from "../../Icons";
 
 export default function TopNav() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -36,21 +45,24 @@ export default function TopNav() {
 
   return (
     <>
-      <Flex
-        align="center"
-        justify="space-between"
-        display={{ base: "flex", tablet: "none" }}
-        p="10px 20px"
+      <Grid
+        templateColumns="repeat(3, 1fr)"
+        display={{ base: "grid", tablet: "none" }}
+        p={" 10px 20px"}
       >
-        <Avatar
-          size="sm"
-          src={profile?.avatar}
-          onClick={onOpen}
-          cursor="pointer"
-        />
-        <Logo />
-        <Box></Box>
-      </Flex>
+        <Flex w="100%">
+          <Avatar
+            size="sm"
+            src={profile?.avatar}
+            onClick={onOpen}
+            cursor="pointer"
+          />
+        </Flex>
+        <Flex justify={"center"} w="100%">
+          <Logo />
+        </Flex>
+        <Flex></Flex>
+      </Grid>
 
       <Drawer placement={"left"} onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
@@ -102,6 +114,14 @@ export default function TopNav() {
               >
                 <Chat width="30px" height="30px" />
                 <Text fontSize={"24px"}>Mensajes</Text>
+              </HStack>
+              <HStack
+                align={"center"}
+                spacing={"10px"}
+                layerStyle="tabletButton"
+              >
+                <SearchIcon strokeWidth="1" width="30px" height="30px" />
+                <Text fontSize={"24px"}>Explorar</Text>
               </HStack>
               <HStack
                 align={"center"}

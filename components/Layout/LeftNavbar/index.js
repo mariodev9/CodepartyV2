@@ -50,7 +50,7 @@ const NavLink = [
   {
     name: "Explorar",
     link: "/search",
-    icon: <SearchIcon fill={"none"} height={26} strokeColor={"white"} />,
+    icon: <SearchIcon fill={"none"} height={26} stroke={"white"} />,
   },
 ];
 

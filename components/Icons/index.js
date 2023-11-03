@@ -127,7 +127,7 @@ export const SearchIcon = (props) => {
       height="24px"
       fill="none"
       strokeWidth="2"
-      stroke={props.strokeColor}
+      stroke={"#fff"}
       {...props}
     >
       <path
@@ -475,7 +475,7 @@ export const Message = (props) => {
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
-      <g fill="none" fillRule="evenodd" transform="translate(2 3)">
+      <g fillRule="evenodd" transform="translate(2 3)">
         <path
           d="m14.5.5c1.1045695 0 2 .8954305 2 2v10c0 1.1045695-.8954305 2-2 2l-2.999-.001-2.29389322 2.2938932c-.36048396.360484-.92771502.3882135-1.32000622.0831886l-.09420734-.0831886-2.29389322-2.2938932-2.999.001c-1.1045695 0-2-.8954305-2-2v-10c0-1.1045695.8954305-2 2-2z"
           stroke="currentColor"

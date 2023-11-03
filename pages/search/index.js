@@ -45,7 +45,7 @@ export default function SearchPage() {
 
   return (
     <Layout showSearchBar={true}>
-      <Box pt="10px">
+      <Box p="10px">
         <SearchBar />
         {searchParam === undefined && <Text>Realiza una busqueda</Text>}
         {loading ? (
