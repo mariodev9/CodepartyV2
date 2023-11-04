@@ -173,7 +173,9 @@ export default function ChatLayoutPage({ children }) {
                     </Box>
                   ))
                 ) : (
-                  <Spinner />
+                  <Flex mt={"10px"} justify={"center"}>
+                    <Spinner color="brand.100" />
+                  </Flex>
                 )}
               </Box>
             )}

@@ -14,6 +14,7 @@ import { Timestamp } from "firebase/firestore";
 import { getProfile } from "../../firebase/services/User";
 import MessagesContainer from "../../components/Chats/BodyChat/MessagesContainer";
 import ChatFooter from "../../components/Chats/BodyChat/ChatFooter";
+import Head from "next/head";
 
 export default function ChatSinglePage() {
   const router = useRouter();
@@ -37,33 +38,40 @@ export default function ChatSinglePage() {
   }, [id, profile]);
 
   return (
-    <ChatLayoutPage>
-      {id === "home" ? (
-        <Flex
-          direction={"column"}
-          h={"100vh"}
-          justify={"center"}
-          align={"center"}
-        >
-          <Text fontSize={"4xl"}>Selecciona un mensaje</Text>
-          <Text color={"gray.300"} fontSize={"xl"} fontWeight={"light"}>
-            Elegi entre tus conversaciones o empieza una nueva
-          </Text>
-        </Flex>
-      ) : (
-        <Flex w={"100%"} h={"100vh"} direction={"column"}>
-          <ChatHeader
-            name={receptorProfile?.name}
-            avatar={receptorProfile?.avatar}
-          />
+    <>
+      <Head>
+        <title>Messages / Codeparty</title>
+        <meta name="Social media for devs" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <ChatLayoutPage>
+        {id === "home" ? (
+          <Flex
+            direction={"column"}
+            h={"100vh"}
+            justify={"center"}
+            align={"center"}
+          >
+            <Text fontSize={"4xl"}>Selecciona un mensaje</Text>
+            <Text color={"gray.300"} fontSize={"xl"} fontWeight={"light"}>
+              Elegi entre tus conversaciones o empieza una nueva
+            </Text>
+          </Flex>
+        ) : (
+          <Flex w={"100%"} h={"100vh"} direction={"column"}>
+            <ChatHeader
+              name={receptorProfile?.name}
+              avatar={receptorProfile?.avatar}
+            />
 
-          {/* Chat Messages */}
-          <MessagesContainer messages={messages} myUserId={profile?.id} />
+            {/* Chat Messages */}
+            <MessagesContainer messages={messages} myUserId={profile?.id} />
 
-          {/* Footer Chat  */}
-          <ChatFooter profile={profile} chatId={id} />
-        </Flex>
-      )}
-    </ChatLayoutPage>
+            {/* Footer Chat  */}
+            <ChatFooter profile={profile} chatId={id} />
+          </Flex>
+        )}
+      </ChatLayoutPage>
+    </>
   );
 }

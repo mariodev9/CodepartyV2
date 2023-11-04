@@ -16,6 +16,7 @@ import {
 import NextLink from "next/link";
 import { getPublicationsWithParams } from "../../firebase/services/Publications";
 import Publication from "../../components/Publications/components/Publication";
+import Head from "next/head";
 
 export default function SearchPage() {
   const router = useRouter();
@@ -44,59 +45,71 @@ export default function SearchPage() {
   }, [searchParam]);
 
   return (
-    <Layout showSearchBar={true}>
-      <Box p="10px">
-        <SearchBar />
-        {searchParam === undefined && <Text>Realiza una busqueda</Text>}
-        {loading ? (
-          <Flex w={"full"} justify={"center"}>
-            <Spinner color="brand.100" />
-          </Flex>
-        ) : (
-          <>
-            {results?.map((profile) => (
-              <LinkBox
-                key={profile.id}
-                cursor={"pointer"}
-                bg={"black.100"}
-                _hover={{ bg: "black.50", transitionDuration: "0.3s" }}
-                p={"5px"}
-              >
-                <LinkOverlay as={NextLink} href={`/Profile/${profile.id}`}>
-                  <Flex gap={3}>
-                    <Box>
-                      <Avatar src={profile.avatar} />
-                    </Box>
-                    <Box>
-                      <Text>{profile.name}</Text>
+    <>
+      <Head>
+        <title>Search / Codeparty</title>
+        <meta name="Social media for devs" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <Layout showSearchBar={true}>
+        <Box p="10px">
+          <SearchBar />
+          {searchParam === undefined && (
+            <Text fontWeight={400} color={"gray.50"} textAlign={"center"}>
+              Realiza una busqueda
+            </Text>
+          )}
+          {loading ? (
+            <Flex w={"full"} justify={"center"}>
+              <Spinner color="brand.100" />
+            </Flex>
+          ) : (
+            <>
+              {results?.map((profile) => (
+                <LinkBox
+                  key={profile.id}
+                  cursor={"pointer"}
+                  bg={"black.100"}
+                  _hover={{ bg: "black.50", transitionDuration: "0.3s" }}
+                  p={"5px"}
+                >
+                  <LinkOverlay as={NextLink} href={`/Profile/${profile.id}`}>
+                    <Flex gap={3}>
+                      <Box>
+                        <Avatar src={profile.avatar} />
+                      </Box>
+                      <Box>
+                        <Text>{profile.name}</Text>
 
-                      <Text fontWeight={"normal"} color={"#71767b"}>
-                        {profile.position}
-                      </Text>
-                      <Text fontWeight={"normal"}>{profile.description}</Text>
-                    </Box>
-                  </Flex>
-                </LinkOverlay>
-              </LinkBox>
-            ))}
+                        <Text fontWeight={"normal"} color={"#71767b"}>
+                          {profile.position}
+                        </Text>
+                        <Text fontWeight={"normal"}>{profile.description}</Text>
+                      </Box>
+                    </Flex>
+                  </LinkOverlay>
+                </LinkBox>
+              ))}
 
-            <Box mt={5} h={"1px"} borderRadius={"full"} bg={"black.50"}></Box>
+              {/* <Box mt={5} h={"1px"} borderRadius={"full"} bg={"black.50"}></Box> */}
+              <Box pb={"45px"}>
+                {publications?.map((publication) => (
+                  <Publication key={publication.id} {...publication} />
+                ))}
+              </Box>
 
-            {publications?.map((publication) => (
-              <Publication key={publication.id} {...publication} />
-            ))}
-
-            {publications?.length === 0 &&
-              results?.length === 0 &&
-              !loading &&
-              searchParam && (
-                <Text color={"white"}>
-                  No hay resultados para {searchParam}
-                </Text>
-              )}
-          </>
-        )}
-      </Box>
-    </Layout>
+              {publications?.length === 0 &&
+                results?.length === 0 &&
+                !loading &&
+                searchParam && (
+                  <Text color={"white"}>
+                    No hay resultados para {searchParam}
+                  </Text>
+                )}
+            </>
+          )}
+        </Box>
+      </Layout>
+    </>
   );
 }

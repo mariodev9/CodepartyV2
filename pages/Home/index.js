@@ -7,6 +7,7 @@ import Stories from "../../components/Stories/components/Stories";
 import TopNav from "../../components/Layout/TopNavbar";
 import SectionBar from "../../components/SectionBar";
 import useProfile from "../../hooks/useProfile";
+import Head from "next/head";
 
 export default function Home() {
   const [session, onSession] = useState(true);
@@ -20,6 +21,11 @@ export default function Home() {
 
   return (
     <>
+      <Head>
+        <title>Home / Codeparty</title>
+        <meta name="Social media for devs" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <Layout>
         <TopNav />
         <Box display={{ base: "none", tablet: "flex" }}>

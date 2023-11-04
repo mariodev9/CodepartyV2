@@ -9,6 +9,7 @@ import { getUserPublications } from "../../firebase/services/Publications";
 import { ProfileHeader } from "../../components/Profile/ProfileHeader";
 import ProfileContent from "../../components/Profile/ProfileContent";
 import { StoryData } from "../../components/Stories/models";
+import Head from "next/head";
 
 export default function UserProfile() {
   const [profileData, setProfileData] = useState(undefined);
@@ -33,6 +34,11 @@ export default function UserProfile() {
 
   return (
     <>
+      <Head>
+        <title>Codeparty</title>
+        <meta name="Social media for devs" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <Layout>
         {profileData === undefined && (
           <Flex h="100vh" justify="center" align="center">
