@@ -2,15 +2,22 @@ import { Box, Flex, Avatar, Text, HStack } from "@chakra-ui/react";
 import React from "react";
 import { SkillProfile } from "../Common/Skill";
 import SectionBar from "../SectionBar";
+import { ProfileData } from "./models";
 
-export default function ProfileHeader({
+interface ExtendedProfileData extends ProfileData {
+  children: React.ReactNode;
+}
+
+export const ProfileHeader:React.FC<ExtendedProfileData> = ({
   children,
   avatar,
   name,
   description,
   tecnologies,
   position,
-}) {
+}) => {
+
+
   return (
     <Box>
       <SectionBar text={"Perfil"} back={true} />
@@ -34,7 +41,6 @@ export default function ProfileHeader({
           mt="20px"
           justify={"center"}
           gap={1}
-          spacing={"5px"}
           wrap={"wrap"}
         >
           {tecnologies.map((item) => (

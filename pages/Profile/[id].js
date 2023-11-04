@@ -6,7 +6,7 @@ import { Spinner, Flex, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { getUserStories } from "../../firebase/services/Stories";
 import { getUserPublications } from "../../firebase/services/Publications";
-import ProfileHeader from "../../components/Profile/ProfileHeader";
+import { ProfileHeader } from "../../components/Profile/ProfileHeader";
 import ProfileContent from "../../components/Profile/ProfileContent";
 import { StoryData } from "../../components/Stories/models";
 

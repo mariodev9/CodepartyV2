@@ -36,7 +36,7 @@ import { Edit, Upload } from "../../components/Icons";
 import { SkillsList } from "../../components/Common/SkillsList";
 import useProfile from "../../hooks/useProfile";
 import { useForm } from "react-hook-form";
-import ProfileHeader from "../../components/Profile/ProfileHeader";
+import { ProfileHeader } from "../../components/Profile/ProfileHeader";
 import ProfileContent from "../../components/Profile/ProfileContent";
 
 const LOADING_STATES = {

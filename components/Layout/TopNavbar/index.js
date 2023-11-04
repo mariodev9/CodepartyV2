@@ -15,25 +15,16 @@ import {
   DrawerFooter,
   DrawerCloseButton,
   Grid,
-  GridItem,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { logOut } from "../../../firebase/services/User";
-import useProfile from "../../../hooks/useProfile";
-import {
-  Chat,
-  CommonSave,
-  Cross,
-  Logo,
-  Options,
-  SearchIcon,
-  User,
-} from "../../Icons";
+import { Chat, CommonSave, Logo, Options, SearchIcon, User } from "../../Icons";
+import { useUserContext } from "../../../context/userContext";
 
 export default function TopNav() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const profile = useProfile();
   const router = useRouter();
+  const { user } = useUserContext();
 
   const handlePush = (url) => {
     router.push(`${url}`);
@@ -53,7 +44,7 @@ export default function TopNav() {
         <Flex w="100%">
           <Avatar
             size="sm"
-            src={profile?.avatar}
+            src={user?.avatar}
             onClick={onOpen}
             cursor="pointer"
           />
@@ -73,11 +64,11 @@ export default function TopNav() {
             <Box pt="25px">
               <Avatar
                 size="md"
-                src={profile?.avatar}
+                src={user?.avatar}
                 onClick={onOpen}
                 cursor="pointer"
               />
-              <Text mt="3px">{profile?.name}</Text>
+              <Text mt="3px">{user?.name}</Text>
             </Box>
             <Divider m="20px 0px 30px 0px" />
             <VStack align={"start"} spacing="20px">
@@ -136,7 +127,6 @@ export default function TopNav() {
           </DrawerBody>
           <DrawerFooter>
             <Flex w="100%">
-              {/* <Cross></Cross> */}
               <Button
                 onClick={handleLogOut}
                 bg="none"

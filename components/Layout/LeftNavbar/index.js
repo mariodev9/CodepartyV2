@@ -24,6 +24,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { logOut } from "../../../firebase/services/User";
 import useProfile from "../../../hooks/useProfile";
+import { useUserContext } from "../../../context/userContext";
 
 const NavLink = [
   {
@@ -85,8 +86,7 @@ function BoxLink({ item }) {
 
 export default function LeftNavbar() {
   const router = useRouter();
-
-  const profile = useProfile();
+  const { user } = useUserContext();
 
   const handleRoute = () => {
     router.push("/Create/Publication");
@@ -151,7 +151,7 @@ export default function LeftNavbar() {
             <Menu>
               <MenuButton as={Flex} layerStyle="tabletButton" w="60%">
                 <Flex align="center" justify="space-between">
-                  <Avatar mr="10px" src={profile?.avatar} size="xs" />
+                  <Avatar mr="10px" src={user?.avatar} size="xs" />
                   <Options />
                 </Flex>
               </MenuButton>

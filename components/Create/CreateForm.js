@@ -169,7 +169,11 @@ export default function CreateForm() {
                         >
                           <Box>
                             {!img && (
-                              <FormLabel htmlFor="file-input" cursor="pointer">
+                              <FormLabel
+                                m={"0px"}
+                                htmlFor="file-input"
+                                cursor="pointer"
+                              >
                                 <Photo />
                               </FormLabel>
                             )}
@@ -213,7 +217,7 @@ export default function CreateForm() {
                 </motion.div>
               </TabPanel>
               <TabPanel>
-                <Flex p="45px 15px">
+                <Flex pt="20px" justify={"center"}>
                   <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                     <Flex
                       justify={"center"}
