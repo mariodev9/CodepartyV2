@@ -123,8 +123,15 @@ export default function ChatLayoutPage({ children }) {
                 value={searchTerm}
                 onChange={handleSearch}
                 borderRadius={"full"}
+                border={"none"}
                 placeholder="Buscar"
                 bg={"black.50"}
+                autoComplete="off"
+                _focus={{
+                  border: "1px",
+                  borderColor: "brand.100",
+                  boxShadow: "none",
+                }}
               />
             </Flex>
 
