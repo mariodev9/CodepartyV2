@@ -19,6 +19,7 @@ import { Register } from "../../../firebase/services/Auth";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { inputStyle } from "../..";
 
 export default function CreateAccountPage() {
   const router = useRouter();
@@ -66,10 +67,10 @@ export default function CreateAccountPage() {
         my={12}
         layerStyle="primaryBox"
       >
-        <Heading lineHeight={1.1} fontSize={{ base: "2xl", sm: "4xl" }}>
+        <Heading lineHeight={1.1} fontWeight={600} fontSize="3rem">
           Empecemos
         </Heading>
-        <Text fontSize={"15px"} color={"gray"}>
+        <Text fontWeight={400} fontSize={"sm"}>
           Create una cuenta ahora.
         </Text>
         <form
@@ -77,7 +78,7 @@ export default function CreateAccountPage() {
             Register(data, setError, setIsSuccesfullRegister);
           })}
         >
-          <VStack spacing={"15px"}>
+          <VStack spacing={""}>
             <FormControl id="email" isRequired>
               <FormLabel>Email </FormLabel>
               <Input
@@ -85,6 +86,7 @@ export default function CreateAccountPage() {
                 {...register("email", {
                   required: "Este campo es obligatorio",
                 })}
+                {...inputStyle}
               />
             </FormControl>
             <Text color="red.600">{error}</Text>
@@ -101,6 +103,7 @@ export default function CreateAccountPage() {
                     message: "Minimo debe tener 6 digitos",
                   },
                 })}
+                {...inputStyle}
               />
             </FormControl>
             <Text color="red.600">{errors.password?.message}</Text>
@@ -117,23 +120,24 @@ export default function CreateAccountPage() {
                     }
                   },
                 })}
+                {...inputStyle}
               />
             </FormControl>
             <Text color="red.600">{errors.confirm_password?.message}</Text>
             <Button
-              bg={"brand.100"}
-              color={"white"}
-              w="full"
               _hover={{
                 bg: "brand.50",
               }}
               type="submit"
+              w="full"
+              variant={"primary"}
+              fontWeight={"medium"}
             >
               Crear Cuenta
             </Button>
           </VStack>
-          <Center fontSize={{ base: "12px", desktop: "16px" }} mt={"15px"}>
-            <Text>Ya tienes una cuenta?</Text>
+          <Center fontSize={{ base: "xs", desktop: "sm" }} mt={"15px"}>
+            <Text fontWeight="400">Ya tienes una cuenta?</Text>
             <Link href={"/"}>
               <Text
                 fontWeight="600"

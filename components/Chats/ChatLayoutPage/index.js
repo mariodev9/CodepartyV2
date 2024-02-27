@@ -152,7 +152,8 @@ export default function ChatLayoutPage({ children }) {
                       gap={3}
                       align={"center"}
                       cursor={"pointer"}
-                      _hover={{ bg: "gray.100" }}
+                      borderRadius={"15px"}
+                      _hover={{ bg: "black.50" }}
                       onClick={() => initChat(user)}
                     >
                       <Avatar src={user.avatar} />

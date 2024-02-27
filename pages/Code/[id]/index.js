@@ -55,7 +55,7 @@ export default function CodePage() {
 
   return (
     <Layout>
-      <SectionBar text={"Code"} back />
+      <SectionBar text={"Publicación"} back />
       {publicationData === null ? (
         <Flex justify="center" align="center" h="50vh">
           <Spinner color="brand.100" />

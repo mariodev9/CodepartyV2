@@ -108,7 +108,7 @@ export const theme = extendTheme({
         primary: {
           bg: "brand.100",
           fontSize: "md",
-          padding: "16px 24px",
+          padding: "22px 24px",
           borderRadius: "60px",
           _hover: {
             bg: "#3ba0f9",
@@ -122,6 +122,7 @@ export const theme = extendTheme({
         fontWeight: "600",
       },
     },
+
     // CONTAINER
     Container: {
       variants: {
