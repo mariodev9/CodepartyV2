@@ -268,6 +268,7 @@ export default function Home() {
               <Box pos={"absolute"}>
                 {SkillList.map((skill) => (
                   <SkillBox
+                    key={skill.title}
                     text={skill.title}
                     color={skill.color}
                     top={skill.top}
