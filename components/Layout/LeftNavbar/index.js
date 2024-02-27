@@ -105,7 +105,7 @@ export default function LeftNavbar() {
           p="20px"
           zIndex={2}
           h={"100vh"}
-          overflowY={"scroll"}
+          overflowY={"auto"}
         >
           <Box mb="20px" p="0px 10px">
             <Logo />
