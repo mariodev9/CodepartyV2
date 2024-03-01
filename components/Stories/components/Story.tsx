@@ -8,21 +8,27 @@ import {
   Avatar,
   Flex,
   useDisclosure,
-  Image,
   Box,
   UseDisclosureProps,
 } from "@chakra-ui/react";
 import React from "react";
 import Slider from "react-slick";
 import { StoryData } from "../models";
-
+import Image from "next/image";
 
 interface Props {
-  avatar:string
-  stories: Array<StoryData>
+  avatar: string;
+  stories: Array<StoryData>;
 }
 
-const Story:React.FC<Props> = ({ avatar, stories })  => {
+const Story: React.FC<Props> = ({ avatar, stories }) => {
+  var settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -45,27 +51,42 @@ const Story:React.FC<Props> = ({ avatar, stories })  => {
           <ModalHeader>
             <ModalCloseButton />
           </ModalHeader>
-          <ModalBody  >
-            <Flex border={"1px solid red"} justify="center" align="center" h="80vh">
-              <Box w="100%">
-                <Slider>
-                  {stories.map((item, key) => (
-                    <Box m="50px 0px" p="5px" key={key}>
-                      <Image
-                        h={{ base: "200px", desktop: "400px" }}
-                        src={item.img}
-                        borderRadius="10px"
-                      />
-                    </Box>
-                  ))}
-                </Slider>
-              </Box>
-            </Flex>
+          <ModalBody>
+            <Box overflow={"hidden"} cursor={"grab"}>
+              <Slider {...settings}>
+                {stories.map((item, key) => (
+                  <Flex
+                    w={"full"}
+                    h={"500px"}
+                    justify={"center"}
+                    p="5px"
+                    key={key}
+                  >
+                    <Flex h={"full"} justify={"center"} align={"center"}>
+                      <Box
+                        width="350px"
+                        height="500px"
+                        overflow="hidden"
+                        borderRadius="xl"
+                        position="relative"
+                      >
+                        <Image
+                          src={item.img}
+                          alt="Descripción de la imagen"
+                          layout="fill"
+                          objectFit="cover"
+                        />
+                      </Box>
+                    </Flex>
+                  </Flex>
+                ))}
+              </Slider>
+            </Box>
           </ModalBody>
         </ModalContent>
       </Modal>
     </>
   );
-}
+};
 
-export default Story
+export default Story;

@@ -29,8 +29,6 @@ export default function CreateAccountPage() {
 
   const toast = useToast();
 
-  const MotionFlex = motion(Flex);
-
   const succesfullCreated = () => {
     toast({
       title: "Cuenta creada!",

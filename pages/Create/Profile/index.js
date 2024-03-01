@@ -89,15 +89,22 @@ export default function CreateProfilePage() {
     }
   };
 
-  const handleDeleteImg = () => {
-    setAvatarImage("");
-    setAvatarFile("");
-  };
+  // const handleDeleteImg = () => {
+  //   setAvatarImage("");
+  //   setAvatarFile("");
+  // };
 
   const handleCreateProfileForm = (data) => {
     const profileData = { ...data, avatar, tecnologies };
     createProfile(userId, profileData);
     router.replace("/Profile");
+  };
+
+  const inputStyle = {
+    w: "100%",
+    borderRadius: "full",
+    borderColor: "gray.600",
+    borderWidth: "2px",
   };
 
   return (
@@ -116,7 +123,7 @@ export default function CreateProfilePage() {
                   handleCreateProfileForm(data);
                 })}
               >
-                <VStack spacing={10}>
+                <VStack spacing={6}>
                   <Flex justify={"center"} align={"center"} gap={"20px"}>
                     {avatar && (
                       <Image
@@ -139,12 +146,17 @@ export default function CreateProfilePage() {
                           }}
                           display="none"
                         />
-                        <Flex gap={"10px"}>
-                          <Text color={"#fff"} fontSize={"20px"}>
-                            Subir foto de perfil
+                        <Flex
+                          gap={"10px"}
+                          align={"center"}
+                          bg={"#fff"}
+                          p={"10px 20px"}
+                          borderRadius={"full"}
+                        >
+                          <Text color={"#000"} fontSize={"16px"}>
+                            {avatar ? "Cambiar " : "Subir foto de perfil"}
                           </Text>
-
-                          <Upload strokeWidth={"2px"} />
+                          <Upload stroke={"#000"} strokeWidth={"2px"} />
                         </Flex>
                       </FormLabel>
                     </Box>
@@ -159,8 +171,7 @@ export default function CreateProfilePage() {
                       Selecciona un posicion
                     </FormLabel>
                     <Select
-                      bg="black.50"
-                      border="none"
+                      {...inputStyle}
                       {...register("position", {
                         required: "This is required",
                       })}
@@ -176,8 +187,8 @@ export default function CreateProfilePage() {
                       ))}
                     </Select>
                   </FormControl>
+                  {/* Username Input */}
                   <FormControl>
-                    {/* Username Input */}
                     <FormLabel
                       color="gray.300"
                       fontSize={"16px"}
@@ -188,26 +199,22 @@ export default function CreateProfilePage() {
                     <Input
                       type="text"
                       id="name"
-                      layerStyle={"primaryBox"}
-                      bg="black.50"
-                      border="none"
-                      fontSize={{ base: "20px", desktop: "18px" }}
-                      fontWeight={600}
+                      // layerStyle={"primaryBox"}
+                      // bg="black.50"
+                      // border="none"
+                      // fontSize={{ base: "20px", desktop: "18px" }}
+                      // fontWeight={600}
+                      {...inputStyle}
                       {...register("name", {
                         required: "This is required",
                       })}
                     />
                   </FormControl>
+                  {/* Description Input */}
                   <FormControl>
-                    {/* Description Input */}
                     <Box w="100%">
-                      <Flex
-                        justify={"space-between"}
-                        align={"center"}
-                        p="5px 0px"
-                      >
+                      <Flex justify={"space-between"} align={"center"}>
                         <FormLabel
-                          mt="15px"
                           color="gray.300"
                           fontSize={"16px"}
                           htmlFor="name"
@@ -225,13 +232,12 @@ export default function CreateProfilePage() {
                         id="description"
                         resize={"none"}
                         layerStyle={"primaryBox"}
-                        bg="black.50"
-                        border="none"
+                        border="solid 2px"
+                        borderColor={"gray.600"}
                         fontSize={{ base: "20px", desktop: "18px" }}
                         fontWeight={600}
                         h="130px"
-                        borderRadius={"10px"}
-                        _focus={{ borderColor: "white" }}
+                        borderRadius={"20px"}
                         maxLength={100}
                         {...register("description", {
                           required: "This is required",
@@ -274,7 +280,12 @@ export default function CreateProfilePage() {
                           ))}
                         </Wrap>
                       )}
-                      <Divider mt="5px" />
+                      <Flex
+                        h={"3px"}
+                        mt={"8px"}
+                        borderRadius={"full"}
+                        bg={"gray.600"}
+                      />
                     </Box>
                     <Wrap
                       p="30px 0px"
