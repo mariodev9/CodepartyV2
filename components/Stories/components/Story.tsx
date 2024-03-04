@@ -40,7 +40,6 @@ const Story: React.FC<Props> = ({ avatar, stories }) => {
         border="1px solid #333"
         cursor="pointer"
       />
-
       <Modal
         isOpen={isOpen}
         onClose={onClose}

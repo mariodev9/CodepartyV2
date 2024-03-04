@@ -50,11 +50,15 @@ export default function CommentForm({ codeId, fontSize, avatarSize }) {
         onChange={handleChange}
         value={comment}
         fontSize={fontSize}
+        borderRadius={"20px"}
+        borderColor={"gray.600"}
+        borderWidth={"2px"}
       />
       <Button
         variant="primary"
         onClick={handleClick}
         disabled={isButtonDisabled}
+        fontSize={"xs"}
       >
         Comentar
       </Button>

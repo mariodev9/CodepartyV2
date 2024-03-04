@@ -133,7 +133,7 @@ export default function LeftNavbar() {
             align="center"
             direction="column"
           >
-            <Flex layerStyle="tabletButton" w="80%" justify={"center"}>
+            {/* <Flex layerStyle="tabletButton" w="80%" justify={"center"}>
               <Box display="flex" justifyContent="center" alignItems="center">
                 <Settings />
               </Box>
@@ -147,7 +147,7 @@ export default function LeftNavbar() {
               >
                 Configuracion
               </Text>
-            </Flex>
+            </Flex> */}
             <Menu>
               <MenuButton as={Flex} layerStyle="tabletButton" w="60%">
                 <Flex align="center" justify="space-between">

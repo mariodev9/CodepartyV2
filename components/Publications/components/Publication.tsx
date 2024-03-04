@@ -33,7 +33,7 @@ import { deleteCode } from "../../../firebase/services/Publications";
 import { motion } from "framer-motion";
 import { Publication } from "../models";
 
-const Publication:React.FC<Publication> = ({
+const Publication: React.FC<Publication> = ({
   id,
   avatar,
   userName,
@@ -144,13 +144,13 @@ const Publication:React.FC<Publication> = ({
             </Box>
             <AccordionPanel pb={4}>
               <HStack>
-                <CommentForm codeId={id} fontSize="15px" avatarSize="sm" />
+                <CommentForm codeId={id} fontSize="14px" avatarSize="sm" />
               </HStack>
             </AccordionPanel>
           </AccordionItem>
         </Accordion>
 
-        {/* eliminar pub */}
+        {/* Eliminar */}
         <AlertDialog
           isOpen={isOpen}
           leastDestructiveRef={cancelRef}
@@ -187,5 +187,5 @@ const Publication:React.FC<Publication> = ({
       </motion.div>
     </>
   );
-}
-export default Publication
+};
+export default Publication;
